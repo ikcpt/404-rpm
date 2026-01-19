@@ -1,36 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-    <link rel="stylesheet" href="estilos.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil - 404-RPM</title>
+    <link rel="stylesheet" href="estilos.css" />
+    <link rel="stylesheet" href="perfil.css" />
+  </head>
+  <body>
     <header>
-    <nav class="navbar">
+      <nav class="navbar">
         <h1 class="titulo">404-RPM</h1>
         <ul class="navbar__links">
-        <li>
+          <li>
             <a href="inicio.html">Inicio</a>
-        </li>
-        <li>
+          </li>
+          <li>
             <a href="taller.html">Taller</a>
-        </li>
-        <li>
+          </li>
+          <li>
             <a href="consecionario.html">Consecionario</a>
-        </li>
-        <li>
+          </li>
+          <li>
             <a href="contacto.html">Contacto</a>
-        </li>
-        <li>
+          </li>
+          <li>
             <a href="perfil.html" id="activo">Perfil</a>
-        </li>
+          </li>
         </ul>
-    </nav>
+      </nav>
     </header>
-    <main>
-        <h1>Esta es la página del perfil, aqui podra ver su información personal y gestionarla.</h1>
+
+    <main class="perfil-container">
+      <div class="perfil-card">
+        <div class="perfil-header">
+          <div class="perfil-avatar">
+            <!-- Placeholder for user initial or image -->
+            <span>U</span>
+          </div>
+          <h2 class="perfil-nombre">Usuario Demo</h2>
+          <p class="perfil-rol">Cliente VIP</p>
+
+          <div class="perfil-stats">
+            <div class="stat-item">
+              <span class="stat-value">3</span>
+              <span class="stat-label">Coches</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">12</span>
+              <span class="stat-label">Citas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="perfil-details">
+          <h3 class="details-title">Información Personal</h3>
+
+          <div class="info-grid">
+            <div class="info-group">
+              <label>Nombre Completo</label>
+              <p>Usuario Demo</p>
+            </div>
+            <div class="info-group">
+              <label>Correo Electrónico</label>
+              <p>usuario@ejemplo.com</p>
+            </div>
+            <div class="info-group">
+              <label>Teléfono</label>
+              <p>+34 600 000 000</p>
+            </div>
+            <div class="info-group">
+              <label>Dirección</label>
+              <p>Calle Principal 123, Irún</p>
+            </div>
+          </div>
+
+          <h3 class="details-title">Mis Coches</h3>
+          <div class="perfil-coches">
+            <div class="coche-card">
+              <img src="../../img/coche1.png" alt="Coche 1" />
+              <div class="coche-info">
+                <h4>Mercedes AMG</h4>
+                <p>Matrícula: 1234 ABC</p>
+                <a href="#" class="boton boton--secundario boton--sm"
+                  >Ver Detalles</a
+                >
+              </div>
+            </div>
+            <div class="coche-card">
+              <img src="../../img/coche2.png" alt="Coche 2" />
+              <div class="coche-info">
+                <h4>BMW M4</h4>
+                <p>Matrícula: 5678 DEF</p>
+                <a href="#" class="boton boton--secundario boton--sm"
+                  >Ver Detalles</a
+                >
+              </div>
+            </div>
+            <div class="coche-card">
+              <img src="../../img/coche3.png" alt="Coche 3" />
+              <div class="coche-info">
+                <h4>Audi RS6</h4>
+                <p>Matrícula: 9012 GHI</p>
+                <a href="#" class="boton boton--secundario boton--sm"
+                  >Ver Detalles</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="perfil-actions">
+            <a href="#" class="boton boton--primario">Editar Perfil</a>
+            <a href="#" class="boton boton--secundario">Cerrar Sesión</a>
+          </div>
+        </div>
+      </div>
     </main>
-</body>
+
+    <footer>
+      <p>© 2025 404-RPM. Todos los derechos reservados.</p>
+    </footer>
+  </body>
 </html>
