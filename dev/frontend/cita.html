@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cita</title>
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <a href="/" class="logo">
+            <img src="assets/img/logo.jpg" alt="404 RPM Inicio">
+        </a>
+        
+        <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="taller.html">Taller</a></li>
+                <li><a href="concesionario.html">Concesionario</a></li>
+                <li><a href="cita.html" class="activo">Cita Taller</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    
+    <h1>Formulario de Cita</h1>
+    <form action="">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre">
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido">
+        <label for="telefono">Telefono:</label>
+        <input type="text" id="telefono" name="telefono">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha">
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora">
+        <label for="motivo">Motivo:</label>
+        <input type="text" id="motivo" name="motivo">
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
