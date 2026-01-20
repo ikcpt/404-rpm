@@ -1,0 +1,236 @@
+
+:root {
+  --color-primary: #1e4fa3;
+  --color-secondary: #e10600;
+  --color-tertiary: #0b0e13;
+  --color-contrast: #f2f2f2;
+  --color-accent: #2e90ff;
+  --color-accent-secondary: #8c0f14;
+  --color-accent-tertiary: #3270d9;
+  --color-white: #ffffff;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+html {
+    scrollbar-width: none;
+}
+body {
+    -ms-overflow-style: none; 
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-tertiary);
+  background-color: var(--color-contrast);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.logo img {
+height: 50px;           
+width: auto;        
+object-fit: contain;  
+border-radius: 10px; 
+}
+.main-header {
+  background: var(--color-primary);
+  padding: 10px 20px; 
+  height: 70px;
+  color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  list-style: none;
+  display: none;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--color-white);
+  cursor: pointer;
+  display: block;
+}
+
+.nav-list {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-primary);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: var(--spacing-md);
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-list li {
+  margin-bottom: var(--spacing-md);
+}
+
+.nav-list a {
+  color: var(--color-white);
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: block;
+}
+
+.nav-list.active {
+  display: flex;
+}
+
+.hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: var(--spacing-lg);
+  background-image: linear-gradient(rgba(11, 14, 19, 0.6), rgba(11, 14, 19, 0.6)), url('../assets/img/fondo.png');
+  background-size: cover;
+  background-position: center;
+  color: var(--color-white   );
+}
+
+.hero-tag {
+  display: inline-block;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-md);
+  font-weight: 700;
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+  color: #e0e0e0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn--primary {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: 2px solid var(--color-secondary);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-accent-secondary);
+  border-color: var(--color-accent-secondary);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+  margin-left: var(--spacing-sm);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-white);
+  color: var(--color-tertiary);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: 90vh;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 10%;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+  }
+  .hero-description {
+    margin: 0 0 var(--spacing-lg) 0;
+  }
+}
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .logo img {
+    width: 150px;
+  }
+  .nav-list {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    width: auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .nav-list li {
+    margin-bottom: 0;
+    margin-left: var(--spacing-lg);
+  }
+
+  .nav-list a {
+    font-size: 1rem;
+    position: relative;
+  }
+
+  .nav-list a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--color-white);
+    transition: width 0.3s;
+  }
+
+  .nav-list a:hover::after {
+    width: 100%;
+  }
+}
