@@ -7,3 +7,9 @@ function clima() {
         "Error: No se ha podido obtener el clima", 404;   
     }
 }
+
+
+function recogerDatos(coche) {
+    let datosBuscar = document.getElementById("");
+
+}
