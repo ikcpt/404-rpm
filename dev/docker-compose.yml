@@ -14,6 +14,8 @@ services:
     volumes:
       - ./backend/src:/var/www/html
       - ./frontend:/var/www/frontend
+      - ./frontend/css:/var/www/html/public/css
+      - ./frontend/js:/var/www/html/public/js
     depends_on:
       - db
     networks:
