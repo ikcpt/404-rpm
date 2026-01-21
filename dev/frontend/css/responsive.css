@@ -1,0 +1,78 @@
+:root {
+  --color-primario: #1e4fa3;
+  --color-secundario: #e10600;
+  --color-terciario: #0b0e13;
+  --color-contraste: #f2f2f2;
+  --color-acento: #2e90ff;
+  --color-acento-secundario: #8c0f14;
+  --color-blanco: #ffffff;
+  --espaciado-sm: 8px;
+  --espaciado-md: 16px;
+  --espaciado-lg: 32px;
+}
+
+@media (max-width: 480px) {
+  .tarjeta-clima {
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .separador-clima {
+    width: 100%;
+    height: 1px;
+  }
+}
+
+@media (min-width: 768px) {
+  .boton-menu {
+    display: none;
+  }
+
+  .lista-navegacion {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    width: auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .lista-navegacion li {
+    margin-bottom: 0;
+    margin-left: var(--espaciado-lg);
+  }
+
+  .lista-navegacion a {
+    font-size: 1rem;
+    position: relative;
+  }
+
+  .lista-navegacion a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--color-blanco);
+    transition: width 0.3s;
+  }
+
+  .lista-navegacion a:hover::after {
+    width: 100%;
+  }
+
+  .hero {
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 10%;
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+  }
+
+  .hero p {
+    margin: 0 0 var(--espaciado-lg) 0;
+  }
+}
