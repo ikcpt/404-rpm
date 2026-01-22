@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/Tarjetas.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="encabezado-principal">
-        <a href="/" class="logo">
+<header class="encabezado-principal">
+    <div class="contenedor-header">
+        <a href="index.html" class="logo">
             <img src="assets/img/logo.jpg" alt="404 RPM Inicio">
         </a>
         
@@ -21,14 +24,36 @@
 
         <nav class="navegacion-principal">
             <ul class="lista-navegacion">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="taller.html">Taller</a></li>
-                <li><a href="concesionario.html" class="activo">Concesionario</a></li>
-                <li><a href="cita.html">Cita Taller</a></li>
-                <li><a href="perfil.html">Perfil</a></li>
+                <li><a href="index.html" class="enlace-nav">Inicio</a></li>
+                <li><a href="taller.html" class="enlace-nav">Taller</a></li>
+                <li><a href="concesionario.html" class="enlace-nav activo">Concesionario</a></li>
+                
+                <li>
+                    <a href="cita.html" class="enlace-nav boton-destacado">Pedir Cita</a>
+                </li>
+                <li>
+                    <li class="item-con-desplegable">
+    <a href="perfil.html" class="enlace-nav enlace-perfil">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Perfil</span>
+        <svg class="flecha-baja" width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+
+    <ul class="submenu">
+        <li><a href="perfil.html#garaje">🚗 Mi Garaje</a></li>
+        <li><a href="perfil.html#citas">📅 Mis Citas</a></li>
+        <li><a href="perfil.html#facturas">📄 Facturas</a></li>
+        <li><a href="perfil.html#config">⚙️ Configuración</a></li>
+        <li class="separador-menu"></li>
+        <li><a href="#" class="cerrar-sesion">🚪 Cerrar Sesión</a></li>
+    </ul>
+</li>
+                    </a>
+                </li>
             </ul>
         </nav>
-    </header>
+    </div>
+</header>
     
     <script src="js/app.js"></script>
 </body>
