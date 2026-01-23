@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 
+// Ruta para cargar la página de inicio, redirige al usuario automáticamente a index.html del frontend
 Route::get('/', function () {
     $path = base_path('../frontend/index.html');
 
