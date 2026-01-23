@@ -1,0 +1,171 @@
+/* ================= ESTILOS PÁGINA TALLER ================= */
+
+/* --- 1. HERO ESPECÍFICO --- */
+.hero-taller {
+    position: relative;
+    height: 60vh; /* Un poco más corto que el del inicio */
+    min-height: 400px;
+    background-image: url('../assets/img/taller.png'); /* PON TU FOTO AQUÍ */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.overlay-hero {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(11, 14, 19, 0.7); /* Oscuro azulado */
+}
+
+.contenido-hero-taller {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    padding: 20px;
+}
+
+.contenido-hero-taller h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+/* --- 2. GRID DE SERVICIOS --- */
+.seccion-servicios {
+    padding: 4rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cabecera-seccion {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.cabecera-seccion h2 {
+    color: var(--color-primario);
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.grid-servicios {
+    display: grid;
+    /* Grid responsive automático: se adapta si es móvil o pc */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Diseño de la Tarjeta de Servicio */
+.card-servicio {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto Hover: Sube y sombrea */
+.card-servicio:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-color: var(--color-primario);
+}
+
+/* Decoración: línea roja abajo al pasar ratón */
+.card-servicio::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0%;
+    height: 4px;
+    background-color: var(--color-secundario); /* Rojo */
+    transition: width 0.3s ease;
+}
+
+.card-servicio:hover::after {
+    width: 100%;
+}
+
+.icono-servicio {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background-color: #f4f8ff; /* Fondo azul muy clarito */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.card-servicio h3 {
+    color: var(--color-terciario);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.card-servicio p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- 3. BARRA DE CONFIANZA --- */
+.seccion-confianza {
+    background-color: var(--color-primario);
+    color: white;
+    padding: 3rem 1.5rem;
+}
+
+.contenedor-confianza {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 2rem;
+    text-align: center;
+}
+
+.item-confianza {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-confianza .numero {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-secundario); /* Rojo */
+    line-height: 1;
+}
+
+.item-confianza .texto {
+    font-size: 1.1rem;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* --- 4. CTA FINAL --- */
+.cta-final {
+    padding: 5rem 1.5rem;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.contenido-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.boton.grande {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+}
