@@ -59,18 +59,58 @@
 
 <main>
 
-<section class="hero" aria-label="Novedades destacadas">
-    <div class="contenido-hero">
-        <span class="etiqueta">Novedad 2026</span>
-        <h1>Siente la potencia del nuevo <span class="acento">Raptor F150</span></h1>
-        <p>
-            Diseñado para dominar cualquier terreno. Disponible ahora en nuestro concesionario con financiación al 0%.
-        </p>
-
-        <div class="acciones">
-            <a href="#catalogo" class="boton primario">Ver catálogo</a>
-            <a href="#prueba" class="boton contorno">Solicitar prueba</a>
+<section class="hero-carrusel">
+    
+    <div class="slide activa">
+        <div class="overlay-oscu"></div>
+        <img src="assets/img/fondo.png" alt="Taller 404 RPM" class="bg-slide">
+        
+        <div class="contenido-slide">
+            <span class="tag">Expertos en Mecánica & Performance</span>
+            <h1>Siente la potencia <span class="acento">real</span></h1>
+            <p>En 404 RPM cuidamos tu motor con precisión quirúrgica y te ofrecemos los mejores vehículos del mercado.</p>
+            <div class="actions">
+                <a href="cita.html" class="boton primario">Pedir Cita Taller</a>
+                <a href="concesionario.html" class="boton contorno">Ver Coches</a>
+            </div>
         </div>
+    </div>
+
+    <div class="slide">
+        <div class="overlay-oscu"></div>
+        <img src="assets/img/ferrari/sf90.png" alt="Nuevo Ferrari SF90 Stradale" class="bg-slide">
+        
+        <div class="contenido-slide">
+            <span class="tag">Novedad en Stock</span>
+            <h1>Ferrari SF90 <span class="acento">Stradale</span></h1>
+            <p>La bestia hibrida definitiva. V8 turbo, 1000CV y entrega inmediata. ¿Te atreves a domarlo?</p>
+            <div class="actions">
+                <a href="concesionario.html" class="boton primario">Ver Ficha Técnica</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="overlay-oscu"></div>
+        <img src="assets/img/porsche/GT3.png" alt="Porsche 911 GT3" class="bg-slide">
+        
+        <div class="contenido-slide">
+            <span class="tag">Exclusivo</span>
+            <h1>Porsche 911 <span class="acento">GT3</span></h1>
+            <p>Pura adrenalina de circuito legalizada para la calle. Unidad certificada y con garantía 404 RPM.</p>
+            <div class="actions">
+                <a href="concesionario.html" class="boton primario">Contactar Vendedor</a>
+            </div>
+        </div>
+    </div>
+
+    <button class="flecha-carrusel prev" onclick="moverSlide(-1)">&#10094;</button>
+    <button class="flecha-carrusel next" onclick="moverSlide(1)">&#10095;</button>
+
+    <div class="puntos-carrusel">
+        <span class="punto activo" onclick="irASlide(0)"></span>
+        <span class="punto" onclick="irASlide(1)"></span>
+        <span class="punto" onclick="irASlide(2)"></span>
     </div>
 </section>
 
@@ -104,12 +144,12 @@
         <div class="tarjeta-Taller">
                 <h3>Taller mecanico</h3>
                 <p>En nuestro taller mecánico, ofrecemos servicios profesionales y de calidad para mantener su vehículo en óptimas condiciones.</p>
-                <button class="btn-tarjeta">Ver servicios</button>
+                <button class="btn-tarjeta"><a href="taller.html">Ver servicios</a></button>
         </div>
         <div class="tarjeta-Concesionario">
                 <h3>Concesionario</h3>
                 <p>En nuestro concesionario, ofrecemos coches de calidad y de última generación para que pueda disfrutar de un automóvil en perfectas condiciones.</p>
-                <button class="btn-tarjeta">Ver coches</button>
+                <button class="btn-tarjeta"><a href="concesionario.html">Ver coches</a></button>
         </div>
     </div>
 </section>
@@ -219,6 +259,56 @@
 </footer>
 
 </main>
+<script>
+    let indiceSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const puntos = document.querySelectorAll('.punto');
+    const intervaloTiempo = 5000; // Cambia cada 5 segundos
+    let intervalo;
+
+    // Función para mostrar el slide específico
+    function mostrarSlide(n) {
+        // Reiniciar contador si llegamos al final o principio
+        if (n >= slides.length) indiceSlide = 0;
+        else if (n < 0) indiceSlide = slides.length - 1;
+        else indiceSlide = n;
+
+        // Quitar clase activa a todos
+        slides.forEach(slide => slide.classList.remove('activa'));
+        puntos.forEach(punto => punto.classList.remove('activo'));
+
+        // Poner clase activa al actual
+        slides[indiceSlide].classList.add('activa');
+        puntos[indiceSlide].classList.add('activo');
+    }
+
+    // Función para siguiente/anterior
+    function moverSlide(n) {
+        mostrarSlide(indiceSlide + n);
+        reiniciarReloj(); // Reinicia el contador para que no salte de golpe
+    }
+
+    // Función para ir a un punto concreto
+    function irASlide(n) {
+        mostrarSlide(n);
+        reiniciarReloj();
+    }
+
+    // Auto-play
+    function iniciarCarrusel() {
+        intervalo = setInterval(() => {
+            moverSlide(1);
+        }, intervaloTiempo);
+    }
+
+    function reiniciarReloj() {
+        clearInterval(intervalo);
+        iniciarCarrusel();
+    }
+
+    // Arrancar
+    iniciarCarrusel();
+</script>
 <script src="js/app.js"></script>
 </body>
 </html>

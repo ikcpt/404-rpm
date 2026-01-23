@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 RPM - Taller</title>
-    <meta name="description" content="Taller mecánico experto en Irun.">
+    <title>404 RPM | Taller Mecánico</title>
     <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/Tarjetas.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/nav.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/tarjetas.css">
+    <link rel="stylesheet" href="css/taller.css"> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+
 <header class="encabezado-principal">
     <div class="contenedor-header">
         <a href="index.html" class="logo">
@@ -56,26 +56,144 @@
     </div>
 </header>
 
-<main>
-        <section class="hero" aria-label="Novedades destacadas">
-            <div class="contenido-hero">
-                <span class="etiqueta">Novedad 2026</span>
-                <h1>Siente la potencia del nuevo <span class="acento">Raptor F150</span></h1>
-                <p>
-                    Diseñado para dominar cualquier terreno. Disponible ahora en nuestro concesionario con financiación al 0%.
-                </p>
-                
-                <div class="acciones">
-                    <a href="#catalogo" class="boton primario">Ver catálogo</a>
-                    <a href="#prueba" class="boton contorno">Solicitar prueba</a>
-                </div>
+    <section class="hero-taller">
+        <div class="overlay-hero"></div>
+        <div class="contenido-hero-taller">
+            <h1>Ingeniería y <span class="acento">Pasión</span></h1>
+            <p>No somos solo "cambiapiezas". Diagnosticamos, reparamos y optimizamos tu vehículo con tecnología de concesionario oficial.</p>
+            <a href="#servicios" class="boton primario">Ver Servicios</a>
+        </div>
+    </section>
+
+    <section id="servicios" class="seccion-servicios">
+        <div class="cabecera-seccion">
+            <h2>Nuestros Servicios</h2>
+            <p>Desde el mantenimiento básico hasta reconstrucciones de motor.</p>
+        </div>
+
+        <div class="grid-servicios">
+            <article class="card-servicio">
+                <div class="icono-servicio">🔧</div>
+                <h3>Mecánica General</h3>
+                <p>Revisiones oficiales sin perder garantía, cambios de aceite, filtros y mantenimientos programados.</p>
+            </article>
+
+            <article class="card-servicio">
+                <div class="icono-servicio">💻</div>
+                <h3>Diagnosis Avanzada</h3>
+                <p>Maquinaria de última generación para detectar fallos electrónicos que otros talleres no ven.</p>
+            </article>
+
+            <article class="card-servicio">
+                <div class="icono-servicio">⚙️</div>
+                <h3>Caja de Cambios</h3>
+                <p>Especialistas en mantenimiento y reparación de cajas automáticas (DSG, Tiptronic, ZF) y manuales.</p>
+            </article>
+
+            <article class="card-servicio">
+                <div class="icono-servicio">💨</div>
+                <h3>Frenos y Suspensión</h3>
+                <p>Mejora la seguridad y el paso por curva. Instalación de latiguillos, pastillas sport y coilovers.</p>
+            </article>
+
+            <article class="card-servicio">
+                <div class="icono-servicio">❄️</div>
+                <h3>Climatización</h3>
+                <p>Cargas de aire acondicionado, detección de fugas y reparación de compresores.</p>
+            </article>
+
+            <article class="card-servicio">
+                <div class="icono-servicio">🏎️</div>
+                <h3>Performance</h3>
+                <p>Reprogramaciones (Stage 1/2), admisión, escape y optimización de rendimiento.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="seccion-confianza">
+        <div class="contenedor-confianza">
+            <div class="item-confianza">
+                <span class="numero">+15</span>
+                <span class="texto">Años de experiencia</span>
             </div>
-        </section>
+            <div class="item-confianza">
+                <span class="numero">12m</span>
+                <span class="texto">Garantía en reparaciones</span>
+            </div>
+            <div class="item-confianza">
+                <span class="numero">100%</span>
+                <span class="texto">Recambios Originales</span>
+            </div>
+        </div>
+    </section>
 
+    <section class="cta-final">
+        <div class="contenido-cta">
+            <h2>¿Tu coche hace un ruido extraño?</h2>
+            <p>No esperes a que sea tarde. Reserva tu cita online en menos de 1 minuto.</p>
+            <a href="cita.html" class="boton primario grande">Pedir Cita Ahora</a>
+        </div>
+    </section>
 
-    
-</main>
+    <footer class="pie-pagina">
+    <div class="contenedor-footer">
+        
+        <div class="columna-footer">
+            <h3 class="footer-logo">404 RPM</h3>
+            <p class="footer-texto">
+                Expertos en mecánica y venta de vehículos de alta gama en Irun. 
+                Tu coche, nuestra pasión.
+            </p>
+        </div>
 
-    <script src="js/app.js"></script>
-</body>
+        <div class="columna-footer">
+            <h4>Navegación</h4>
+            <ul class="enlaces-footer">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="taller.html">Taller Mecánico</a></li>
+                <li><a href="concesionario.html">Concesionario</a></li>
+                <li><a href="cita.html">Pedir Cita</a></li>
+            </ul>
+        </div>
+
+        <div class="columna-footer">
+            <h4>Contacto</h4>
+            <ul class="info-contacto">
+                <li>
+                    <span>📍</span> Calle Motor 404, Irun, Gipuzkoa
+                </li>
+                <li>
+                    <span>📞</span> +34 943 00 00 00
+                </li>
+                <li>
+                    <span>✉️</span> info@404rpm.com
+                </li>
+            </ul>
+        </div>
+
+        <div class="columna-footer">
+            <h4>Síguenos</h4>
+            <div class="redes-sociales">
+                <a href="#" aria-label="Instagram" class="icono-social">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="#" aria-label="Facebook" class="icono-social">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="#" aria-label="Twitter" class="icono-social">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="barra-copyright">
+        <p>&copy; 2026 404 RPM. Todos los derechos reservados.</p>
+        <div class="legales">
+            <a href="#">Aviso Legal</a>
+            <a href="#">Privacidad</a>
+        </div>
+    </div>
+</footer>
+    </body>
 </html>
