@@ -12,26 +12,36 @@ Route::get('/', function () {
     if (!File::exists($path)) {
         return "Error: No se encuentra el archivo en " . $path;
     }
-
     return response()->file($path);
 });
 
-Route::middleware(['auth'])->group(function () {
+// Ruta para inciar sesión
+Route::get('login', function() {
+    return view('login');
+})->name('login');
+
+// Ruta para registrar un nuevo usuario
+Route::get('register', function() {
+    return view('register');
+})->name('register');
+
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Rutas para el middleware de Breeze para la autenticación
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Ruta para cargar la página de perfil
     Route::get('/perfil', function() {
         return view('perfil');
     })->name('perfil');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
+// Ruta que muestra la página de Error 404 si no se encuentra la página indicada
 Route::get('{any}', function ($filename) {
     $path = base_path('../frontend/' . $filename);
 
