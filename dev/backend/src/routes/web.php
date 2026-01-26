@@ -16,6 +16,12 @@ Route::get('/', function () {
     return response()->file($path);
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', function() {
+        return view('perfil');
+    })->name('perfil');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

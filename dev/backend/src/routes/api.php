@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/clima', function() {
     $lat = 43.3390;
@@ -15,4 +16,8 @@ Route::get('/clima', function() {
 
     return $respuesta->json();
 });
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request)) {
+    return $request->user();
+}
 ?>

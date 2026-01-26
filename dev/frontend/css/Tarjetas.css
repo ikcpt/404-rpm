@@ -274,11 +274,6 @@
     100% { transform: translateY(0px); }
 }
 
-.tarjeta-clima {
-    animation: flotar 4s ease-in-out infinite; /* Flota infinitamente */
-    transition: transform 0.3s; /* Por si añadimos hover luego */
-}
-
 /* El icono del sol/nube gira un poco al pasar el ratón */
 .clima-izquierda svg {
     transition: transform 0.5s ease;

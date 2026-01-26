@@ -1,6 +1,10 @@
 let widgetClima = document.getElementById("widget-clima");
 let textoConsejo = document.getElementById("texto-consejo");
 
+setInterval(() => {
+    clima();
+}, 60000);
+
 function climaCielo(codigo) {
     if (codigo == 0) {
         return `<img src="assets/img/clima/despejado.png" alt="clima-despejado">`;
@@ -39,8 +43,6 @@ function clima() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
-
             if(data.current_weather) {
                 let temperatura = data.current_weather.temperature;
                 let viento = data.current_weather.windspeed;
@@ -48,7 +50,10 @@ function clima() {
 
                 let cielo = climaCielo(codigo);
 
-                widgetClima.innerHTML = `${cielo} - ${temperatura}ºC (Viento: ${viento} km/h)`
+                widgetClima.innerHTML = `${cielo} ${temperatura}ºC (Viento: ${viento} km/h)`;
+            }
+            else {
+                widgetClima.innerHTML = `No ha sido posible cargar el clima actual.`;
             }
         })
         .catch(error => {
@@ -56,7 +61,6 @@ function clima() {
         });
 }
 clima()
-
 
 function recogerDatos(coche) {
     let datosBuscar = document.getElementById("");
