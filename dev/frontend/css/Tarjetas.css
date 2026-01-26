@@ -12,73 +12,89 @@
 }
 
 /* --- CLIMA --- */
-.widget-clima {
-  color: white;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  display: inline-block;
-  width: 100%;
-}
-
 .tarjeta-clima {
-  background: white;
-  border-radius: 24px;
-  padding: 15px 30px;
-  display: inline-flex;
+  background: #ffffff;
+  border-radius: 16px; /* Bordes más sutiles, no tan redondos */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra elegante y suave */
+  
+  /* Lógica de Flexbox corregida */
+  display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch; /* ESTO ES CLAVE: Estira las dos mitades igual */
   justify-content: space-between;
-  gap: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  max-width: 800px;
+  
+  max-width: 700px; /* Un poco más compacta */
   width: 90%;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  color: #1a1a1a;
-  border: 1px solid #e0e0e0;
+  margin: 2rem auto;
+  border: 1px solid #eaeaea; /* Borde muy sutil */
+  overflow: hidden; /* Para que el fondo no se salga de las esquinas */
 }
 
-.clima-izquierda {
+/* --- ZONA IZQUIERDA (Dashboard Oscuro) --- */
+.widget-clima {
+  /* Usamos un gris muy oscuro (Casi negro) para contraste premium */
+  background: #212529; 
+  color: #ffffff;
+  
+  width: 45%; /* Un poco menos de la mitad */
+  padding: 1.5rem;
+  
+  /* Centrado del contenido */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  flex: 1;
-  text-align: left;
+  justify-content: center;
+  align-items: flex-start; /* Alineado a la izquierda para leer mejor */
 }
 
 .clima-titulo {
-  font-size: 1.3rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px; /* Espaciado elegante */
+  color: #adb5bd; /* Gris claro */
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* El número de la temperatura */
+.temperatura-gigante {
+  font-size: 2.8rem;
   font-weight: 700;
-  margin-bottom: 5px;
+  color: #ffffff;
+  line-height: 1.1;
 }
 
-.separador-clima {
-  width: 2px;
-  height: 100px;
-  background-color: #d1d1d1;
-  border-radius: 2px;
+/* Detalles pequeños (viento) */
+.clima-viento {
+    font-size: 0.9rem;
+    color: #ced4da;
+    margin-top: 5px;
 }
 
+/* --- ZONA DERECHA (Consejo Limpio) --- */
 .clima-derecha {
+  width: 55%;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; 
+  justify-content: center; 
   text-align: center;
-  flex: 1;
+  border-left: 1px solid #f1f1f1; 
 }
 
 .icono-coche {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 8px;
-  color: #1a1a1a;
+  color: #343a40; 
+  font-size: 2rem; 
+  margin-bottom: 10px;
 }
 
 .texto-consejo {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #343a40; 
+  line-height: 1.4;
 }
 /* --- SERVICIOS --- */
 .tarjetas-servicios {
