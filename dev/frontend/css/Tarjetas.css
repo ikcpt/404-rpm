@@ -12,6 +12,16 @@
 }
 
 /* --- CLIMA --- */
+.widget-clima {
+  color: white;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  display: inline-block;
+  width: 100%;
+}
+
 .tarjeta-clima {
   background: #ffffff;
   border-radius: 16px; /* Bordes más sutiles, no tan redondos */
@@ -96,6 +106,46 @@
   color: #343a40; 
   line-height: 1.4;
 }
+
+/* Iconos de carga, mientras carga la petición a la API del tiempo */
+.typing {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffffff;
+  opacity: 0.3;
+  animation: latir 1.4s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes latir {
+  40% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
 /* --- SERVICIOS --- */
 .tarjetas-servicios {
   padding: 2rem 0;
@@ -311,11 +361,6 @@
   100% {
     transform: translateY(0px);
   }
-}
-
-.tarjeta-clima {
-    animation: flotar 4s ease-in-out infinite; /* Flota infinitamente */
-    transition: transform 0.3s; /* Por si añadimos hover luego */
 }
 
 /* El icono del sol/nube gira un poco al pasar el ratón */
