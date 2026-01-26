@@ -17,7 +17,7 @@ Route::get('/clima', function() {
     return $respuesta->json();
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request)) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-}
+});
 ?>
