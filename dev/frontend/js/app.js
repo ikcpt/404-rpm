@@ -102,7 +102,7 @@ function comprobarSesion() {
     .catch(error => {
         console.log("Invitado");
         document.getElementById("menu-guest").style.display = "flex";
-        document.getElementByName("menu-auth").style.display = "none";
+        document.getElementById("menu-auth").style.display = "none";
     })
 
     let btnLogout = document.getElementById("btn-logout");
