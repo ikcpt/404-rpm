@@ -1,0 +1,296 @@
+:root {
+  --color-primario: #1e4fa3;
+  --color-secundario: #e10600;
+  --color-terciario: #0b0e13;
+  --color-contraste: #f2f2f2;
+  --color-acento: #2e90ff;
+  --color-acento-secundario: #8c0f14;
+  --color-blanco: #ffffff;
+  --espaciado-sm: 8px;
+  --espaciado-md: 16px;
+  --espaciado-lg: 32px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+body {
+  -ms-overflow-style: none;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-terciario);
+  background-color: var(--color-contraste);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ================= HERO ================= */
+
+/* ================= HERO CARRUSEL ================= */
+
+.hero-carrusel {
+    position: relative;
+    width: 100%;
+    height: 90vh; /* Ocupa casi toda la pantalla */
+    min-height: 600px;
+    overflow: hidden;
+    color: white;
+}
+
+/* --- Estilo de cada diapositiva --- */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 1s ease-in-out; /* Efecto Fade suave */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+}
+
+.slide.activa {
+    opacity: 1; /* Solo se ve la activa */
+    z-index: 2;
+}
+
+/* Imagen de fondo */
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Capa oscura para que se lea el texto */
+.overlay-oscu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Oscurece la foto al 50% */
+    z-index: -1;
+}
+
+/* --- Contenido del Texto --- */
+.contenido-slide {
+    max-width: 800px;
+    padding: 20px;
+    /* Animación del texto al aparecer */
+    transform: translateY(20px);
+    transition: transform 0.8s ease-out;
+}
+
+.slide.activa .contenido-slide {
+    transform: translateY(0); /* El texto sube suavemente */
+}
+
+.hero-carrusel h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.hero-carrusel p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #e0e0e0;
+}
+
+.tag {
+    display: inline-block;
+    background-color: var(--color-secundario);
+    padding: 5px 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* --- Flechas --- */
+.flecha-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.flecha-carrusel:hover {
+    background-color: var(--color-primario);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* --- Puntos (Dots) --- */
+.puntos-carrusel {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+}
+
+.punto {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.punto.activo {
+    background-color: var(--color-secundario); /* Rojo activo */
+    transform: scale(1.2);
+}
+
+/* Responsive móvil */
+@media (max-width: 768px) {
+    .hero-carrusel h1 { font-size: 2rem; }
+    .flecha-carrusel { padding: 10px; font-size: 1.5rem; }
+}
+
+/* ================= BOTONES ================= */
+
+.boton {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.boton.primario {
+  background-color: var(--color-secundario);
+  color: var(--color-blanco);
+  border: 2px solid var(--color-secundario);
+}
+
+.boton.primario:hover {
+  background-color: var(--color-acento-secundario);
+  border-color: var(--color-acento-secundario);
+}
+
+.boton.contorno {
+  background-color: transparent;
+  color: var(--color-blanco);
+  border: 2px solid var(--color-blanco);
+  margin-left: var(--espaciado-sm);
+}
+
+.boton.contorno:hover {
+  background-color: var(--color-blanco);
+  color: var(--color-terciario);
+}
+
+/* --- COCHES - NOVEDADES --- */
+.Novedades h2 {
+    color: var(--color-primario);
+}
+.Novedades p {
+    color: var(--color-primario);
+}
+.Novedades {
+    text-align: center;
+}
+.tarjetas-Novedades {
+  padding: 3rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.galeria-coches{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* ================= ANIMACIONES GLOBALES ================= */
+
+/* Definición del movimiento "Aparecer desde abajo" */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= ANIMACIONES DEL HERO ================= */
+
+/* 1. El texto empieza invisible */
+.hero-content h1, 
+.hero-content p, 
+.hero-content .tag,
+.hero-content .actions {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards; /* Forwards mantiene el estado final */
+}
+
+/* 2. Retardos para efecto cascada (uno detrás de otro) */
+.hero-content .tag { animation-delay: 0.1s; }
+.hero-content h1 { animation-delay: 0.3s; }
+.hero-content p { animation-delay: 0.5s; }
+.hero-content .actions { animation-delay: 0.7s; }
+
+/* 3. Botones del Hero más reactivos */
+.btn {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn:hover {
+    transform: translateY(-3px); /* Se levanta un poco */
+    box-shadow: 0 10px 20px rgba(30, 79, 163, 0.3); /* Sombra azulada */
+}
+
+.btn:active {
+    transform: translateY(-1px); /* Efecto de pulsación al clicar */
+}

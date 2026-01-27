@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cita</title>
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/Tarjetas.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/formulario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="encabezado-principal">
+    <div class="contenedor-header">
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.jpg" alt="404 RPM Inicio">
+        </a>
+        
+        <button class="boton-menu" aria-label="Abrir menú">☰</button>
+
+        <nav class="navegacion-principal">
+            <ul class="lista-navegacion">
+                <li><a href="/" class="enlace-nav activo">Inicio</a></li>
+                <li><a href="taller.html" class="enlace-nav">Taller</a></li>
+                <li><a href="concesionario.html" class="enlace-nav">Concesionario</a></li>
+                
+                <li>
+                    <a href="cita.html" class="enlace-nav boton-destacado">Pedir Cita</a>
+                </li>
+
+                <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
+                    <a href="/login" class="enlace-nav">Iniciar Sesión</a>
+                    <a href="/register" class="enlace-nav" style="font-weight: 600;">Registrarse</a>
+                </li>
+
+                <li id="menu-auth" class="item-con-desplegable" style="display: none;">
+                    <a href="/perfil" class="enlace-nav enlace-perfil">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span id="user-name">Perfil</span>
+                        <svg class="flecha-baja" width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </a>
+
+                    <ul class="submenu">
+                        <li><a href="perfil.html#garaje">🚗 Mi Garaje</a></li>
+                        <li><a href="perfil.html#citas">📅 Mis Citas</a></li>
+                        <li><a href="perfil.html#facturas">📄 Facturas</a></li>
+                        <li><a href="perfil.html#config">⚙️ Configuración</a></li>
+                        <li class="separador-menu"></li>
+                        <li><a href="#" id="btn-logout" class="cerrar-sesion">🚪 Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <h1>Formulario de Cita</h1>
+    <form action="">
+        <h2>Datos del cliente</h2>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre">
+        <br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido">
+        <br>
+        <label for="telefono">Telefono:</label>
+        <input type="text" id="telefono" name="telefono">
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <br>
+        <br>
+        <h2>Datos del vehiculo</h2>
+        <label for="marca">Marca: </label>
+        <input type="text" id="marca" name="marca">
+        <br>
+        <label for="modelo">Modelo: </label>
+        <input type="text" id="modelo" name="modelo">
+        <br>
+        <label for="matricula">Matricula: </label>
+        <input type="text" id="matricula" name="matricula">
+        <br>
+        <label for="KM_Actual">Kilometraje actual: </label>
+        <input type="number" id="KM_Actual" name="KM_Actual">
+        <br>
+        <h2>Datos de la cita</h2>
+        <label for="tipoServicio">Tipo de servicio: </label>
+        <select name="tipoServicio" id="tipoServicio">
+            <option value="">Seleccione un tipo de servicio</option>
+            <option value="preventivo">Preventivo</option>
+            <option value="correctivo">Correctivo</option>
+        </select>
+        <br>
+        <label for="descripcionProblema">Descripción del problema: </label>
+        <textarea name="descripcionProblema" id="descripcionProblema"></textarea>
+        <br>
+        <label for="fecha">Fecha Preferente:</label>
+        <input type="date" id="fecha" name="fecha">
+        <br>
+        <label for="hora">Hora Preferente:</label>
+        <input type="time" id="hora" name="hora">
+        <br>
+        <button type="submit">Pedir Cita</button>
+    </form>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+    # ----------------------------------------------------
+    # 1. PROXY (NGINX) - Entrada Principal
+    # ----------------------------------------------------
+    proxy:
+        image: nginx:alpine
+        container_name: reto-proxy
+        ports:
+            - "8081:80"  # <--- CAMBIO: Usamos el 8081 para no chocar con tu otro proyecto
+        volumes:
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - frontend
+            - backend
+        networks:
+            - reto_network
+
+    # ----------------------------------------------------
+    # 2. FRONTEND (HTML Estático)
+    # ----------------------------------------------------
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        container_name: reto-frontend
+        networks:
+            - reto_network
+
+    # ----------------------------------------------------
+    # 3. BACKEND (Laravel)
+    # ----------------------------------------------------
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        container_name: reto-backend
+        volumes:
+            - ./backend:/var/www/html
+        environment:
+            DB_CONNECTION: mysql
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_DATABASE: taller_db
+            DB_USERNAME: user
+            DB_PASSWORD: password
+        depends_on:
+            - db
+        networks:
+            - reto_network
+
+    # ----------------------------------------------------
+    # 4. BASE DE DATOS
+    # ----------------------------------------------------
+    db:
+        image: mysql:8.0
+        container_name: reto-mysql
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: taller_db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        networks:
+            - reto_network
+
+networks:
+    reto_network:
+        driver: bridge
