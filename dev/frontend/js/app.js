@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Comprobar si el usuario está logueado en la página
     comprobarSesion();
+
+    iniciarCarrusel();
 });
 
 // API CLIMA EN IRÚN
@@ -138,3 +140,48 @@ function recogerDatos(coche) {
 
 }
 
+  let indiceSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const puntos = document.querySelectorAll('.punto');
+    const intervaloTiempo = 5000; // Cambia cada 5 segundos
+    let intervalo;
+
+    // Función para mostrar el slide específico
+    function mostrarSlide(n) {
+        // Reiniciar contador si llegamos al final o principio
+        if (n >= slides.length) indiceSlide = 0;
+        else if (n < 0) indiceSlide = slides.length - 1;
+        else indiceSlide = n;
+
+        // Quitar clase activa a todos
+        slides.forEach(slide => slide.classList.remove('activa'));
+        puntos.forEach(punto => punto.classList.remove('activo'));
+
+        // Poner clase activa al actual
+        slides[indiceSlide].classList.add('activa');
+        puntos[indiceSlide].classList.add('activo');
+    }
+
+    // Función para siguiente/anterior
+    function moverSlide(n) {
+        mostrarSlide(indiceSlide + n);
+        reiniciarReloj(); // Reinicia el contador para que no salte de golpe
+    }
+
+    // Función para ir a un punto concreto
+    function irASlide(n) {
+        mostrarSlide(n);
+        reiniciarReloj();
+    }
+
+    // Auto-play
+    function iniciarCarrusel() {
+        intervalo = setInterval(() => {
+            moverSlide(1);
+        }, intervaloTiempo);
+    }
+
+    function reiniciarReloj() {
+        clearInterval(intervalo);
+        iniciarCarrusel();
+    }
