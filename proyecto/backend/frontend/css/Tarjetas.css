@@ -1,0 +1,373 @@
+:root {
+  --color-primario: #1e4fa3;
+  --color-secundario: #e10600;
+  --color-terciario: #0b0e13;
+  --color-contraste: #f2f2f2;
+  --color-acento: #2e90ff;
+  --color-acento-secundario: #8c0f14;
+  --color-blanco: #ffffff;
+  --espaciado-sm: 8px;
+  --espaciado-md: 16px;
+  --espaciado-lg: 32px;
+}
+
+/* --- CLIMA --- */
+.widget-clima {
+  color: white;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  display: inline-block;
+  width: 100%;
+}
+
+.tarjeta-clima {
+  background: #ffffff;
+  border-radius: 16px; /* Bordes más sutiles, no tan redondos */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra elegante y suave */
+  
+  /* Lógica de Flexbox corregida */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; /* ESTO ES CLAVE: Estira las dos mitades igual */
+  justify-content: space-between;
+  
+  max-width: 700px; /* Un poco más compacta */
+  width: 90%;
+  margin: 2rem auto;
+  border: 1px solid #eaeaea; /* Borde muy sutil */
+  overflow: hidden; /* Para que el fondo no se salga de las esquinas */
+}
+
+/* --- ZONA IZQUIERDA (Dashboard Oscuro) --- */
+.widget-clima {
+  /* Usamos un gris muy oscuro (Casi negro) para contraste premium */
+  background: #212529; 
+  color: #ffffff;
+  
+  width: 45%; /* Un poco menos de la mitad */
+  padding: 1.5rem;
+  
+  /* Centrado del contenido */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Alineado a la izquierda para leer mejor */
+}
+
+.clima-titulo {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px; /* Espaciado elegante */
+  color: #adb5bd; /* Gris claro */
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* El número de la temperatura */
+.temperatura-gigante {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+/* Detalles pequeños (viento) */
+.clima-viento {
+    font-size: 0.9rem;
+    color: #ced4da;
+    margin-top: 5px;
+}
+
+/* --- ZONA DERECHA (Consejo Limpio) --- */
+.clima-derecha {
+  width: 55%;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
+  border-left: 1px solid #f1f1f1; 
+}
+
+.icono-coche {
+  color: #343a40; 
+  font-size: 2rem; 
+  margin-bottom: 10px;
+}
+
+.texto-consejo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #343a40; 
+  line-height: 1.4;
+}
+
+/* Iconos de carga, mientras carga la petición a la API del tiempo */
+.typing {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffffff;
+  opacity: 0.3;
+  animation: latir 1.4s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes latir {
+  40% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* --- SERVICIOS --- */
+.tarjetas-servicios {
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.servicios {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  flex-wrap: wrap;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.tarjeta-Taller,
+.tarjeta-Concesionario {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 30%;
+  min-width: 300px;
+  text-align: center;
+  background-color: var(--color-blanco);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tarjeta-Taller h3,
+.tarjeta-Concesionario h3 {
+  margin-bottom: 1rem;
+}
+
+/* --- BOTONES --- */
+.btn-tarjeta {
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  padding: 1rem;
+  width: 10rem;
+  border-radius: 25px;
+  margin-top: auto;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s;
+}
+
+.btn-tarjeta:hover {
+  transform: scale(1.1);
+}
+.btn-tarjeta a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- COCHES - NOVEDADES --- */
+
+.tarjeta-coche {
+  background-color: var(--color-blanco);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-coche:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.imagen-coche {
+  position: relative;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contenido-tarjeta {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenido-tarjeta h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.detalles {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.precio {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primario);
+  margin-bottom: 1.5rem;
+  margin-top: auto;
+}
+.novedades-coches {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: var(--color-terciario);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+.novedades-coches:hover {
+  background-color: var(--color-primario);
+}
+
+/* ================= REACTIVIDAD DE TARJETAS ================= */
+
+/* --- 1. TARJETAS DE SERVICIOS (Taller y Concesionario) --- */
+/* Necesitamos que la imagen no se salga al hacer zoom */
+.tarjeta-Taller,
+.tarjeta-Concesionario {
+  overflow: hidden; /* Importante para el efecto zoom */
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* Estado base de la imagen */
+.tarjeta-Taller img,
+.tarjeta-Concesionario img {
+  transition: transform 0.6s ease; /* Zoom lento y suave */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* HOVER: La tarjeta flota y la imagen hace zoom */
+.tarjeta-Taller:hover,
+.tarjeta-Concesionario:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tarjeta-Taller:hover img,
+.tarjeta-Concesionario:hover img {
+  transform: scale(1.1); /* Zoom al 110% */
+}
+
+/* El botón dentro de la tarjeta también reacciona */
+.tarjeta-Taller:hover .btn-tarjeta,
+.tarjeta-Concesionario:hover .btn-tarjeta {
+  background-color: var(--color-primario);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* --- 2. TARJETAS DE COCHES (Novedades) --- */
+.tarjeta-coche {
+  transition: all 0.3s ease;
+}
+
+.tarjeta-coche:hover {
+  transform: translateY(-10px) !important; /* Forzamos la subida */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Pequeño brillo al pasar el ratón por la imagen del coche */
+.imagen-coche::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tarjeta-coche:hover .imagen-coche::after {
+  opacity: 1;
+}
+
+/* --- 3. WIDGET DEL CLIMA (Animación Flotante) --- */
+
+/* Definimos la animación de flotar */
+@keyframes flotar {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  } /* Sube un poco */
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* El icono del sol/nube gira un poco al pasar el ratón */
+.clima-izquierda svg {
+  transition: transform 0.5s ease;
+}
+
+.tarjeta-clima:hover .clima-izquierda svg {
+  transform: rotate(15deg) scale(1.1);
+}
