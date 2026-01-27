@@ -1,15 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 
 // Ruta para cargar la página de inicio, redirige al usuario automáticamente a index.html del frontend
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Ruta para inciar sesión
 Route::get('login', function() {
@@ -24,6 +23,8 @@ Route::get('register', function() {
 Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 // Rutas para el middleware de Breeze para la autenticación
 Route::middleware('auth')->group(function () {
