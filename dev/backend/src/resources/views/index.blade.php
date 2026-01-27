@@ -227,6 +227,52 @@
             </div>
         </section>
 
+        <section class="seccion-resenas" style="max-width: 1200px; margin: 4rem auto; padding: 0 20px;">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: #333;">Lo que dicen nuestros
+                clientes</h2>
+
+            <div class="grid-resenas"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+
+                @foreach($reviews as $review)
+                <article class="tarjeta-resena"
+                    style="background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #e74c3c;">
+
+                    <div class="header-resena"
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <div class="usuario" style="display: flex; align-items: center; gap: 10px;">
+                            <div
+                                style="width: 40px; height: 40px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #666;">
+                                {{ substr($review->user->name ?? 'A', 0, 1) }}
+                            </div>
+                            <h3 style="margin: 0; font-size: 1.1rem; color: #333;">
+                                {{ $review->user->name ?? 'Cliente Anónimo' }}</h3>
+                        </div>
+
+                        <div class="estrellas" style="color: #f1c40f; letter-spacing: 2px;">
+                            @for($i = 0; $i < $review->rating; $i++)★@endfor
+                                @for($i = $review->rating; $i < 5; $i++)<span style="color: #ddd;">★</span>@endfor
+                        </div>
+                    </div>
+
+                    <p style="color: #666; line-height: 1.6; font-style: italic; margin-bottom: 1rem;">
+                        "{{ $review->content }}"
+                    </p>
+
+                    <small style="color: #999; display: block; text-align: right;">
+                        {{ $review->created_at->format('d/m/Y') }}
+                    </small>
+                </article>
+                @endforeach
+
+            </div>
+
+            @if($reviews->isEmpty())
+            <p style="text-align: center; padding: 2rem; background: #f9f9f9; border-radius: 8px;">Aún no hay reseñas.
+                ¡Sé el primero en opinar!</p>
+            @endif
+        </section>
+
         <footer class="pie-pagina">
             <div class="contenedor-footer">
 
@@ -300,7 +346,6 @@
                 </div>
             </div>
         </footer>
-
     </main>
     <script src="js/app.js"></script>
 </body>
