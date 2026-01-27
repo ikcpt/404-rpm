@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Brand;
+use App\Models\Extra;
+use App\Models\Car;
+use App\Models\Review;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -34,16 +38,16 @@ class DatabaseSeeder extends Seeder
         Profile::create(['user_id' => $userJuan->id, 'surname' => 'Pérez', 'phone' => '644556677', 'address' => 'Bilbao']);
 
         // Marcas
-        $brandFord = Brand::create(['name' => 'Ford']);
-        $brandAudi = Brand::create(['name' => 'Audi']);
-        $brandPorsche = Brand::create(['name' => 'Porsche']);
-        $brandFerrari = Brand::create(['name' => 'Ferrari']);
-        $brandBMW = Brand::create(['name' => 'BMW']);
-        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz']);
-        $brandVW = Brand::create(['name' => 'Volkswagen']);
-        $brandMini = Brand::create(['name' => 'Mini']);
-        $brandSeat = Brand::create(['name' => 'Seat']);
-        $brandToyota = Brand::create(['name' => 'Toyota']);
+        $brandFord = Brand::create(['name' => 'Ford', 'country' => 'Estados Unidos']);
+        $brandAudi = Brand::create(['name' => 'Audi', 'country' => 'Alemania']);
+        $brandPorsche = Brand::create(['name' => 'Porsche', 'country' => 'Alemania']);
+        $brandFerrari = Brand::create(['name' => 'Ferrari', 'country' => 'Italia']);
+        $brandBMW = Brand::create(['name' => 'BMW', 'country' => 'Alemania']);
+        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz', 'country' => 'Alemania']);
+        $brandVW = Brand::create(['name' => 'Volkswagen', 'country' => 'Alemania']);
+        $brandMini = Brand::create(['name' => 'Mini', 'country' => 'Alemania']);
+        $brandSeat = Brand::create(['name' => 'Seat', 'country' => 'Alemania']);
+        $brandToyota = Brand::create(['name' => 'Toyota', 'country' => 'Japón']);
 
         // Extras
         $exGPS = Extra::create(['name' => 'Navegador', 'description' => 'Pantalla con mapas.']);
