@@ -3,19 +3,21 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Brand;
-use App\Models\Car;
-use App\Models\Extra;
 use App\Models\Profile;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Brand;
+use App\Models\Extra;
+use App\Models\Car;
+use App\Models\Review;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     public function run(): void
     {
+
         // Usuarios
         $userAdmin = User::create(['name' => 'Admin Boss', 'email' => 'admin@404rpm.com', 'password' => '1234']);
         Profile::create(['user_id' => $userAdmin->id, 'surname' => 'System', 'phone' => '600000001', 'address' => 'Oficina Central']);
@@ -36,16 +38,16 @@ class DatabaseSeeder extends Seeder
         Profile::create(['user_id' => $userJuan->id, 'surname' => 'Pérez', 'phone' => '644556677', 'address' => 'Bilbao']);
 
         // Marcas
-        $brandFord = Brand::create(['name' => 'Ford']);
-        $brandAudi = Brand::create(['name' => 'Audi']);
-        $brandPorsche = Brand::create(['name' => 'Porsche']);
-        $brandFerrari = Brand::create(['name' => 'Ferrari']);
-        $brandBMW = Brand::create(['name' => 'BMW']);
-        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz']);
-        $brandVW = Brand::create(['name' => 'Volkswagen']);
-        $brandMini = Brand::create(['name' => 'Mini']);
-        $brandSeat = Brand::create(['name' => 'Seat']);
-        $brandToyota = Brand::create(['name' => 'Toyota']);
+        $brandFord = Brand::create(['name' => 'Ford', 'country' => 'Estados Unidos']);
+        $brandAudi = Brand::create(['name' => 'Audi', 'country' => 'Alemania']);
+        $brandPorsche = Brand::create(['name' => 'Porsche', 'country' => 'Alemania']);
+        $brandFerrari = Brand::create(['name' => 'Ferrari', 'country' => 'Italia']);
+        $brandBMW = Brand::create(['name' => 'BMW', 'country' => 'Alemania']);
+        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz', 'country' => 'Alemania']);
+        $brandVW = Brand::create(['name' => 'Volkswagen', 'country' => 'Alemania']);
+        $brandMini = Brand::create(['name' => 'Mini', 'country' => 'Alemania']);
+        $brandSeat = Brand::create(['name' => 'Seat', 'country' => 'Alemania']);
+        $brandToyota = Brand::create(['name' => 'Toyota', 'country' => 'Japón']);
 
         // Extras
         $exGPS = Extra::create(['name' => 'Navegador', 'description' => 'Pantalla con mapas.']);
@@ -238,5 +240,26 @@ class DatabaseSeeder extends Seeder
             'price' => 130000.00,
             'image' => 'assets/img/porshe/911.png'
         ]);
+          /*
+        |--------------------------------------------------------------------------
+        | 7. REVIEWS
+        |--------------------------------------------------------------------------
+        */
+        $reviews = [
+            ['rating' => 5, 'content' => 'Excelente servicio.'],
+            ['rating' => 4, 'content' => 'Buen trato, algo lentos.'],
+            ['rating' => 3, 'content' => 'Correcto sin más.'],
+            ['rating' => 5, 'content' => 'Grandes profesionales.'],
+        ];
+
+        foreach ($reviews as $review) {
+            DB::table('reviews')->insert([
+                'user_id' => User::inRandomOrder()->first()->id,
+                'rating' => $review['rating'],
+                'content' => $review['content'],
+                'created_at' => Carbon::now()->subDays(rand(1, 30)),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

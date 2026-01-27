@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Ruta para cargar la página de inicio, redirige al usuario automáticamente a index.html del frontend
 Route::get('/', function () {
-    $path = base_path('../frontend/index.html');
+    $path = base_path('resources/views/index.blade.php');
 
     if (!File::exists($path)) {
         return "Error: No se encuentra el archivo en " . $path;
