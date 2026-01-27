@@ -46,6 +46,11 @@ class User extends Authenticatable
         ];
     }
 
+    // Relación. User 1:N Cars
+    public function cars() {
+        return $this->hasMany(Car::class);
+    }
+
     public function profile() {
         return $this->hasOne(Profile::class);
     }
