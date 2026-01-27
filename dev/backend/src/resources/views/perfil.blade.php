@@ -25,7 +25,7 @@
 
         <nav class="navegacion-principal">
             <ul class="lista-navegacion">
-                <li><a href="index.html" class="enlace-nav activo">Inicio</a></li>
+                <li><a href="/" class="enlace-nav activo">Inicio</a></li>
                 <li><a href="taller.html" class="enlace-nav">Taller</a></li>
                 <li><a href="concesionario.html" class="enlace-nav">Concesionario</a></li>
                 
@@ -33,20 +33,18 @@
                     <a href="cita.html" class="enlace-nav boton-destacado">Pedir Cita</a>
                 </li>
 
-                <li id="menu-guest" style="display: flex; gap: 15px;">
-                    <a href="http://localhost:8000/login" class="enlace-nav">Iniciar Sesión</a>
-                    <a href="http://localhost:8000/register" class="enlace-nav" style="font-weight:600;">Registrarse</a>
+                <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
+                    <a href="/login" class="enlace-nav">Iniciar Sesión</a>
+                    <a href="/register" class="enlace-nav" style="font-weight: 600;">Registrarse</a>
                 </li>
 
                 <li id="menu-auth" class="item-con-desplegable" style="display: none;">
-                    <a href="perfil.html" class="enlace-nav enlace-perfil">
+                    <a href="/perfil" class="enlace-nav enlace-perfil">
                         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        
-                        <span id="nombre-usuario-display">Mi Cuenta</span>
-                        
+                        <span id="user-name">Perfil</span>
                         <svg class="flecha-baja" width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none">
                             <path d="M6 9l6 6 6-6"/>
                         </svg>
@@ -57,7 +55,6 @@
                         <li><a href="perfil.html#citas">📅 Mis Citas</a></li>
                         <li><a href="perfil.html#facturas">📄 Facturas</a></li>
                         <li><a href="perfil.html#config">⚙️ Configuración</a></li>
-                        <li class="separador-menu"></li>
                         <li><a href="#" id="btn-logout" class="cerrar-sesion">🚪 Cerrar Sesión</a></li>
                     </ul>
                 </li>
@@ -71,13 +68,13 @@
     <aside class="sidebar-perfil">
         <div class="tarjeta-usuario">
             <div class="avatar">
-                <span>{{ strtoupper(substr(Auth::user()->name, 0, 2)) }}</span> 
+                <span>{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}{{ strtoupper(substr(Auth::user()->profile->surname, 0, 1)) }}</span> 
             </div>
-            <h2>{{ Auth::user()->name }}</h2>
+            <h2>{{ Auth::user()->name }} {{ Auth::user()->profile->surname }}</h2>
             <p class="email-usuario">{{ Auth::user()->email }}</p>
             
             @if(Auth::user()->profile)
-                <p class="telefono-usuario">tlf: {{ Auth::user()->profile->phone }}</p>
+                <p class="telefono-usuario">Teléfono: {{ Auth::user()->profile->phone }}</p>
             @endif
 
             <p class="miembro-desde">Miembro desde: {{ Auth::user()->created_at->format('Y') }}</p>
@@ -109,12 +106,10 @@
 
         <h2 class="titulo-seccion-perfil" id="garaje">Mis Vehículos</h2>
         <div class="grid-garaje">
-            
-            {{-- BUCLE FOREACH: Itera sobre los coches del usuario --}}
+            {{-- Se cargan todos los coches que tiene el, usuario logeado, registrados en la base de datos --}}
             @forelse(Auth::user()->cars as $car)
                 <article class="tarjeta-garaje">
                     <div class="foto-garaje">
-                        {{-- Como no tenemos fotos reales en DB, usamos una genérica o lógica simple --}}
                         <div style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#555; font-weight:bold;">
                             {{ $car->brand->name }} 
                         </div>
@@ -124,7 +119,6 @@
                         <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
                         <p class="tipo-motor">{{ $car->type }}</p>
                         
-                        {{-- Mostramos algunos extras si tiene --}}
                         @if($car->extras->count() > 0)
                             <p style="font-size: 0.8rem; color: #666; margin-top:5px;">
                                 + {{ $car->extras->first()->name }} 
@@ -138,6 +132,7 @@
                         </div>
                     </div>
                 </article>
+            {{-- Si el usuario no tiene ningún coche,  --}}
             @empty
                 {{-- Esto se muestra si el usuario NO tiene coches --}}
                 <div class="sin-coches">

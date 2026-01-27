@@ -2,9 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Petición a la API del tiempo una vez cargada la página
     clima();
 
-    // Comprobar si el usuario está logueado en la página
+    // Comprobar si el usuario está logueado y quién es, para mostrar el nombre del usuario, o los botones de inicio de sesión y registro
     comprobarSesion();
 
+    // Iniciar movimiento del carrusel de fotos de la página principal
     iniciarCarrusel();
 });
 

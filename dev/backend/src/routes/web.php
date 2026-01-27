@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 
 // Ruta para cargar la página de inicio, redirige al usuario automáticamente a index.html del frontend
 Route::get('/', function () {
@@ -37,7 +38,11 @@ Route::middleware('auth')->group(function () {
     
     // Ruta para cargar la página de perfil
     Route::get('/perfil', function() {
-        return view('perfil');
+        // Se guarda el usuario que ha iniciado sesión en la variable $user, con su perfil y sus coches
+        $user = Auth::user()->load('profile', 'cars.brand');
+
+        // Devolvemos la vista "perfil.blade.php" y la variable $user
+        return view('perfil', compact('user'));
     })->name('perfil');
 });
 
