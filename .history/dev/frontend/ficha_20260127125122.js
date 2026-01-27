@@ -2,7 +2,7 @@
 const id = new URLSearchParams(window.location.search).get('id');
 
 if (id) {
-    fetch(`api/cars/${id}`)
+    fetch(`http://tuservidor.com/api/cars/${id}`)
         .then(response => {
             if (!response.ok) throw new Error("Coche no encontrado");
             return response.json();
