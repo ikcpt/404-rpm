@@ -3,92 +3,173 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Brand;
-use App\Models\Car;
-use App\Models\Extra;
 use App\Models\Profile;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     public function run(): void
     {
-        $userAdmin = User::create(['name' => 'Admin Boss', 'email' => 'admin@404rpm.com', 'password' => bcrypt('1234')]);
-        Profile::create(['user_id' => $userAdmin->id, 'surname' => 'System', 'phone' => '600000001', 'address' => 'Oficina Central']);
+        /*
+        |--------------------------------------------------------------------------
+        | 1. LIMPIEZA SEGURA DE TABLAS
+        |--------------------------------------------------------------------------
+        */
+        Schema::disableForeignKeyConstraints();
 
-        $userCarlos = User::create(['name' => 'Carlos', 'email' => 'carlos.vip@email.com', 'password' => bcrypt('1234')]);
-        Profile::create(['user_id' => $userCarlos->id, 'surname' => 'Slim', 'phone' => '600999888', 'address' => 'La Finca, Madrid']);
+        DB::table('reviews')->delete();
+        DB::table('car_extras')->delete();
+        DB::table('cars')->delete();
+        DB::table('extras')->delete();
+        DB::table('brands')->delete();
+        DB::table('profiles')->delete();
+        DB::table('users')->delete();
 
-        $userLaura = User::create(['name' => 'Laura', 'email' => 'laura.racing@email.com', 'password' => bcrypt('1234')]);
-        Profile::create(['user_id' => $userLaura->id, 'surname' => 'Gómez', 'phone' => '611223344', 'address' => 'Valencia Centro']);
+        Schema::enableForeignKeyConstraints();
 
-        $userDavid = User::create(['name' => 'David', 'email' => 'david.padre@email.com', 'password' => bcrypt('1234')]);
-        Profile::create(['user_id' => $userDavid->id, 'surname' => 'Fernández', 'phone' => '622334455', 'address' => 'Sevilla']);
+        /*
+        |--------------------------------------------------------------------------
+        | 2. USUARIOS + PERFILES
+        |--------------------------------------------------------------------------
+        */
+        $users = [
+            ['name' => 'Admin Boss', 'email' => 'admin@404rpm.com', 'surname' => 'System', 'phone' => '600000001', 'address' => 'Oficina Central'],
+            ['name' => 'Carlos', 'email' => 'carlos.vip@email.com', 'surname' => 'Slim', 'phone' => '600999888', 'address' => 'La Finca, Madrid'],
+            ['name' => 'Laura', 'email' => 'laura.racing@email.com', 'surname' => 'Gómez', 'phone' => '611223344', 'address' => 'Valencia Centro'],
+            ['name' => 'David', 'email' => 'david.padre@email.com', 'surname' => 'Fernández', 'phone' => '622334455', 'address' => 'Sevilla'],
+            ['name' => 'Elena', 'email' => 'elena.new@email.com', 'surname' => 'Vázquez', 'phone' => '633445566', 'address' => 'Barcelona'],
+            ['name' => 'Juan Pérez', 'email' => 'juan.perez@email.com', 'surname' => 'Pérez', 'phone' => '644556677', 'address' => 'Bilbao'],
+        ];
 
-        $userElena = User::create(['name' => 'Elena', 'email' => 'elena.new@email.com', 'password' => bcrypt('1234')]);
-        Profile::create(['user_id' => $userElena->id, 'surname' => 'Vázquez', 'phone' => '633445566', 'address' => 'Barcelona']);
+        foreach ($users as $data) {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt('1234'),
+            ]);
 
-        $userJuan = User::create(['name' => 'Juan Pérez', 'email' => 'juan.perez@email.com', 'password' => bcrypt('1234')]);
-        Profile::create(['user_id' => $userJuan->id, 'surname' => 'Pérez', 'phone' => '644556677', 'address' => 'Bilbao']);
+            Profile::create([
+                'user_id' => $user->id,
+                'surname' => $data['surname'],
+                'phone' => $data['phone'],
+                'address' => $data['address'],
+            ]);
+        }
 
-        $brandFord = Brand::create(['name' => 'Ford']);
-        $brandAudi = Brand::create(['name' => 'Audi']);
-        $brandPorsche = Brand::create(['name' => 'Porsche']);
-        $brandFerrari = Brand::create(['name' => 'Ferrari']);
-        $brandBMW = Brand::create(['name' => 'BMW']);
-        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz']);
-        $brandVW = Brand::create(['name' => 'Volkswagen']);
-        $brandMini = Brand::create(['name' => 'Mini']);
-        $brandSeat = Brand::create(['name' => 'Seat']);
-        $brandToyota = Brand::create(['name' => 'Toyota']);
+        /*
+        |--------------------------------------------------------------------------
+        | 3. BRANDS
+        |--------------------------------------------------------------------------
+        */
+        DB::table('brands')->insert([
+            ['name' => 'Porsche', 'country' => 'Alemania'],
+            ['name' => 'Ferrari', 'country' => 'Italia'],
+            ['name' => 'Lamborghini', 'country' => 'Italia'],
+            ['name' => 'Audi', 'country' => 'Alemania'],
+            ['name' => 'BMW', 'country' => 'Alemania'],
+            ['name' => 'Mercedes-Benz', 'country' => 'Alemania'],
+            ['name' => 'Ford', 'country' => 'EEUU'],
+            ['name' => 'Volkswagen', 'country' => 'Alemania'],
+            ['name' => 'Mini', 'country' => 'Reino Unido'],
+            ['name' => 'Seat', 'country' => 'España'],
+            ['name' => 'Toyota', 'country' => 'Japón'],
+            ['name' => 'Aston Martin', 'country' => 'Reino Unido'],
+        ]);
 
-        $exGPS = Extra::create(['name' => 'Navegador', 'description' => 'Pantalla con mapas.']);
-        $exTecho = Extra::create(['name' => 'Techo Solar', 'description' => 'Techo abatible.']);
-        $exCuero = Extra::create(['name' => 'Cuero', 'description' => 'Asientos de piel.']);
-        $exSport = Extra::create(['name' => 'Pack Sport', 'description' => 'Suspensiones y escape deportivo.']);
-        $exAudio = Extra::create(['name' => 'Audio Premium', 'description' => 'Sistema de sonido envolvente.']);
-        $exLed = Extra::create(['name' => 'Faros LED Matrix', 'description' => 'Iluminación inteligente.']);
+        $brands = DB::table('brands')->pluck('id', 'name');
 
-        $car = Car::create(['brand_id' => $brandFerrari->id, 'user_id' => $userCarlos->id, 'model' => 'SF90 Stradale', 'type' => 'Híbrido', 'description' => 'Superdeportivo híbrido.', 'price' => 550000.00]);
-        $car->extras()->attach([$exCuero->id, $exSport->id]);
-        
-        $car = Car::create(['brand_id' => $brandBMW->id, 'user_id' => $userLaura->id, 'model' => 'M4 Competition', 'type' => 'Gasolina', 'description' => 'Coupé deportivo.', 'price' => 115000.00]);
-        $car->extras()->attach([$exSport->id, $exGPS->id]);
+        /*
+        |--------------------------------------------------------------------------
+        | 4. EXTRAS
+        |--------------------------------------------------------------------------
+        */
+        DB::table('extras')->insert([
+            ['name' => 'Asientos Calefactables'],
+            ['name' => 'Techo Solar Panorámico'],
+            ['name' => 'Frenos Cerámicos'],
+            ['name' => 'Sistema de Sonido Premium'],
+            ['name' => 'Asistente de Aparcamiento Automático'],
+            ['name' => 'Head-Up Display'],
+            ['name' => 'Paquete de Fibra de Carbono'],
+            ['name' => 'Suspensión Adaptativa'],
+        ]);
 
-        $car = Car::create(['brand_id' => $brandAudi->id, 'user_id' => $userDavid->id, 'model' => 'Q7 TDI', 'type' => 'Diesel', 'description' => 'SUV familiar 7 plazas.', 'price' => 85000.00]);
-        $car->extras()->attach([$exTecho->id, $exAudio->id]);
+        $extras = DB::table('extras')->pluck('id', 'name');
 
-        $car = Car::create(['brand_id' => $brandToyota->id, 'user_id' => $userJuan->id, 'model' => 'Corolla', 'type' => 'Híbrido', 'description' => 'Fiable y bajo consumo.', 'price' => 24000.00]);
+        /*
+        |--------------------------------------------------------------------------
+        | 5. CARS
+        |--------------------------------------------------------------------------
+        */
+        DB::table('cars')->insert([
+            [
+                'brand_id' => $brands['Porsche'],
+                'model' => '911 GT3 RS',
+                'price' => 280000,
+                'year' => 2024,
+                'type' => 'Gasolina',
+                'image' => 'https://placehold.co/600x400/212529/FFF?text=Porsche+911+GT3+RS',
+                'description' => 'La máquina definitiva para circuito homologada para la calle.',
+            ],
+            [
+                'brand_id' => $brands['Ferrari'],
+                'model' => 'F8 Tributo',
+                'price' => 290000,
+                'year' => 2023,
+                'type' => 'Gasolina',
+                'image' => 'https://placehold.co/600x400/d63031/FFF?text=Ferrari+F8+Tributo',
+                'description' => 'Diseño italiano y prestaciones de infarto.',
+            ],
+            [
+                'brand_id' => $brands['Ferrari'],
+                'model' => 'SF90 Stradale',
+                'price' => 530000,
+                'year' => 2024,
+                'type' => 'Híbrido',
+                'image' => 'https://placehold.co/600x400/d63031/FFF?text=Ferrari+SF90',
+                'description' => 'El primer híbrido enchufable de Ferrari.',
+            ],
+        ]);
 
-        Car::create(['brand_id' => $brandSeat->id, 'user_id' => null, 'model' => 'Ibiza FR', 'type' => 'Gasolina', 'description' => 'Ideal para ciudad. Acabado deportivo FR.', 'price' => 18500.00])->extras()->attach([$exLed->id]);
+        $cars = DB::table('cars')->pluck('id', 'model');
 
-        Car::create(['brand_id' => $brandFord->id, 'user_id' => null, 'model' => 'Focus ST-Line', 'type' => 'Diesel', 'description' => 'Compacto con muy bajo consumo.', 'price' => 22900.00]);
+        /*
+        |--------------------------------------------------------------------------
+        | 6. CAR_EXTRAS (PIVOT)
+        |--------------------------------------------------------------------------
+        */
+        DB::table('car_extras')->insert([
+            ['car_id' => $cars['911 GT3 RS'], 'extra_id' => $extras['Frenos Cerámicos']],
+            ['car_id' => $cars['911 GT3 RS'], 'extra_id' => $extras['Paquete de Fibra de Carbono']],
+            ['car_id' => $cars['911 GT3 RS'], 'extra_id' => $extras['Suspensión Adaptativa']],
 
-        Car::create(['brand_id' => $brandToyota->id, 'user_id' => null, 'model' => 'Yaris Hybrid', 'type' => 'Híbrido', 'description' => 'El rey de la ciudad. Etiqueta ECO.', 'price' => 21000.00]);
+            ['car_id' => $cars['F8 Tributo'], 'extra_id' => $extras['Frenos Cerámicos']],
+            ['car_id' => $cars['F8 Tributo'], 'extra_id' => $extras['Sistema de Sonido Premium']],
+        ]);
 
-        Car::create(['brand_id' => $brandVW->id, 'user_id' => null, 'model' => 'Polo GTI', 'type' => 'Gasolina', 'description' => 'Pequeño pero matón. 207 CV.', 'price' => 32000.00])->extras()->attach([$exSport->id]);
+        /*
+        |--------------------------------------------------------------------------
+        | 7. REVIEWS
+        |--------------------------------------------------------------------------
+        */
+        $reviews = [
+            ['rating' => 5, 'content' => 'Excelente servicio.'],
+            ['rating' => 4, 'content' => 'Buen trato, algo lentos.'],
+            ['rating' => 3, 'content' => 'Correcto sin más.'],
+            ['rating' => 5, 'content' => 'Grandes profesionales.'],
+        ];
 
-        Car::create(['brand_id' => $brandAudi->id, 'user_id' => null, 'model' => 'A3 Sportback', 'type' => 'Diesel', 'description' => 'Acabado S-Line. Elegante y práctico.', 'price' => 34500.00])->extras()->attach([$exGPS->id, $exTecho->id]);
-
-        Car::create(['brand_id' => $brandVW->id, 'user_id' => null, 'model' => 'Golf GTI 8', 'type' => 'Gasolina', 'description' => 'El compacto deportivo por excelencia.', 'price' => 46000.00])->extras()->attach([$exSport->id, $exLed->id]);
-
-        Car::create(['brand_id' => $brandFord->id, 'user_id' => null, 'model' => 'Mustang GT', 'type' => 'Gasolina', 'description' => 'Motor V8 5.0L atmosférico. Sonido puro.', 'price' => 58000.00])->extras()->attach([$exCuero->id, $exSport->id]);
-
-        Car::create(['brand_id' => $brandBMW->id, 'user_id' => null, 'model' => 'M2 Coupé', 'type' => 'Gasolina', 'description' => 'Tracción trasera y mucha diversión.', 'price' => 78000.00])->extras()->attach([$exSport->id, $exAudio->id]);
-
-        Car::create(['brand_id' => $brandToyota->id, 'user_id' => null, 'model' => 'GR Supra', 'type' => 'Gasolina', 'description' => 'Leyenda japonesa renacida.', 'price' => 65000.00]);
-
-        Car::create(['brand_id' => $brandPorsche->id, 'user_id' => null, 'model' => '718 Cayman', 'type' => 'Gasolina', 'description' => 'Motor central. Equilibrio perfecto.', 'price' => 72000.00])->extras()->attach([$exCuero->id]);
-
-        Car::create(['brand_id' => $brandMercedes->id, 'user_id' => null, 'model' => 'Clase C Estate', 'type' => 'Diesel', 'description' => 'Viajes largos con la máxima comodidad.', 'price' => 52000.00])->extras()->attach([$exGPS->id, $exAudio->id]);
-
-        Car::create(['brand_id' => $brandBMW->id, 'user_id' => null, 'model' => 'X3 xDrive', 'type' => 'Híbrido', 'description' => 'SUV premium con tracción total.', 'price' => 61000.00])->extras()->attach([$exTecho->id, $exLed->id]);
-        
-        Car::create(['brand_id' => $brandAudi->id, 'user_id' => null, 'model' => 'RS6 Avant', 'type' => 'Gasolina', 'description' => '600 CV para llevar la compra.', 'price' => 145000.00]);
-        
-        Car::create(['brand_id' => $brandPorsche->id, 'user_id' => null, 'model' => '911 Carrera', 'type' => 'Gasolina', 'description' => 'El 911 de acceso, atemporal.', 'price' => 130000.00]);
+        foreach ($reviews as $review) {
+            DB::table('reviews')->insert([
+                'user_id' => User::inRandomOrder()->first()->id,
+                'rating' => $review['rating'],
+                'content' => $review['content'],
+                'created_at' => Carbon::now()->subDays(rand(1, 30)),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
