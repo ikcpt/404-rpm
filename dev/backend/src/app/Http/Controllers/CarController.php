@@ -12,54 +12,21 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $cars = Car::with(['brand', 'extras'])->get();
+        return response()->json($cars);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      */
-    public function show(Car $car)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Car $car)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Car $car)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Car $car)
-    {
-        //
+        $car = Car::with(['brand', 'extras'])->find($id);
+        
+        if (!$car) {
+            return response()->json(['message' => 'Car not found'], 404);
+        }
+        
+        return response()->json($car);
     }
 }

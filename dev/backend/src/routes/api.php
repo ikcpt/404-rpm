@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CarController;
 
 // Ruta que realiza la petición a la API del tiempo Open Meteo, donde se le pasan las coordenadas de Irún. Devuelve un JSON con los datos recibidos
 Route::get('/clima', function() {
@@ -17,6 +18,8 @@ Route::get('/clima', function() {
 
     return $respuesta->json();
 });
+
+Route::apiResource('cars', CarController::class);
 
 // Ruta del middleware para gestionar si el usuario ha iniciado sesión o no
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

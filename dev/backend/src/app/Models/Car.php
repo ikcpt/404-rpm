@@ -9,17 +9,10 @@ class Car extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'brand_id',
-        'user_id',
-        'model',
-        'type',
-        'description',
-        'price',
-    ];
+    protected $table = 'coches';
 
     public function brand() {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class, 'marca_id');
     }
 
     public function user() {
@@ -27,6 +20,6 @@ class Car extends Model
     }
     
     public function extras() {
-        return $this->belongsToMany(Extra::class, 'car_extras');
+        return $this->belongsToMany(Extra::class, 'coche_extra', 'coche_id', 'extra_id');
     }
 }
