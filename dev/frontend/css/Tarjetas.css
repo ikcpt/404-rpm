@@ -22,8 +22,12 @@
 
 /* Contenedor principal */
 .widget-clima-moderno {
-    background-color: #0f172a;
-    border: 1px solid #1e3a8a;
+    /* Fondo oscuro (negro terciario) */
+    background-color: var(--color-terciario); 
+    
+    /* Borde sutil en azul primario */
+    border: 1px solid var(--color-primario);
+    
     border-radius: 20px;
     padding: 1.5rem 2rem;
     width: 100%;
@@ -34,14 +38,32 @@
     justify-content: space-between;
     gap: 20px;
     
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    color: white;
+    /* Sombra fuerte para dar volumen */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+    
     font-family: 'Inter', sans-serif;
     position: relative;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    
+    /* Animación de entrada al cargar la página */
+    animation: entradaWidget 0.8s ease-out forwards;
+    
+    cursor: default;
 }
 
-/* Brillo de fondo */
+.widget-clima-moderno:hover {
+    /* Se levanta un poco */
+    transform: translateY(-5px);
+    
+    /* El borde se vuelve azul brillante (Color acento) */
+    border-color: var(--color-acento);
+    
+    /* La sombra se vuelve azulada (Efecto neón) */
+    box-shadow: 0 15px 35px rgba(46, 144, 255, 0.25);
+}
+
+/* Brillo de fondo (Efecto LED azulado) */
 .widget-clima-moderno::before {
     content: '';
     position: absolute;
@@ -49,15 +71,21 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(29, 78, 216, 0.15) 0%, transparent 60%);
+    /* Degradado usando tu color primario */
+    background: radial-gradient(circle, var(--color-primario) 0%, transparent 65%);
+    opacity: 0.3; /* Transparencia baja para no molestar */
     pointer-events: none;
 }
 
 /* Icono */
 .clima-icono-box img {
     width: 60px;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    /* Sombra blanca suave para separar del fondo negro */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
     display: block;
+    position: relative; /* Para estar por encima del brillo */
+    z-index: 2;
+    animation: flotarIcono 4s ease-in-out infinite;
 }
 
 /* Textos centrales */
@@ -66,56 +94,76 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    z-index: 2;
 }
 
 .clima-info-texto h3 {
     margin: 0;
     font-size: 1.4rem;
     font-weight: 700;
-    color: #f1f5f9;
+    color: var(--color-blanco); /* Blanco puro */
 }
 
 .clima-desc {
-    margin: 5px 0 0 0;
+    margin: 2px 0 8px 0;
     font-size: 1rem;
-    color: #94a3b8;
+    color: var(--color-acento); /* Azul claro (Cyan/Sky) */
     text-transform: capitalize;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-/* --- CLASE NUEVA PARA EL CONSEJO --- */
+/* --- ESTILO DEL CONSEJO (Notificación Racing) --- */
 .clima-consejo {
     font-size: 0.85rem;
-    color: #fbbf24; /* Amarillo ámbar */
-    margin-top: 5px;
+    color: var(--color-contraste); /* Gris claro */
     font-style: italic;
     font-weight: 400;
+    line-height: 1.4;
+    
+    /* Línea roja a la izquierda para destacar */
+    border-left: 3px solid var(--color-secundario); /* Rojo */
+    padding-left: 10px;
+    margin-left: -13px; /* Ajuste visual para alinear con el título */
 }
 
-/* Temperatura */
+/* Temperatura (Con el arreglo de Flexbox incluido) */
 .clima-temperatura {
-    font-size: 3rem;
-    font-weight: 600;
-    color: #e2e8f0;
+    position: relative;
+    z-index: 2;
+    display: flex;             /* Mantiene número y grado juntos */
+    align-items: flex-start;   /* Grado arriba */
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-blanco); /* Blanco puro */
     line-height: 1;
+    text-shadow: 0 0 10px rgba(46, 144, 255, 0.3); /* Pequeño brillo azul */
 }
 
 .grado {
-    font-size: 1.5rem;
-    vertical-align: top;
-    margin-left: 2px;
-    color: #94a3b8;
+    font-size: 2rem;
+    margin-top: 8px; 
+    margin-left: 4px;
+    color: var(--color-acento); /* El "°" en azul claro */
 }
-@keyframes latir {
-  40% {
-    opacity: 0.3;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.3;
-  }
+
+@keyframes flotarIcono {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); } /* Sube 6px */
+    100% { transform: translateY(0px); }
+}
+
+/* El widget aparece desde abajo al cargar */
+@keyframes entradaWidget {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* --- SERVICIOS --- */
