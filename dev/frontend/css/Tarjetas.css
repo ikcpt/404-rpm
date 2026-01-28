@@ -12,127 +12,99 @@
 }
 
 /* --- CLIMA --- */
-.widget-clima {
-  color: white;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  display: inline-block;
-  width: 100%;
+/* ================= WIDGET CLIMA MODERNO ================= */
+
+.clima-container {
+    padding: 2rem 20px; 
+    display: flex; 
+    justify-content: center;
 }
 
-.tarjeta-clima {
-  background: #ffffff;
-  border-radius: 16px; /* Bordes más sutiles, no tan redondos */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra elegante y suave */
-  
-  /* Lógica de Flexbox corregida */
-  display: flex;
-  flex-direction: row;
-  align-items: stretch; /* ESTO ES CLAVE: Estira las dos mitades igual */
-  justify-content: space-between;
-  
-  max-width: 700px; /* Un poco más compacta */
-  width: 90%;
-  margin: 2rem auto;
-  border: 1px solid #eaeaea; /* Borde muy sutil */
-  overflow: hidden; /* Para que el fondo no se salga de las esquinas */
+/* Contenedor principal */
+.widget-clima-moderno {
+    background-color: #0f172a;
+    border: 1px solid #1e3a8a;
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    max-width: 450px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
 }
 
-/* --- ZONA IZQUIERDA (Dashboard Oscuro) --- */
-.widget-clima {
-  /* Usamos un gris muy oscuro (Casi negro) para contraste premium */
-  background: #212529; 
-  color: #ffffff;
-  
-  width: 45%; /* Un poco menos de la mitad */
-  padding: 1.5rem;
-  
-  /* Centrado del contenido */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start; /* Alineado a la izquierda para leer mejor */
+/* Brillo de fondo */
+.widget-clima-moderno::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(29, 78, 216, 0.15) 0%, transparent 60%);
+    pointer-events: none;
 }
 
-.clima-titulo {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 2px; /* Espaciado elegante */
-  color: #adb5bd; /* Gris claro */
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+/* Icono */
+.clima-icono-box img {
+    width: 60px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    display: block;
 }
 
-/* El número de la temperatura */
-.temperatura-gigante {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.1;
+/* Textos centrales */
+.clima-info-texto {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-/* Detalles pequeños (viento) */
-.clima-viento {
-    font-size: 0.9rem;
-    color: #ced4da;
+.clima-info-texto h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #f1f5f9;
+}
+
+.clima-desc {
+    margin: 5px 0 0 0;
+    font-size: 1rem;
+    color: #94a3b8;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+/* --- CLASE NUEVA PARA EL CONSEJO --- */
+.clima-consejo {
+    font-size: 0.85rem;
+    color: #fbbf24; /* Amarillo ámbar */
     margin-top: 5px;
+    font-style: italic;
+    font-weight: 400;
 }
 
-/* --- ZONA DERECHA (Consejo Limpio) --- */
-.clima-derecha {
-  width: 55%;
-  background-color: #ffffff;
-  padding: 1.5rem;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  text-align: center;
-  border-left: 1px solid #f1f1f1; 
+/* Temperatura */
+.clima-temperatura {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    line-height: 1;
 }
 
-.icono-coche {
-  color: #343a40; 
-  font-size: 2rem; 
-  margin-bottom: 10px;
-}
-
-.texto-consejo {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #343a40; 
-  line-height: 1.4;
-}
-
-/* Iconos de carga, mientras carga la petición a la API del tiempo */
-.typing {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #ffffffff;
-  opacity: 0.3;
-  animation: latir 1.4s infinite ease-in-out;
-}
-
-.dot:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.dot:nth-child(3) {
-  animation-delay: 0.4s;
+.grado {
+    font-size: 1.5rem;
+    vertical-align: top;
+    margin-left: 2px;
+    color: #94a3b8;
 }
 @keyframes latir {
   40% {
