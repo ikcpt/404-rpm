@@ -54,7 +54,6 @@ class DatabaseSeeder extends Seeder
         $exSport = Extra::create(['name' => 'Pack Sport', 'description' => 'Suspensiones y escape deportivo.']);
         $exAudio = Extra::create(['name' => 'Audio Premium', 'description' => 'Sistema de sonido envolvente.']);
         $exLed = Extra::create(['name' => 'Faros LED Matrix', 'description' => 'Iluminación inteligente.']);
-
         
         // --- Ferrari F8 ---
         $car = Car::create([

@@ -28,6 +28,6 @@ class Car extends Model
     }
     
 public function extras() {
-    return $this->belongsToMany(Extra::class);
+    return $this->belongsToMany(Extra::class); // o 'car_extra' si tu tabla no sigue convención
 }
 }

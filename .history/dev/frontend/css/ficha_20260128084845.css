@@ -1,0 +1,235 @@
+/* --- 1. Configuración Base y Variables --- */
+:root {
+  --color-primario: #1e4fa3;       /* Azul Oscuro */
+  --color-secundario: #e10600;     /* Rojo Vivo */
+  --color-terciario: #0b0e13;      /* Negro Casi Puro */
+  --color-contraste: #f2f2f2;      /* Gris Claro (Fondo) */
+  --color-acento: #2e90ff;         /* Azul Claro */
+  --color-acento-secundario: #8c0f14; /* Rojo Oscuro */
+  --color-blanco: #ffffff;
+  
+  --espaciado-sm: 8px;
+  --espaciado-md: 16px;
+  --espaciado-lg: 32px;
+  
+  --borde-radio: 12px;
+  --sombra-brutal: 0 20px 40px -10px rgba(11, 14, 19, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-contraste);
+  color: var(--color-terciario);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--espaciado-lg);
+}
+
+/* --- 2. Contenedor Principal (Tarjeta) --- */
+.ficha {
+  background-color: var(--color-blanco);
+  width: 100%;
+  max-width: 900px;
+  border-radius: var(--borde-radio);
+  box-shadow: var(--sombra-brutal);
+  padding: 40px;
+  display: grid;
+  /* Grid para organizar el contenido visualmente */
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: auto auto auto 1fr;
+  gap: var(--espaciado-md) var(--espaciado-lg);
+  grid-template-areas: 
+    "titulo precio"
+    "img img"
+    "meta meta"
+    "desc specs";
+}
+
+/* --- 3. Tipografía y Encabezados --- */
+h1#nombre {
+  grid-area: titulo;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-primario);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--color-terciario);
+  border-bottom: 3px solid var(--color-acento);
+  display: inline-block;
+  margin-top: var(--espaciado-lg);
+  margin-bottom: var(--espaciado-md);
+  padding-bottom: 4px;
+}
+
+/* --- 4. Imagen Principal --- */
+#img {
+  grid-area: img;
+  width: 100%;
+  height: 400px; /* Altura fija para consistencia */
+  object-fit: cover;
+  border-radius: var(--borde-radio);
+  background-color: var(--color-contraste); /* Placeholder mientras carga */
+  transition: transform 0.3s ease;
+}
+
+#img:hover {
+  transform: scale(1.01);
+}
+
+/* --- 5. Metadatos (Marca y Tipo) --- */
+/* Usamos selectores adyacentes o el contenedor padre si pudieramos, 
+   pero aquí los agrupamos visualmente */
+#marca, #tipo {
+  grid-area: meta;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 50px;
+  margin-right: var(--espaciado-sm);
+  /* Ajuste para que no se solapen al estar en la misma área de grid */
+  justify-self: start; 
+}
+
+#marca {
+  background-color: var(--color-terciario);
+  color: var(--color-blanco);
+}
+
+#tipo {
+  background-color: var(--color-acento);
+  color: var(--color-blanco);
+  margin-left: 100px; /* Truco simple para separarlos ya que comparten área en este HTML plano */
+  /* Nota: Lo ideal sería envolver marca y tipo en un div contenedor en el HTML */
+}
+
+/* --- 6. Precio --- */
+#precio {
+  grid-area: precio;
+  justify-self: end;
+  align-self: center;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--color-secundario);
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+#precio::before {
+  content: "Precio: ";
+  font-size: 1rem;
+  color: var(--color-terciario);
+  font-weight: 400;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* --- 7. Descripción --- */
+#descripcion {
+  grid-area: desc;
+  color: #555;
+  font-size: 1.05rem;
+  padding-right: var(--espaciado-md);
+  border-right: 1px solid #eee;
+}
+
+/* --- 8. Ficha Técnica y Extras (Columna Derecha) --- */
+/* Envolvemos visualmente la ficha técnica y extras en la columna derecha */
+h3:nth-of-type(1), /* Título Ficha */
+#ficha,
+h3:nth-of-type(2), /* Título Extras */
+#extras {
+  grid-column: 2; /* Forzamos a la derecha */
+}
+
+/* Estilo para la Ficha Técnica (asumiendo que JS inyecta divs o pares clave-valor) */
+#ficha {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espaciado-sm);
+  background: var(--color-contraste);
+  padding: var(--espaciado-md);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+#ficha div {
+  /* Estilo genérico para los hijos directos del div ficha */
+  padding: 4px;
+  border-bottom: 1px solid #ddd;
+}
+
+#ficha div:nth-child(odd) {
+  font-weight: bold;
+  color: var(--color-primario);
+}
+
+/* --- 9. Extras (Lista) --- */
+#extras {
+  list-style: none;
+  margin-top: var(--espaciado-sm);
+}
+
+#extras li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: var(--espaciado-sm);
+  font-weight: 500;
+}
+
+#extras li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--color-secundario);
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* --- 10. Responsive Design --- */
+@media (max-width: 768px) {
+  .ficha {
+    display: flex;
+    flex-direction: column;
+    padding: var(--espaciado-md);
+  }
+
+  #precio {
+    align-self: flex-start;
+    margin-top: var(--espaciado-sm);
+    font-size: 2rem;
+  }
+
+  #marca, #tipo {
+    margin-bottom: var(--espaciado-md);
+    margin-left: 0; /* Reset del margen manual */
+  }
+  
+  #descripcion {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    padding-bottom: var(--espaciado-md);
+    padding-right: 0;
+    margin-bottom: var(--espaciado-md);
+  }
+  
+  h3:nth-of-type(1), #ficha, h3:nth-of-type(2), #extras {
+    grid-column: auto; /* Reset del grid */
+  }
+}
