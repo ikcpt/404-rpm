@@ -294,3 +294,100 @@ img {
 .btn:active {
     transform: translateY(-1px); /* Efecto de pulsación al clicar */
 }
+/* ================= TARJETAS DASHBOARD (Debajo del clima) ================= */
+
+.dashboard-accesos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px 3rem 20px; /* Un poco de margen abajo */
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Para que baje en móvil */
+}
+
+.card-dashboard {
+    flex: 1;
+    min-width: 300px; /* No se hacen muy pequeñas */
+    background-color: var(--color-blanco); /* Fondo negro/gris oscuro */
+    border: 1px solid var(--color-primario);
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none; /* Quitar subrayado del link */
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Efecto Hover: Se levanta y brilla */
+.card-dashboard:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-acento); /* Borde azul brillante */
+    box-shadow: 0 10px 25px rgba(46, 144, 255, 0.2);
+}
+
+/* Iconos (Izquierda) */
+.icono-dash {
+    background: rgba(30, 79, 163, 0.1); /* Fondo azul muy suave */
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-acento);
+    transition: 0.3s;
+}
+
+.icono-dash svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Variante roja para la segunda tarjeta */
+.icono-dash.rojo {
+    background: rgba(225, 6, 0, 0.1);
+    color: var(--color-secundario); /* Rojo */
+}
+
+/* Textos */
+.texto-dash {
+    flex-grow: 1; /* Ocupa el espacio central */
+}
+
+.texto-dash h3 {
+    margin: 0;
+    color: var(--color-terciario);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.texto-dash p {
+    margin: 4px 0 0 0;
+    color: var(--color-terciario); /* Gris azulado */
+    font-size: 0.9rem;
+}
+
+/* Flecha (Derecha) */
+.flecha-dash {
+    color: #64748b;
+    transition: 0.3s;
+    width: 24px;
+}
+
+/* Animación de la flecha al pasar el ratón */
+.card-dashboard:hover .flecha-dash {
+    color: var(--color-blanco);
+    transform: translateX(5px); /* Se mueve a la derecha */
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .dashboard-accesos {
+        flex-direction: column; /* Una debajo de otra en móvil */
+    }
+}

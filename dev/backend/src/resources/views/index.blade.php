@@ -157,6 +157,51 @@
 
         </section>
 
+        <section class="dashboard-accesos">
+
+            <a href="taller.html" class="card-dashboard">
+                <div class="icono-dash">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="texto-dash">
+                    <h3>Taller & Performance</h3>
+                    <p>Mantenimiento y potenciación</p>
+                </div>
+                <div class="flecha-dash">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </a>
+
+            <a href="concesionario.html" class="card-dashboard">
+                <div class="icono-dash rojo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="1" y="3" width="15" height="13"></rect>
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                    </svg>
+                </div>
+                <div class="texto-dash">
+                    <h3>Stock Premium</h3>
+                    <p>Ver vehículos disponibles</p>
+                </div>
+                <div class="flecha-dash">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </a>
+
+        </section>
+
         <section class="tarjetas-Novedades">
             <div class="Novedades">
                 <h2>Novedades en el concesionario</h2>
