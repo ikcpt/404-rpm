@@ -30,7 +30,7 @@ function obtenerRutaIcono(codigo) {
     if (codigo >= 80 && codigo <= 82) return "assets/img/clima/lluvia_fuerte.png";
     if (codigo >= 95 && codigo <= 99) return "assets/img/clima/tormenta.png";
 
-    return "assets/img/clima/nublado.png"; 
+    return "Desconocido"; 
 }
 
 // Función para llamar a la API Open Meteo
