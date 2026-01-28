@@ -9,7 +9,7 @@ if (!id) {
     document.getElementById('nombre').textContent = "Coche no encontrado";
     document.getElementById('img').style.display = 'none';
 } else {
-    // Simulamos la API
+    // Simulamos la API (o usa tu fetch real)
     fetch(`api/cars/${id}`)
         .then(r => r.json())
         .then(c => {
@@ -24,9 +24,13 @@ if (!id) {
             document.getElementById('marca').textContent = c.brand.name;
             document.getElementById('tipo').textContent = c.type;
 
-            // 2. CONSTRUCCIÓN DE LOS TABS
+            // 2. CONSTRUCCIÓN DE LOS TABS DE JQUERY
+            // jQuery Tabs necesita una estructura específica: <ul> para nav y <div>s para paneles.
+            
             const fichaContainer = document.getElementById('ficha');
             
+            // Creamos el HTML interno dinámicamente
+            // He dividido los datos que pediste en dos tabs para que tenga sentido usar tabs
             const tabsHTML = `
                 <ul>
                     <li><a href="#tab-resumen">Resumen</a></li>
@@ -56,30 +60,25 @@ if (!id) {
                 </div>
             `;
 
+            // Inyectamos el HTML
             fichaContainer.innerHTML = tabsHTML;
 
-            // Inicializamos Tabs
+            // INICIALIZAMOS JQUERY TABS
+            // Es vital hacerlo después de inyectar el HTML
             $(function() {
                 $("#ficha").tabs();
             });
 
-            // 3. EXTRAS (CORREGIDO PARA MOSTRAR DESCRIPCIÓN)
+            // 3. Extras
             const extras = document.getElementById('extras');
             extras.innerHTML = '';
 
             if (c.extras && c.extras.length) {
                 c.extras.forEach(e => {
                     const li = document.createElement('li');
-                    
-                    // Aquí está el cambio: Usamos HTML para estructurar Nombre + Descripción
-                    // Validamos que exista descripción, si no, ponemos string vacío
-                    const desc = e.description ? e.description : ''; 
-                    
-                    li.innerHTML = `
-                        <span class="extra-nombre">${e.name}</span>
-                        <span class="extra-desc">${desc}</span>
-                    `;
-                    
+                    // Asumiendo que 'e' puede ser un string o un objeto según tu API anterior
+                    const textoExtra = e.name ? `${e.name}` : e; 
+                    li.textContent = textoExtra;
                     extras.appendChild(li);
                 });
             } else {

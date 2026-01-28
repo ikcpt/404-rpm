@@ -1,0 +1,224 @@
+/* --- 1. Variables y Reset Global --- */
+:root {
+  --color-primario: #1e4fa3;
+  --color-secundario: #e10600;
+  --color-terciario: #0b0e13;
+  --color-contraste: #f2f2f2;
+  --color-acento: #2e90ff;
+  --color-acento-secundario: #8c0f14;
+  --color-blanco: #ffffff;
+  
+  --ancho-imagen: 65vw; /* La imagen ocupará el 65% del ancho */
+  --ancho-contenido: 35vw; /* El texto ocupará el 35% restante */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ocultamos el scroll del body para que parezca una App nativa */
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: var(--color-blanco);
+  color: var(--color-terciario);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; 
+}
+
+/* --- 2. Layout Principal (Split Screen) --- */
+.ficha {
+  display: flex;
+  flex-direction: column;
+  /* Mueve todo el contenido de texto a la derecha */
+  margin-left: var(--ancho-imagen);
+  width: var(--ancho-contenido);
+  height: 100vh;
+  padding: 40px;
+  overflow-y: auto; /* Solo el texto hace scroll */
+  background-color: var(--color-blanco);
+}
+
+/* --- 3. Imagen "Hero" (Izquierda Fija) --- */
+#img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--ancho-imagen);
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+  /* Un filtro sutil para que se vea más "cine" */
+  filter: contrast(1.1) brightness(0.95);
+}
+
+/* --- 4. Título y Precio (Impacto Visual) --- */
+h1#nombre {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-terciario);
+  margin-bottom: 10px;
+  letter-spacing: -2px;
+}
+
+#precio {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-secundario);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
+
+#precio::after {
+  content: "EUR"; /* Añadimos moneda visualmente */
+  font-size: 1rem;
+  margin-left: 10px;
+  color: var(--color-terciario);
+  opacity: 0.6;
+}
+
+/* --- 5. Badges (Marca y Tipo) --- */
+/* Los colocamos flotando sobre la imagen usando position fixed también,
+   pero alineados visualmente con el diseño */
+#marca, #tipo {
+  position: fixed;
+  z-index: 10;
+  left: 30px;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: var(--color-blanco);
+  backdrop-filter: blur(10px); /* Efecto cristal */
+}
+
+#marca {
+  top: 30px;
+  background-color: rgba(30, 79, 163, 0.9); /* Color primario con transparencia */
+}
+
+#tipo {
+  top: 80px; /* Debajo de la marca */
+  background-color: rgba(11, 14, 19, 0.8); /* Negro con transparencia */
+  border-left: 4px solid var(--color-acento);
+}
+
+/* --- 6. Descripción --- */
+#descripcion {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 40px;
+  padding-left: 20px;
+  border-left: 4px solid var(--color-contraste);
+}
+
+/* --- 7. Secciones Técnicas (Estilo Tabla Moderna) --- */
+h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #999;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* Ficha Técnica Grid */
+#ficha {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+/* Asumimos que JS genera divs dentro de #ficha */
+#ficha div {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: var(--color-contraste);
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+
+#ficha div:hover {
+  transform: translateX(5px);
+  background-color: #eef4ff; /* Tinte azul muy suave al hover */
+}
+
+/* --- 8. Extras (Estilo Tags) --- */
+#extras {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 60px; /* Espacio extra al final para scroll cómodo */
+}
+
+#extras li {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primario);
+  border: 1px solid var(--color-primario);
+  padding: 8px 16px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+#extras li:hover {
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+}
+
+/* --- 9. Scrollbar Personalizada (Webkit) --- */
+.ficha::-webkit-scrollbar {
+  width: 6px;
+}
+.ficha::-webkit-scrollbar-track {
+  background: var(--color-blanco);
+}
+.ficha::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+/* --- 10. Responsive (Adaptación a Móvil) --- */
+@media (max-width: 1024px) {
+  :root {
+    --ancho-imagen: 0vw;
+    --ancho-contenido: 100vw;
+  }
+  
+  body {
+    overflow-y: auto; /* Reactivar scroll en body para móvil */
+  }
+
+  #img {
+    position: relative; /* Ya no es fixed */
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+  
+  .ficha {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    overflow: visible;
+  }
+
+  #marca, #tipo {
+    position: absolute; /* Relative a la imagen en flujo normal */
+  }
+}

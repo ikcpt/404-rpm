@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
         $exAudio = Extra::create(['name' => 'Audio Premium', 'description' => 'Sistema de sonido envolvente.']);
         $exLed = Extra::create(['name' => 'Faros LED Matrix', 'description' => 'Iluminación inteligente.']);
 
+        // 4. COCHES (Y AQUÍ LA VINCULACIÓN)
         
         // --- Ferrari F8 ---
         $car = Car::create([
