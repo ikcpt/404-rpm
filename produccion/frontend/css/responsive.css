@@ -75,3 +75,20 @@
     margin: 0 0 var(--espaciado-lg) 0;
   }
 }
+
+@media (max-width: 480px) {
+    .widget-clima-moderno {
+        padding: 1.2rem;
+        flex-direction: row; /* Mantener en fila en móvil si cabe */
+        gap: 15px;
+    }
+    
+    .clima-info-texto h3 { font-size: 1.2rem; }
+    .clima-temperatura { font-size: 2.5rem; }
+    .grado { font-size: 1.2rem; margin-top: 4px; }
+    .clima-icono-box img { width: 50px; }
+    
+    .clima-consejo {
+        font-size: 0.75rem;
+    }
+}

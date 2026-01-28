@@ -12,138 +12,158 @@
 }
 
 /* --- CLIMA --- */
-.widget-clima {
-  color: white;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  display: inline-block;
-  width: 100%;
+/* ================= WIDGET CLIMA MODERNO ================= */
+
+.clima-container {
+    padding: 2rem 20px; 
+    display: flex; 
+    justify-content: center;
 }
 
-.tarjeta-clima {
-  background: #ffffff;
-  border-radius: 16px; /* Bordes más sutiles, no tan redondos */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra elegante y suave */
-  
-  /* Lógica de Flexbox corregida */
-  display: flex;
-  flex-direction: row;
-  align-items: stretch; /* ESTO ES CLAVE: Estira las dos mitades igual */
-  justify-content: space-between;
-  
-  max-width: 700px; /* Un poco más compacta */
-  width: 90%;
-  margin: 2rem auto;
-  border: 1px solid #eaeaea; /* Borde muy sutil */
-  overflow: hidden; /* Para que el fondo no se salga de las esquinas */
+/* Contenedor principal */
+.widget-clima-moderno {
+    /* Fondo oscuro (negro terciario) */
+    background-color: var(--color-terciario); 
+    
+    /* Borde sutil en azul primario */
+    border: 1px solid var(--color-primario);
+    
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    max-width: 450px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    
+    /* Sombra fuerte para dar volumen */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+    
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    
+    /* Animación de entrada al cargar la página */
+    animation: entradaWidget 0.8s ease-out forwards;
+    
+    cursor: default;
 }
 
-/* --- ZONA IZQUIERDA (Dashboard Oscuro) --- */
-.widget-clima {
-  /* Usamos un gris muy oscuro (Casi negro) para contraste premium */
-  background: #212529; 
-  color: #ffffff;
-  
-  width: 45%; /* Un poco menos de la mitad */
-  padding: 1.5rem;
-  
-  /* Centrado del contenido */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start; /* Alineado a la izquierda para leer mejor */
+.widget-clima-moderno:hover {
+    /* Se levanta un poco */
+    transform: translateY(-5px);
+    
+    /* El borde se vuelve azul brillante (Color acento) */
+    border-color: var(--color-acento);
+    
+    /* La sombra se vuelve azulada (Efecto neón) */
+    box-shadow: 0 15px 35px rgba(46, 144, 255, 0.25);
 }
 
-.clima-titulo {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 2px; /* Espaciado elegante */
-  color: #adb5bd; /* Gris claro */
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+/* Brillo de fondo (Efecto LED azulado) */
+.widget-clima-moderno::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    /* Degradado usando tu color primario */
+    background: radial-gradient(circle, var(--color-primario) 0%, transparent 65%);
+    opacity: 0.3; /* Transparencia baja para no molestar */
+    pointer-events: none;
 }
 
-/* El número de la temperatura */
-.temperatura-gigante {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.1;
+/* Icono */
+.clima-icono-box img {
+    width: 60px;
+    /* Sombra blanca suave para separar del fondo negro */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+    display: block;
+    position: relative; /* Para estar por encima del brillo */
+    z-index: 2;
+    animation: flotarIcono 4s ease-in-out infinite;
 }
 
-/* Detalles pequeños (viento) */
-.clima-viento {
-    font-size: 0.9rem;
-    color: #ced4da;
-    margin-top: 5px;
+/* Textos centrales */
+.clima-info-texto {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
 }
 
-/* --- ZONA DERECHA (Consejo Limpio) --- */
-.clima-derecha {
-  width: 55%;
-  background-color: #ffffff;
-  padding: 1.5rem;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  text-align: center;
-  border-left: 1px solid #f1f1f1; 
+.clima-info-texto h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-blanco); /* Blanco puro */
 }
 
-.icono-coche {
-  color: #343a40; 
-  font-size: 2rem; 
-  margin-bottom: 10px;
+.clima-desc {
+    margin: 2px 0 8px 0;
+    font-size: 1rem;
+    color: var(--color-acento); /* Azul claro (Cyan/Sky) */
+    text-transform: capitalize;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-.texto-consejo {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #343a40; 
-  line-height: 1.4;
+/* --- ESTILO DEL CONSEJO (Notificación Racing) --- */
+.clima-consejo {
+    font-size: 0.85rem;
+    color: var(--color-contraste); /* Gris claro */
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    
+    /* Línea roja a la izquierda para destacar */
+    border-left: 3px solid var(--color-secundario); /* Rojo */
+    padding-left: 10px;
+    margin-left: -13px; /* Ajuste visual para alinear con el título */
 }
 
-/* Iconos de carga, mientras carga la petición a la API del tiempo */
-.typing {
-      display: flex;
-      gap: 8px;
-      align-items: center;
+/* Temperatura (Con el arreglo de Flexbox incluido) */
+.clima-temperatura {
+    position: relative;
+    z-index: 2;
+    display: flex;             /* Mantiene número y grado juntos */
+    align-items: flex-start;   /* Grado arriba */
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-blanco); /* Blanco puro */
+    line-height: 1;
+    text-shadow: 0 0 10px rgba(46, 144, 255, 0.3); /* Pequeño brillo azul */
+}
+
+.grado {
+    font-size: 2rem;
+    margin-top: 8px; 
+    margin-left: 4px;
+    color: var(--color-acento); /* El "°" en azul claro */
+}
+
+@keyframes flotarIcono {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); } /* Sube 6px */
+    100% { transform: translateY(0px); }
+}
+
+/* El widget aparece desde abajo al cargar */
+@keyframes entradaWidget {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #ffffffff;
-  opacity: 0.3;
-  animation: latir 1.4s infinite ease-in-out;
-}
-
-.dot:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-@keyframes latir {
-  40% {
-    opacity: 0.3;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.3;
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* --- SERVICIOS --- */
