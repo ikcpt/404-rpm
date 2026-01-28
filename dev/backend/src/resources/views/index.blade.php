@@ -131,53 +131,30 @@
             </div>
         </section>
 
-        <section class="clima" style="text-align:center;">
-            <div class="tarjeta-clima">
+        <section class="clima-container">
 
-                <div class="clima-izquierda">
-                    <h3 class="clima-titulo">El tiempo en Irun es:</h3>
-                    <div id="widget-clima" class="widget-clima">
-                        <div class="typing" aria-label="Procesando">
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                        </div>
-                    </div>
+            <div class="widget-clima-moderno">
+
+                <div class="clima-icono-box">
+                    <img id="icono-tiempo-img" src="https://cdn-icons-png.flaticon.com/512/1163/1163661.png"
+                        alt="Clima">
                 </div>
 
-                <div class="separador-clima"></div>
+                <div class="clima-info-texto">
+                    <h3 id="ubicacion-texto">Irun, ES</h3>
+                    <p id="descripcion-clima" class="clima-desc">Cargando...</p>
 
-                <div class="clima-derecha">
-                    <svg class="icono-coche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
-                        <circle cx="7" cy="17" r="2" />
-                        <circle cx="17" cy="17" r="2" />
-                        <path d="M5 17h12" />
-                    </svg>
-                    <p id="texto-consejo" class="texto-consejo">Clima perfecto para conducir</p>
+                    <p id="consejo-clima" class="clima-consejo">
+                        Esperando datos...
+                    </p>
                 </div>
+
+                <div class="clima-temperatura">
+                    <span id="temp-valor">--</span><span class="grado">°</span>
+                </div>
+
             </div>
-        </section>
 
-        <section class="tarjetas-servicios">
-            <div class="servicios">
-                <div class="tarjeta-Taller">
-                    <h3>Taller mecanico</h3>
-                    <p>En nuestro taller mecánico, ofrecemos servicios profesionales y de calidad para mantener su
-                        vehículo en óptimas condiciones.</p>
-                    <button class="btn-tarjeta"><a href="taller.html" style="text-decoration: none; color: white;">Ver
-                            servicios</a></button>
-                </div>
-                <div class="tarjeta-Concesionario">
-                    <h3>Concesionario</h3>
-                    <p>En nuestro concesionario, ofrecemos coches de calidad y de última generación para que pueda
-                        disfrutar de un automóvil en perfectas condiciones.</p>
-                    <button class="btn-tarjeta"><a href="concesionario.html"
-                            style="text-decoration: none; color: white;">Ver coches</a></button>
-                </div>
-            </div>
         </section>
 
         <section class="tarjetas-Novedades">
@@ -236,7 +213,7 @@
 
                 @foreach($reviews as $review)
                 <article class="tarjeta-resena"
-                    style="background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #e74c3c;">
+                    style="background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #1e4fa3;">
 
                     <div class="header-resena"
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
