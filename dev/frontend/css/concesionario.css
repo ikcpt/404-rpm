@@ -72,7 +72,15 @@
     border-radius: 12px;
     overflow: hidden;
     transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
+
+.card-coche.oscuro:hover {
+    transform: translateY(-8px); /* Subir un poco más */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5); /* Sombra profunda */
+    border-color: gold;
+}
+
 .card-coche.oscuro:hover { transform: translateY(-5px); border-color: gold; }
 .card-coche.oscuro h3 { color: white; }
 .card-coche.oscuro .precio { color: gold; font-size: 1.3rem; font-weight: bold; }
@@ -122,22 +130,65 @@
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .info h3 { font-size: 1.2rem; margin: 0; }
 
 .btn-ver {
-    margin-top: 10px;
+    display: block; 
+    width: 100%;   
+    padding: 12px 0;
+    margin-top: 15px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
-    color: inherit; /* Hereda el color del padre (blanco o negro) */
-    opacity: 0.7;
-    transition: 0.2s;
+    text-align: center;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.card-coche:hover .btn-ver {
+    background-color: var(--color-blanco);
+    color: var(--color-terciario); 
+    border-color: var(--color-blanco);
+    transform: translateY(0); 
+}
+
+.card-coche.oscuro .btn-ver {
+    border-color: rgba(255, 215, 0, 0.3); 
+    color: #ddd;
+}
+
+.card-coche.oscuro:hover .btn-ver {
+    background-color: gold;
+    color: #000;
+    border-color: gold;
+    font-weight: 700;
 }
 
 .btn-ver:hover { opacity: 1; transform: translateX(5px); }
+
+.card-coche {
+    position: relative; /* Necesario para posicionar la etiqueta */
+}
+
+.etiqueta-coche {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--color-secundario); /* Rojo */
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 10;
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
