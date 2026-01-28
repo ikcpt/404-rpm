@@ -3,20 +3,19 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Brand;
-use App\Models\Car;
-use App\Models\Extra;
 use App\Models\Profile;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Brand;
+use App\Models\Extra;
+use App\Models\Car;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     public function run(): void
     {
-        // Usuarios
+        // 1. USUARIOS
         $userAdmin = User::create(['name' => 'Admin Boss', 'email' => 'admin@404rpm.com', 'password' => '1234']);
         Profile::create(['user_id' => $userAdmin->id, 'surname' => 'System', 'phone' => '600000001', 'address' => 'Oficina Central']);
 
@@ -29,25 +28,26 @@ class DatabaseSeeder extends Seeder
         $userDavid = User::create(['name' => 'David', 'email' => 'david.padre@email.com', 'password' => '1234']);
         Profile::create(['user_id' => $userDavid->id, 'surname' => 'Fernández', 'phone' => '622334455', 'address' => 'Sevilla']);
 
-        $userElena = User::create(['name' => 'Elena', 'email' => 'elena.new@email.com', 'password' => '1234']);
+        $userElena = User::create(['name' => 'Joan', 'email' => 'joan.new@email.com', 'password' => '1234']);
         Profile::create(['user_id' => $userElena->id, 'surname' => 'Vázquez', 'phone' => '633445566', 'address' => 'Barcelona']);
 
         $userJuan = User::create(['name' => 'Juan Pérez', 'email' => 'juan.perez@email.com', 'password' => '1234']);
         Profile::create(['user_id' => $userJuan->id, 'surname' => 'Pérez', 'phone' => '644556677', 'address' => 'Bilbao']);
 
-        // Marcas
-        $brandFord = Brand::create(['name' => 'Ford']);
-        $brandAudi = Brand::create(['name' => 'Audi']);
-        $brandPorsche = Brand::create(['name' => 'Porsche']);
-        $brandFerrari = Brand::create(['name' => 'Ferrari']);
-        $brandBMW = Brand::create(['name' => 'BMW']);
-        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz']);
-        $brandVW = Brand::create(['name' => 'Volkswagen']);
-        $brandMini = Brand::create(['name' => 'Mini']);
-        $brandSeat = Brand::create(['name' => 'Seat']);
-        $brandToyota = Brand::create(['name' => 'Toyota']);
+        // 2. MARCAS
+        $brandFord = Brand::create(['name' => 'Ford', 'country' => 'Estados Unidos']);
+        $brandAudi = Brand::create(['name' => 'Audi', 'country' => 'Alemania']);
+        $brandPorsche = Brand::create(['name' => 'Porsche', 'country' => 'Alemania']);
+        $brandFerrari = Brand::create(['name' => 'Ferrari', 'country' => 'Italia']);
+        $brandBMW = Brand::create(['name' => 'BMW', 'country' => 'Alemania']);
+        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz', 'country' => 'Alemania']);
+        $brandVW = Brand::create(['name' => 'Volkswagen', 'country' => 'Alemania']);
+        $brandMini = Brand::create(['name' => 'Mini', 'country' => 'Alemania']);
+        $brandSeat = Brand::create(['name' => 'Seat', 'country' => 'Alemania']);
+        $brandToyota = Brand::create(['name' => 'Toyota', 'country' => 'Japón']);
+        $brandLamborghini = Brand::create(['name' => 'Lamborghini', 'country' => 'Italia']);
 
-        // Extras
+        // 3. EXTRAS (Guardamos las instancias en variables para usarlas luego)
         $exGPS = Extra::create(['name' => 'Navegador', 'description' => 'Pantalla con mapas.']);
         $exTecho = Extra::create(['name' => 'Techo Solar', 'description' => 'Techo abatible.']);
         $exCuero = Extra::create(['name' => 'Cuero', 'description' => 'Asientos de piel.']);
@@ -55,188 +55,137 @@ class DatabaseSeeder extends Seeder
         $exAudio = Extra::create(['name' => 'Audio Premium', 'description' => 'Sistema de sonido envolvente.']);
         $exLed = Extra::create(['name' => 'Faros LED Matrix', 'description' => 'Iluminación inteligente.']);
 
-        // Coches
-        $car = Car::create([
-            'brand_id' => $brandFerrari->id, 
-            'user_id' => $userCarlos->id, 
-            'model' => 'SF90 Stradale', 
-            'type' => 'Híbrido', 
-            'description' => 'Superdeportivo híbrido.', 
-            'price' => 550000.00,
-            'image' => 'assets/img/ferrari/sf90.png'
-        ]);
-        $car->extras()->attach([$exCuero->id, $exSport->id]);
         
+        // --- Ferrari F8 ---
         $car = Car::create([
-            'brand_id' => $brandBMW->id, 
-            'user_id' => $userLaura->id, 
-            'model' => 'M4 Competition', 
-            'type' => 'Gasolina', 
-            'description' => 'Coupé deportivo.', 
-            'price' => 115000.00,
+            'brand_id' => $brandFerrari->id,
+            'user_id' => $userCarlos->id,
+            'model' => 'F8 Tributo',
+            'type' => 'Gasolina',
+            'description' => 'Deportivo de alto rendimiento con motor V8, aerodinámica avanzada y diseño exclusivo de Ferrari.',
+            'price' => 285000.00,
+            'image' => 'assets/img/ferrari/f8-tributo.png'
+        ]);
+        // Le ponemos todos los extras caros
+        $car->extras()->attach([$exGPS->id, $exCuero->id, $exSport->id, $exLed->id, $exAudio->id]);
+
+        // --- Lamborghini Huracán ---
+        $car = Car::create([
+            'brand_id' => $brandLamborghini->id,
+            'user_id' => $userLaura->id,
+            'model' => 'Huracán',
+            'type' => 'Gasolina',
+            'description' => 'Superdeportivo italiano con motor V10, tracción integral y diseño agresivo de Lamborghini.',
+            'price' => 240000.00,
+            'image' => 'assets/img/lamborguini/huracan.png'
+        ]);
+        $car->extras()->attach([$exGPS->id, $exSport->id, $exLed->id]);
+
+        // --- Audi R8 ---
+        $car = Car::create([
+            'brand_id' => $brandAudi->id,
+            'user_id' => $userDavid->id,
+            'model' => 'R8 V10',
+            'type' => 'Gasolina',
+            'description' => 'Coupé deportivo con motor V10 de altas prestaciones, tracción integral quattro y diseño elegante.',
+            'price' => 145000.00,
+            'image' => 'assets/img/audi/r8.png'
+        ]);
+        $car->extras()->attach([$exGPS->id, $exCuero->id, $exAudio->id]);
+
+        // ** Gama Media **
+
+        // --- BMW M4 ---
+        $car = Car::create([
+            'brand_id' => $brandBMW->id,
+            'user_id' => null,
+            'model' => 'M4 Competition',
+            'type' => 'Gasolina',
+            'description' => 'Coupé deportivo con motor S58, 510 CV, suspensión adaptativa y tecnología M avanzada.',
+            'price' => 92000.00,
             'image' => 'assets/img/bmw/m4-competition.png'
         ]);
-        $car->extras()->attach([$exSport->id, $exGPS->id]);
+        $car->extras()->attach([$exSport->id, $exLed->id]);
 
+        // --- Mercedes C63 ---
         $car = Car::create([
-            'brand_id' => $brandAudi->id, 
-            'user_id' => $userDavid->id, 
-            'model' => 'Q7 TDI', 
-            'type' => 'Diesel', 
-            'description' => 'SUV familiar 7 plazas.', 
+            'brand_id' => $brandMercedes->id,
+            'user_id' => null,
+            'model' => 'C63 AMG',
+            'type' => 'Gasolina',
+            'description' => 'Deportivo alemán con motor V8, 476 CV, chasis reforzado y tecnología AMG.',
             'price' => 85000.00,
-            'image' => 'assets/img/audi/q7.png'
+            'image' => 'assets/img/mercedes/c63-amg.png'
         ]);
+        $car->extras()->attach([$exCuero->id, $exAudio->id, $exTecho->id]);
+
+        // --- Audi RS3 ---
+        $car = Car::create([
+            'brand_id' => $brandAudi->id,
+            'user_id' => null,
+            'model' => 'RS3 Avant',
+            'type' => 'Gasolina',
+            'description' => 'Familiar deportivo con motor turbo, 400 CV, tracción quattro y acabados premium.',
+            'price' => 68000.00,
+            'image' => 'assets/img/audi/rs3-avant.png'
+        ]);
+        $car->extras()->attach([$exGPS->id, $exLed->id]);
+
+        // ** Gama Baja / Ocasión **
+
+        // --- Golf GTI ---
+        $car = Car::create([
+            'brand_id' => $brandVW->id,
+            'user_id' => null,
+            'model' => 'Golf GTI',
+            'type' => 'Gasolina',
+            'description' => 'Hatchback deportivo clásico, motor 2.0 TSI, diseño icónico y rendimiento sólido.',
+            'price' => 22500.00,
+            'image' => 'assets/img/VW/gti.png'
+        ]);
+        $car->extras()->attach([$exGPS->id, $exTecho->id]);
+
+        // --- Mini Cooper ---
+        $car = Car::create([
+            'brand_id' => $brandMini->id,
+            'user_id' => null,
+            'model' => 'Mini Cooper S',
+            'type' => 'Gasolina',
+            'description' => 'Clásico urbano con motor turbo, estilo retro y conducción divertida.',
+            'price' => 18900.00,
+            'image' => 'assets/img/mini/mini-chope.png'
+        ]);
+        // El Mini típicamente lleva techo y audio
         $car->extras()->attach([$exTecho->id, $exAudio->id]);
 
+        // --- Seat Leon ---
         $car = Car::create([
-            'brand_id' => $brandToyota->id, 
-            'user_id' => $userJuan->id, 
-            'model' => 'Corolla', 
-            'type' => 'Híbrido', 
-            'description' => 'Fiable y bajo consumo.', 
-            'price' => 24000.00,
-            'image' => 'assets/img/toyota/corolla.png'
+            'brand_id' => $brandSeat->id,
+            'user_id' => null,
+            'model' => 'Leon',
+            'type' => 'Gasolina',
+            'description' => 'Compacto español, diseño moderno, motor eficiente y equipamiento tecnológico.',
+            'price' => 20000.00,
+            'image' => 'assets/img/seat/seta-leon.png'
         ]);
+        $car->extras()->attach([$exGPS->id]); // Solo navegador
 
-        Car::create([
-            'brand_id' => $brandSeat->id, 
-            'user_id' => null, 
-            'model' => 'Ibiza FR', 
-            'type' => 'Gasolina', 
-            'description' => 'Ideal para ciudad. Acabado deportivo FR.', 
-            'price' => 18500.00,
-            'image' => 'assets/img/seat/ibiza.png'
-        ])->extras()->attach([$exLed->id]);
+        // 5. REVIEWS
+        $reviews = [
+            ['rating' => 5, 'content' => 'Excelente servicio.'],
+            ['rating' => 4, 'content' => 'Buen trato, algo lentos.'],
+            ['rating' => 3, 'content' => 'Correcto sin más.'],
+            ['rating' => 5, 'content' => 'Grandes profesionales.'],
+        ];
 
-        Car::create([
-            'brand_id' => $brandFord->id, 
-            'user_id' => null, 
-            'model' => 'Focus ST-Line', 
-            'type' => 'Diesel', 
-            'description' => 'Compacto con muy bajo consumo.', 
-            'price' => 22900.00,
-            'image' => 'assets/img/ford/focus.jpg'
-        ]);
-
-        Car::create([
-            'brand_id' => $brandToyota->id, 
-            'user_id' => null, 
-            'model' => 'Yaris Hybrid', 
-            'type' => 'Híbrido', 
-            'description' => 'El rey de la ciudad. Etiqueta ECO.', 
-            'price' => 21000.00,
-            'image' => 'assets/img/toyota/yaris.jpg'
-        ]);
-
-        Car::create([
-            'brand_id' => $brandVW->id, 
-            'user_id' => null, 
-            'model' => 'Polo GTI', 
-            'type' => 'Gasolina', 
-            'description' => 'Pequeño pero matón. 207 CV.', 
-            'price' => 32000.00,
-            'image' => 'assets/img/VW/polo.png'
-        ])->extras()->attach([$exSport->id]);
-
-        Car::create([
-            'brand_id' => $brandAudi->id, 
-            'user_id' => null, 
-            'model' => 'A3 Sportback', 
-            'type' => 'Diesel', 
-            'description' => 'Acabado S-Line. Elegante y práctico.', 
-            'price' => 34500.00,
-            'image' => 'assets/img/audi/a3.png'
-        ])->extras()->attach([$exGPS->id, $exTecho->id]);
-
-        Car::create([
-            'brand_id' => $brandVW->id, 
-            'user_id' => null, 
-            'model' => 'Golf GTI 8', 
-            'type' => 'Gasolina', 
-            'description' => 'El compacto deportivo por excelencia.', 
-            'price' => 46000.00,
-            'image' => 'assets/img/VW/golf.png'
-        ])->extras()->attach([$exSport->id, $exLed->id]);
-
-        Car::create([
-            'brand_id' => $brandFord->id, 
-            'user_id' => null, 
-            'model' => 'Mustang GT', 
-            'type' => 'Gasolina', 
-            'description' => 'Motor V8 5.0L atmosférico. Sonido puro.', 
-            'price' => 58000.00,
-            'image' => 'assets/img/ford/mustang.png'
-        ])->extras()->attach([$exCuero->id, $exSport->id]);
-
-        Car::create([
-            'brand_id' => $brandBMW->id, 
-            'user_id' => null, 
-            'model' => 'M2 Coupé', 
-            'type' => 'Gasolina', 
-            'description' => 'Tracción trasera y mucha diversión.', 
-            'price' => 78000.00,
-            'image' => 'assets/img/bmw/m2.png'
-        ])->extras()->attach([$exSport->id, $exAudio->id]);
-
-        Car::create([
-            'brand_id' => $brandToyota->id, 
-            'user_id' => null, 
-            'model' => 'GR Supra', 
-            'type' => 'Gasolina', 
-            'description' => 'Leyenda japonesa renacida.', 
-            'price' => 65000.00,
-            'image' => 'assets/img/toyota/supra-mk5.jpg'
-        ]);
-
-        Car::create([
-            'brand_id' => $brandPorsche->id, 
-            'user_id' => null, 
-            'model' => '718 Cayman', 
-            'type' => 'Gasolina', 
-            'description' => 'Motor central. Equilibrio perfecto.', 
-            'price' => 72000.00,
-            'image' => 'assets/img/porshe/cayman.png'
-        ])->extras()->attach([$exCuero->id]);
-
-        Car::create([
-            'brand_id' => $brandMercedes->id, 
-            'user_id' => null, 
-            'model' => 'Clase C Estate', 
-            'type' => 'Diesel', 
-            'description' => 'Viajes largos con la máxima comodidad.', 
-            'price' => 52000.00,
-            'image' => 'assets/img/mercedes/clasec.png'
-        ])->extras()->attach([$exGPS->id, $exAudio->id]);
-
-        Car::create([
-            'brand_id' => $brandBMW->id, 
-            'user_id' => null, 
-            'model' => 'X3 xDrive', 
-            'type' => 'Híbrido', 
-            'description' => 'SUV premium con tracción total.', 
-            'price' => 61000.00,
-            'image' => 'assets/img/bmw/x3.png'
-        ])->extras()->attach([$exTecho->id, $exLed->id]);
-        
-        Car::create([
-            'brand_id' => $brandAudi->id, 
-            'user_id' => null, 
-            'model' => 'RS6 Avant', 
-            'type' => 'Gasolina', 
-            'description' => '600 CV para llevar la compra.', 
-            'price' => 145000.00,
-            'image' => 'assets/img/audi/rs6.png'
-        ]);
-        
-        Car::create([
-            'brand_id' => $brandPorsche->id, 
-            'user_id' => null, 
-            'model' => '911 Carrera', 
-            'type' => 'Gasolina', 
-            'description' => 'El 911 de acceso, atemporal.', 
-            'price' => 130000.00,
-            'image' => 'assets/img/porshe/911.png'
-        ]);
+        foreach ($reviews as $review) {
+            DB::table('reviews')->insert([
+                'user_id' => User::inRandomOrder()->first()->id,
+                'rating' => $review['rating'],
+                'content' => $review['content'],
+                'created_at' => Carbon::now()->subDays(rand(1, 30)),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

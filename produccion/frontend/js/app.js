@@ -20,67 +20,62 @@ setInterval(() => {
 }, 60000);
 
 // Dependiendo del código que devuelva el JSON de la API Open Meteo, se mostrará un icono del tiempo diferente en la página
-function climaCielo(codigo) {
-    if (codigo == 0) {
-        return `<img src="assets/img/clima/despejado.png" alt="clima-despejado">`;
-    }
-    if (codigo >= 1 && codigo <= 3) {
-        return `<img src="assets/img/clima/nublado.png" alt="clima-nublado">`;
-    }
-    if (codigo >= 45 && codigo <= 48) {
-        return `<img src="assets/img/clima/niebla.png" alt="clima-niebla">`;
-    }
-    if (codigo >= 51 && codigo <= 55) {
-        return `<img src="assets/img/clima/lluvia_suave.png" alt="clima-lluvia-suave">`;
-    }
-    if (codigo >= 61 && codigo <= 67) {
-        return `<img src="assets/img/clima/lluvia.png" alt="clima-lluvia">`;
-    }
-    if (codigo >= 71 && codigo <= 77) {
-        return `<img src="assets/img/clima/nieve.png" alt="clima-nieve">`;
-    }
-    if (codigo >= 80 && codigo >= 82) {
-        return `<img src="assets/img/clima/lluvia_fuerte.png" alt="clima-lluvia-fuerte">`;
-    }
-    if (codigo >= 95 && codigo <= 99) {
-        return `<img src="assets/img/clima/tormenta.png" alt="clima-tormenta">`;
-    }
+function obtenerRutaIcono(codigo) {
+    if (codigo == 0) return "assets/img/clima/despejado.png";
+    if (codigo >= 1 && codigo <= 3) return "assets/img/clima/nublado.png";
+    if (codigo >= 45 && codigo <= 48) return "assets/img/clima/niebla.png";
+    if (codigo >= 51 && codigo <= 55) return "assets/img/clima/lluvia_suave.png";
+    if (codigo >= 61 && codigo <= 67) return "assets/img/clima/lluvia.png";
+    if (codigo >= 71 && codigo <= 77) return "assets/img/clima/nieve.png";
+    if (codigo >= 80 && codigo <= 82) return "assets/img/clima/lluvia_fuerte.png";
+    if (codigo >= 95 && codigo <= 99) return "assets/img/clima/tormenta.png";
 
-    return "Desconocido";
+    return "Desconocido"; 
 }
 
 // Función para llamar a la API Open Meteo
 function clima() {
-    // Petición al archivo api.php en Laravel
     fetch("/api/clima")
         .then(response => {
-            if (!response.ok) {
-                throw new Error("Error: Ha habido un error en la solicitud");
-            }
+            if (!response.ok) throw new Error("Error en la solicitud");
             return response.json();
         })
         .then(data => {
-            // Si devuelve el JSON con el tiempo actual se guardará la temperatura, la velocidad del viento y el código (soleado, nublado, lluvia...) en Irún
-            if(data.current_weather) {
-                let temperatura = data.current_weather.temperature;
-                let viento = data.current_weather.windspeed;
+            // Verificamos que existen los datos del clima actual
+            if (data.current_weather) {
+                let temperatura = Math.round(data.current_weather.temperature);
                 let codigo = data.current_weather.weathercode;
+                let viento = data.current_weather.windspeed; // Por si lo quieres usar
 
-                // Llamada a la funcion climaCielo() donde dependiendo del código del tiempo del JSON de la API se guardará una imágen en la variable
-                let cielo = climaCielo(codigo);
+                // 1. TRADUCIMOS EL CÓDIGO A TEXTO (La clave para arreglarlo)
+                let descripcionTexto = obtenerDescripcion(codigo);
 
-                // Se actualiza el texto de la página principal con el icono y tiempo actual
-                widgetClima.innerHTML = `${cielo} ${temperatura}ºC (Viento: ${viento} km/h)`;
-            }
-            else {
-                widgetClima.innerHTML = `No ha sido posible cargar el clima actual.`;
-            }
+                // 2. ACTUALIZAMOS EL HTML
+                
+                // Temperatura
+                let tempElement = document.getElementById('temp-valor');
+                if (tempElement) tempElement.textContent = temperatura;
+
+                // Descripción (Ahora sí mostrará "Lluvia", "Nublado", etc.)
+                let descElement = document.getElementById('descripcion-clima');
+                if (descElement) descElement.textContent = descripcionTexto;
+
+                // Consejo (Usamos el texto traducido para elegir el consejo)
+                let consejoElement = document.getElementById('consejo-clima');
+                if (consejoElement) consejoElement.textContent = obtenerConsejoConduccion(descripcionTexto);
+
+                // Icono
+                let imgElement = document.getElementById('icono-tiempo-img');
+                if (imgElement) {
+                    imgElement.src = obtenerRutaIcono(codigo);
+                }
+            } 
         })
         .catch(error => {
-            console.log(`Error al cargar el archivo: ${error}`);
+            console.error("Error cargando el clima:", error);
+            document.getElementById('descripcion-clima').textContent = "Error al cargar";
         });
 }
-
 function comprobarSesion() {
     fetch("/api/user", {
         method: 'GET',
@@ -186,3 +181,52 @@ function recogerDatos(coche) {
         clearInterval(intervalo);
         iniciarCarrusel();
     }
+
+    function obtenerConsejoConduccion(clima) {
+    // Convertimos a minúsculas para facilitar la búsqueda
+    const condicion = clima.toLowerCase();
+
+        // 1. LLUVIA O LLOVIZNA
+        if (condicion.includes('lluvia') || condicion.includes('llovizna') || condicion.includes('rain')) {
+            return "⚠️ Calzada mojada. Aumenta la distancia de seguridad.";
+        }
+        
+        // 2. NIEVE O HIELO
+        if (condicion.includes('nieve') || condicion.includes('nevada') || condicion.includes('snow')) {
+            return "❄️ ¡Cuidado! Posible hielo. Usa marchas largas.";
+        }
+        
+        // 3. TORMENTA
+        if (condicion.includes('tormenta') || condicion.includes('truenos') || condicion.includes('storm')) {
+            return "⛈️ Evita desplazamientos innecesarios.";
+        }
+        
+        // 4. NIEBLA
+        if (condicion.includes('niebla') || condicion.includes('neblina') || condicion.includes('mist')) {
+            return "🌫️ Poca visibilidad. Enciende las antiniebla.";
+        }
+        
+        // 5. SOL / DESPEJADO
+        if (condicion.includes('sol') || condicion.includes('despejado') || condicion.includes('clear')) {
+            return "☀️ Condiciones perfectas. ¡Disfruta de la carretera!";
+        }
+        
+        // 6. NUBLADO
+        if (condicion.includes('nubes') || condicion.includes('nuboso') || condicion.includes('clouds')) {
+            return "☁️ Buen tiempo para conducir, pero revisa tus luces.";
+        }
+
+        // POR DEFECTO (Si no reconoce nada)
+        return "🚗 Conduce siempre con precaución.";
+    }
+    function obtenerDescripcion(codigo) {
+    if (codigo == 0) return "Cielo despejado";
+    if (codigo >= 1 && codigo <= 3) return "Nublado";
+    if (codigo >= 45 && codigo <= 48) return "Niebla";
+    if (codigo >= 51 && codigo <= 55) return "Llovizna";
+    if (codigo >= 61 && codigo <= 67) return "Lluvia";
+    if (codigo >= 71 && codigo <= 77) return "Nieve";
+    if (codigo >= 80 && codigo <= 82) return "Lluvia fuerte";
+    if (codigo >= 95 && codigo <= 99) return "Tormenta";
+    return "Clima variable";
+}
