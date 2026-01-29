@@ -1,5 +1,5 @@
 <x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard-racing.css') }}">
     
     <div class="racing-body">
         

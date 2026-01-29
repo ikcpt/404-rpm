@@ -20,13 +20,13 @@ Route::get('register', function() {
     return view('register');
 })->name('register');
 
-Route::get('/dashboard', function () {
-    return redirect('/');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/acceso', function () {
-    return view('portal');
-})->name('portal');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name;
 
 // Rutas para el middleware de Breeze para la autenticación
 Route::middleware('auth')->group(function () {

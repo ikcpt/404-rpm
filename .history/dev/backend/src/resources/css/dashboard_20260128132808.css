@@ -1,0 +1,315 @@
+/* public/css/dashboard-racing.css */
+
+:root {
+    /* --- TU PALETA EXACTA --- */
+    --color-primario: #1e4fa3;       /* Azul Oscuro (Bordes, Botones) */
+    --color-secundario: #e10600;     /* Rojo (Alertas, Registro, Acentos) */
+    --color-terciario: #0b0e13;      /* Negro Fondo (Body) */
+    --color-contraste: #f2f2f2;      /* Gris Claro (Textos secundarios) */
+    --color-acento: #2e90ff;         /* Azul Brillante (Neón, Foco, Iconos) */
+    --color-acento-secundario: #8c0f14; /* Rojo Oscuro (Hover botones rojos) */
+    --color-blanco: #ffffff;         /* Texto Principal */
+    
+    --bg-panel: rgba(20, 25, 35, 0.95); /* Fondo de tarjetas semitransparente */
+    --font-tech: 'Inter', system-ui, sans-serif;
+}
+
+/* --- FONDO Y ESTRUCTURA GENERAL --- */
+.racing-body {
+    background-color: var(--color-terciario);
+    /* Degradado sutil usando tu azul primario muy oscuro */
+    background-image: radial-gradient(circle at 50% 0%, #152035 0%, var(--color-terciario) 80%);
+    min-height: 100vh;
+    color: var(--color-blanco);
+    font-family: var(--font-tech);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+/* --- TARJETAS (LOGIN / REGISTRO) --- */
+.racing-card {
+    background: var(--bg-panel);
+    border: 1px solid rgba(46, 144, 255, 0.1); /* Borde sutil azulado */
+    border-top: 3px solid var(--color-acento);  /* Línea superior neón AZUL */
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 450px;
+    /* Resplandor azul suave */
+    box-shadow: 0 0 30px rgba(46, 144, 255, 0.1); 
+    backdrop-filter: blur(10px);
+}
+
+/* Variante ROJA (Para Registro o Alertas) */
+.racing-card.red-accent {
+    border-top-color: var(--color-secundario);
+    box-shadow: 0 0 30px rgba(225, 6, 0, 0.15); /* Resplandor rojo */
+}
+
+/* --- TIPOGRAFÍA Y LOGOS --- */
+.racing-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.racing-logo svg {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 8px rgba(46, 144, 255, 0.5));
+}
+
+.red-accent .racing-logo svg {
+    filter: drop-shadow(0 0 8px rgba(225, 6, 0, 0.5));
+}
+
+.racing-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: var(--color-blanco);
+}
+
+.racing-subtitle {
+    text-align: center;
+    color: var(--color-contraste);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+/* --- INPUTS --- */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.input-racing {
+    width: 100%;
+    padding: 14px 15px 14px 45px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: var(--color-blanco);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-racing::placeholder {
+    color: #666;
+}
+
+/* Focus Azul (Por defecto) */
+.input-racing:focus {
+    outline: none;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 15px rgba(46, 144, 255, 0.2);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Focus Rojo (Si estamos en tarjeta roja) */
+.red-accent .input-racing:focus {
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 15px rgba(225, 6, 0, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #666;
+    transition: 0.3s;
+}
+
+.input-racing:focus + .input-icon {
+    color: var(--color-acento);
+}
+.red-accent .input-racing:focus + .input-icon {
+    color: var(--color-secundario);
+}
+
+/* --- BOTONES --- */
+.btn-turbo {
+    width: 100%;
+    padding: 16px;
+    /* Degradado Azul */
+    background: linear-gradient(135deg, var(--color-primario), var(--color-acento));
+    border: none;
+    border-radius: 8px;
+    color: var(--color-blanco);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(30, 79, 163, 0.3);
+}
+
+.btn-turbo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(46, 144, 255, 0.5);
+}
+
+/* Botón Rojo (Para registro) */
+.btn-turbo.red {
+    background: linear-gradient(135deg, var(--color-acento-secundario), var(--color-secundario));
+    box-shadow: 0 4px 15px rgba(140, 15, 20, 0.4);
+}
+.btn-turbo.red:hover {
+    box-shadow: 0 8px 25px rgba(225, 6, 0, 0.6);
+}
+
+.form-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+.form-links a {
+    color: var(--color-contraste);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.form-links a:hover {
+    color: var(--color-acento);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* --- DASHBOARD GRID --- */
+.dashboard-container {
+    max-width: 1200px;
+    width: 95%;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.dash-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 10px;
+}
+
+/* Widgets */
+.widget {
+    background: var(--bg-panel);
+    border-radius: 16px;
+    padding: 1.8rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.widget:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.widget-large {
+    grid-column: span 2;
+    border-left: 3px solid var(--color-acento); /* Acento Azul */
+}
+
+.widget-header {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--color-contraste);
+    opacity: 0.6;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.widget-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-blanco);
+    line-height: 1;
+}
+
+/* Colores de texto específicos */
+.text-acento { color: var(--color-acento); text-shadow: 0 0 15px rgba(46, 144, 255, 0.4); }
+.text-secundario { color: var(--color-secundario); text-shadow: 0 0 15px rgba(225, 6, 0, 0.4); }
+
+/* Barras de progreso */
+.progress-bg {
+    background: rgba(255,255,255,0.1);
+    height: 6px;
+    border-radius: 3px;
+    width: 100%;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    /* Animación de carga */
+    transition: width 1s ease-out;
+}
+
+.fill-blue { background: var(--color-acento); box-shadow: 0 0 10px var(--color-acento); }
+.fill-red { background: var(--color-secundario); box-shadow: 0 0 10px var(--color-secundario); }
+
+/* Gauge Circular (Rediseñado para CSS puro) */
+.gauge-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--color-secundario) 0% 75%, 
+        rgba(255,255,255,0.1) 75% 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 0 20px rgba(225, 6, 0, 0.2);
+}
+
+.gauge-inner {
+    width: 85px;
+    height: 85px;
+    background: var(--bg-panel);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--color-blanco);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container { grid-template-columns: 1fr; }
+    .widget-large { grid-column: span 1; }
+}

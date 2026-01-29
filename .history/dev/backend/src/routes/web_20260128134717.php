@@ -24,9 +24,7 @@ Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/acceso', function () {
-    return view('portal');
-})->name('portal');
+
 
 // Rutas para el middleware de Breeze para la autenticación
 Route::middleware('auth')->group(function () {

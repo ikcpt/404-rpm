@@ -308,39 +308,35 @@
 /* --- CONTENIDO DE LA TARJETA --- */
 .contenido-tarjeta {
     padding: 1.5rem;
-    
-    /* EL TRUCO: Añadimos más espacio abajo para que el texto suba */
-    padding-bottom: 3rem; /* Espacio de seguridad para la barra */
     display: flex;
     flex-direction: column;
-    flex-grow: 1; 
-    background: white;
+    flex-grow: 1; /* Ocupa el espacio restante */
+    background: white; /* Asegura fondo blanco para que se lea el texto */
     position: relative;
-    z-index: 2;
+    z-index: 2; /* Por encima de cualquier efecto extraño */
 }
 
 .contenido-tarjeta h3 {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--color-terciario); 
+    color: var(--color-terciario); /* Negro */
     margin-bottom: 5px;
 }
 
 .contenido-tarjeta .detalles {
     font-size: 0.9rem;
-    color: #64748b; 
+    color: #64748b; /* Gris medio */
     margin-bottom: 15px;
     font-weight: 500;
 }
 
+/* Precio destacado */
 .contenido-tarjeta .precio {
     font-size: 1.4rem;
     font-weight: 800;
-    color: var(--color-primario);
-    
-    /* Empuja todo lo anterior hacia arriba */
-    margin-top: auto; 
-    margin-bottom: 10px;
+    color: var(--color-primario); /* Azul */
+    margin-top: auto; /* Empuja el precio y botón al final si hay espacio */
+    margin-bottom: 15px;
 }
 
 /* --- BOTÓN DE LA TARJETA --- */

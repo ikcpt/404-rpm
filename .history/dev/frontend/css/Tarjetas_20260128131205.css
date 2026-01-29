@@ -311,6 +311,7 @@
     
     /* EL TRUCO: Añadimos más espacio abajo para que el texto suba */
     padding-bottom: 3rem; /* Espacio de seguridad para la barra */
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1; 
