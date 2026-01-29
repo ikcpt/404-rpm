@@ -1,100 +1,19 @@
-form {
-  max-width: 600px;
-  margin: 2rem auto;
-  background-color: white;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  color: var(--color-primario);
-  margin-bottom: 2rem;
-}
-
-form h2 {
-  color: var(--color-terciario);
-  font-size: 1.2rem;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-form label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #444;
-}
-
-form input,
-form select,
-form textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  font-family: inherit;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-form input:focus,
-form select:focus,
-form textarea:focus {
-  outline: none;
-  border-color: var(--color-primario);
-  background-color: white;
-  box-shadow: 0 0 0 3px rgba(30, 79, 163, 0.1);
-}
-
-form textarea {
-  height: 100px;
-  resize: vertical;
-}
-
-form br {
-  display: none;
-}
-
-form button[type="submit"] {
-  width: 100%;
-  padding: 15px;
-  margin-top: 1rem;
-  background-color: var(--color-primario);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    background 0.3s,
-    transform 0.2s;
-  text-transform: uppercase;
-}
-
-form button[type="submit"]:hover {
-  background-color: var(--color-terciario);
-  transform: translateY(-2px);
-}
-
+/* ================= BANNER HERO CITA ================= */
 .banner-hero-cita {
     width: 100%;
-    height: 50vh;
-    min-height: 400px;
-    background-image: url('../assets/img/banner-taller.png');
+    height: 45vh; /* Un poco más bajo para que luzca el formulario */
+    min-height: 350px;
+    background-image: url('../assets/img/banner-taller.png'); /* Asegúrate que la ruta es correcta */
     background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    background-position: center;
     position: relative;
-    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
+/* Capa oscura para que se lea el texto */
 .banner-hero-cita::before {
     content: '';
     position: absolute;
@@ -102,5 +21,174 @@ form button[type="submit"]:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(rgba(11, 14, 19, 0.7), rgba(11, 14, 19, 0.9)); /* Gradiente oscuro */
+}
+
+.banner-contenido {
+    position: relative;
+    z-index: 2;
+    color: white;
+    padding: 20px;
+    margin-top: -40px; /* Subir un poco el texto visualmente */
+}
+
+.banner-contenido h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.banner-contenido p {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+    font-weight: 300;
+}
+
+/* ================= CONTENEDOR PRINCIPAL ================= */
+.contenedor-formulario-main {
+    max-width: 800px;
+    margin: -80px auto 4rem; /* Margen negativo para subir el form sobre el banner */
+    position: relative;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+/* ================= ESTILOS DEL FORMULARIO ================= */
+.form-cita {
+    background-color: white;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Sombra potente */
+    border-top: 5px solid var(--color-primario); /* Borde azul arriba */
+}
+
+.cabecera-form {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cabecera-form h2 {
+    color: var(--color-terciario);
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.cabecera-form p {
+    color: #64748b;
+}
+
+/* Fieldset (Agrupaciones) */
+fieldset.grupo-form {
+    border: none;
+    margin-bottom: 2rem;
+    padding: 0;
+}
+
+fieldset legend {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e2e8f0;
+    width: 100%;
+    display: block;
+}
+
+/* ================= GRID SYSTEM (La clave del diseño) ================= */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box.full-width {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* ================= INPUTS Y LABELS ================= */
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+input, select, textarea {
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(46, 144, 255, 0.15); /* Halo azul suave */
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ================= BOTÓN ================= */
+.btn-submit {
+    width: 100%;
+    padding: 18px;
+    background: var(--color-primario);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(30, 79, 163, 0.3);
+    margin-top: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: var(--color-terciario); /* Se vuelve negro/oscuro */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .banner-hero-cita {
+        height: 300px;
+    }
+    
+    .contenedor-formulario-main {
+        margin-top: -50px; /* Menos solapamiento en móvil */
+    }
+
+    .form-cita {
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr; /* Una columna en móvil */
+        gap: 15px;
+    }
+
+    .banner-contenido h1 {
+        font-size: 2rem;
+    }
 }

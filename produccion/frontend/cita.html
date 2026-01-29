@@ -25,7 +25,7 @@
 
         <nav class="navegacion-principal">
             <ul class="lista-navegacion">
-                <li><a href="/" class="enlace-nav activo">Inicio</a></li>
+                <li><a href="/" class="enlace-nav ">Inicio</a></li>
                 <li><a href="taller.html" class="enlace-nav">Taller</a></li>
                 <li><a href="concesionario.html" class="enlace-nav">Concesionario</a></li>
                 
@@ -64,56 +64,108 @@
     </div>
 </header>
 
-<section class="banner-hero-cita"></section>
+<section class="banner-hero-cita">
+        <div class="banner-contenido">
+            <h1>Reserva tu Box</h1>
+            <p>Tu coche merece las mejores manos. Agenda tu cita en segundos.</p>
+        </div>
+    </section>
 
-    <h1>Formulario de Cita</h1>
-    <form action="">
-        <h2>Datos del cliente</h2>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre">
-        <br>
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido">
-        <br>
-        <label for="telefono">Telefono:</label>
-        <input type="text" id="telefono" name="telefono">
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-        <br>
-        <br>
-        <h2>Datos del vehiculo</h2>
-        <label for="marca">Marca: </label>
-        <input type="text" id="marca" name="marca">
-        <br>
-        <label for="modelo">Modelo: </label>
-        <input type="text" id="modelo" name="modelo">
-        <br>
-        <label for="matricula">Matricula: </label>
-        <input type="text" id="matricula" name="matricula">
-        <br>
-        <label for="KM_Actual">Kilometraje actual: </label>
-        <input type="number" id="KM_Actual" name="KM_Actual">
-        <br>
-        <h2>Datos de la cita</h2>
-        <label for="tipoServicio">Tipo de servicio: </label>
-        <select name="tipoServicio" id="tipoServicio">
-            <option value="">Seleccione un tipo de servicio</option>
-            <option value="preventivo">Preventivo</option>
-            <option value="correctivo">Correctivo</option>
-        </select>
-        <br>
-        <label for="descripcionProblema">Descripción del problema: </label>
-        <textarea name="descripcionProblema" id="descripcionProblema"></textarea>
-        <br>
-        <label for="fecha">Fecha Preferente:</label>
-        <input type="date" id="fecha" name="fecha">
-        <br>
-        <label for="hora">Hora Preferente:</label>
-        <input type="time" id="hora" name="hora">
-        <br>
-        <button type="submit">Pedir Cita</button>
-    </form>
+    <div class="contenedor-formulario-main">
+        <form action="" class="form-cita">
+            <div class="cabecera-form">
+                <h2>Formulario de Cita</h2>
+                <p>Completa los datos para coordinar el servicio.</p>
+            </div>
+
+            <fieldset class="grupo-form">
+                <legend>👤 Datos del Conductor</legend>
+                
+                <div class="form-row">
+                    <div class="input-box">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Carlos" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" placeholder="Ej: Sainz" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-box">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="grupo-form">
+                <legend>🏎️ Datos de la Máquina</legend>
+                
+                <div class="form-row">
+                    <div class="input-box">
+                        <label for="marca">Marca</label>
+                        <input type="text" id="marca" name="marca" placeholder="Ej: Ferrari">
+                    </div>
+                    <div class="input-box">
+                        <label for="modelo">Modelo</label>
+                        <input type="text" id="modelo" name="modelo" placeholder="Ej: F40">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-box">
+                        <label for="matricula">Matrícula</label>
+                        <input type="text" id="matricula" name="matricula" style="text-transform: uppercase;">
+                    </div>
+                    <div class="input-box">
+                        <label for="KM_Actual">Kilometraje Actual</label>
+                        <input type="number" id="KM_Actual" name="KM_Actual" placeholder="Ej: 50000">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="grupo-form">
+                <legend>📅 Detalles del Servicio</legend>
+                
+                <div class="input-box full-width">
+                    <label for="tipoServicio">Tipo de servicio</label>
+                    <select name="tipoServicio" id="tipoServicio">
+                        <option value="">Seleccione una opción...</option>
+                        <option value="mantenimiento">Mantenimiento Preventivo (Aceite, Filtros)</option>
+                        <option value="reparacion">Reparación / Avería</option>
+                        <option value="neumaticos">Neumáticos / Alineación</option>
+                        <option value="itv">Revisión Pre-ITV</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-box">
+                        <label for="fecha">Fecha Preferente</label>
+                        <input type="date" id="fecha" name="fecha">
+                    </div>
+                    <div class="input-box">
+                        <label for="hora">Hora Aproximada</label>
+                        <input type="time" id="hora" name="hora">
+                    </div>
+                </div>
+
+                <div class="input-box full-width">
+                    <label for="descripcionProblema">Descripción del problema / Notas</label>
+                    <textarea name="descripcionProblema" id="descripcionProblema" placeholder="Cuéntanos qué necesita tu coche..."></textarea>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn-submit">
+                Confirmar Cita 🏁
+            </button>
+        </form>
+    </div>
     
     <script src="js/app.js"></script>
 </body>
