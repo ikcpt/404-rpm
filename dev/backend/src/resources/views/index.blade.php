@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -39,8 +39,7 @@
                     </li>
 
                     <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
-                        <a href="/login" class="enlace-nav">Iniciar Sesión</a>
-                        <a href="/register" class="enlace-nav" style="font-weight: 600;">Registrarse</a>
+                        <a href="/acceso" class="enlace-nav">Entrar</a>
                     </li>
 
                     <li id="menu-auth" class="item-con-desplegable" style="display: none;">
@@ -210,42 +209,42 @@
             </div>
 
             <div class="galeria-coches">
-                <article class="tarjeta-coche">
-                    <div class="imagen-coche">
-                        <img src="assets/img/mercedes/mercedes-amg-A45.png" alt="Mercedes AMG A45">
-                    </div>
-                    <div class="contenido-tarjeta">
+
+                <article class="card-coche blanco">
+                    <img src="assets/img/mercedes/mercedes-amg-A45.png" alt="Mercedes AMG A45">
+                    <div class="info">
                         <h3>Mercedes AMG A45</h3>
-                        <p class="detalles">421 CV • Automático • 2025</p>
-                        <div class="precio">Desde 67.552€</div>
-                        <a href="#" class="btn-tarjeta novedades-coches" id="Mercedes_AMG_A45"
-                            onclick="recogerDatos()">Ver detalles</a>
+                        <span class="precio">Desde 67.552€</span>
+                        <button class="btn-ver" type="button" id="Mercedes_AMG_A45" onclick="recogerDatos()">
+                            Ver ficha →
+                        </button>
                     </div>
                 </article>
-                <article class="tarjeta-coche">
-                    <div class="imagen-coche">
-                        <img src="assets/img/bmw/x5-xDrive.png" alt="BMW X5 xDrive">
-                    </div>
-                    <div class="contenido-tarjeta">
+
+                <article class="card-coche blanco">
+                    <img src="assets/img/bmw/x5-xDrive.png" alt="BMW X5 xDrive">
+                    <div class="info">
                         <h3>BMW X5 xDrive</h3>
-                        <p class="detalles">381 CV • Automático • 2024</p>
-                        <div class="precio">Desde 105.300€</div>
-                        <a href="#" class="btn-tarjeta novedades-coches" id="BMW_X5_xDrive" onclick="recogerDatos()">Ver
-                            detalles</a>
+                        <span class="precio">Desde 105.300€</span>
+                        <button class="btn-ver" type="button" id="BMW_X5_xDrive" onclick="recogerDatos()">
+                            Ver ficha →
+                        </button>
                     </div>
                 </article>
-                <article class="tarjeta-coche">
-                    <div class="imagen-coche">
-                        <img src="assets/img/ford/mustang-GT.png" alt="Ford Mustang GT">
-                    </div>
-                    <div class="contenido-tarjeta">
+
+                <article class="card-coche blanco">
+                    <img src="assets/img/ford/mustang-GT.png" alt="Ford Mustang GT">
+                    <div class="info">
                         <h3>Ford Mustang GT</h3>
-                        <p class="detalles">450 CV • Manual • 2025</p>
-                        <div class="precio">Desde 61.828€</div>
-                        <a href="#" class="btn-tarjeta novedades-coches" id="Ford_Mustang_GT"
-                            onclick="recogerDatos()">Ver detalles</a>
+                        <span class="precio">Desde 61.828€</span>
+                        <button class="btn-ver" type="button">
+                            Ver ficha →
+                        </button>
                     </div>
                 </article>
+
+            </div>
+            </article>
             </div>
         </section>
 
@@ -370,6 +369,7 @@
         </footer>
     </main>
     <script src="js/app.js"></script>
+    <script src="js/concesionario.js"></script>
 </body>
 
 </html>

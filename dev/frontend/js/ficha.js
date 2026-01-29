@@ -9,7 +9,7 @@ if (!id) {
     document.getElementById('nombre').textContent = "Coche no encontrado";
     document.getElementById('img').style.display = 'none';
 } else {
-    // Simulamos la API
+    // Usamos la API
     fetch(`api/cars/${id}`)
         .then(r => r.json())
         .then(c => {
