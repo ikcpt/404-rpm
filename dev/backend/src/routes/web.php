@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Ruta para acceder al menú de inicio de sesión
-Route::get('/acceso', function () {
+Route::get('acceso', function () {
     return view('portal');
 })->name('portal');
 
