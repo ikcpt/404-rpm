@@ -32,7 +32,7 @@
                 <ul class="lista-navegacion">
                     <li><a href="/" class="enlace-nav activo">Inicio</a></li>
                     <li><a href="taller.html" class="enlace-nav">Taller</a></li>
-                    <li><a href="/concesionario" class="enlace-nav">Concesionario</a></li>
+                    <li><a href="concesionario.html" class="enlace-nav">Concesionario</a></li>
 
                     <li>
                         <a href="cita.html" class="enlace-nav boton-destacado">Pedir Cita</a>
@@ -77,7 +77,7 @@
 
             <div class="slide activa">
                 <div class="overlay-oscu"></div>
-                <img src="assets/img/fondo.png" alt="Taller 404 RPM" class="bg-slide">
+                <img src="{{ asset('assets/img/fondo.png') }}" alt="Taller 404 RPM" class="bg-slide">
 
                 <div class="contenido-slide">
                     <span class="tag">Expertos en Mecánica & Performance</span>
@@ -93,7 +93,8 @@
 
             <div class="slide">
                 <div class="overlay-oscu"></div>
-                <img src="assets/img/ferrari/sf90.png" alt="Nuevo Ferrari SF90 Stradale" class="bg-slide">
+                <img src="{{ asset('assets/img/ferrari/sf90.png') }}" alt="Nuevo Ferrari SF90 Stradale"
+                    class="bg-slide">
 
                 <div class="contenido-slide">
                     <span class="tag">Novedad en Stock</span>
@@ -107,7 +108,7 @@
 
             <div class="slide">
                 <div class="overlay-oscu"></div>
-                <img src="assets/img/porsche/GT3.png" alt="Porsche 911 GT3" class="bg-slide">
+                <img src="{{ asset('assets/img/porsche/GT3.png') }}" alt="Porsche 911 GT3" class="bg-slide">
 
                 <div class="contenido-slide">
                     <span class="tag">Exclusivo</span>
@@ -211,7 +212,7 @@
             <div class="galeria-coches">
 
                 <article class="card-coche blanco">
-                    <img src="assets/img/mercedes/mercedes-amg-A45.png" alt="Mercedes AMG A45">
+                    <img src="{{ asset('assets/img/mercedes/mercedes-amg-A45.png') }}" alt="Mercedes AMG A45">
                     <div class="info">
                         <h3>Mercedes AMG A45</h3>
                         <span class="precio">Desde 67.552€</span>
@@ -222,7 +223,7 @@
                 </article>
 
                 <article class="card-coche blanco">
-                    <img src="assets/img/bmw/x5-xDrive.png" alt="BMW X5 xDrive">
+                    <img src="{{ asset('assets/img/bmw/x5-xDrive.png') }}" alt="BMW X5 xDrive">
                     <div class="info">
                         <h3>BMW X5 xDrive</h3>
                         <span class="precio">Desde 105.300€</span>
@@ -233,7 +234,7 @@
                 </article>
 
                 <article class="card-coche blanco">
-                    <img src="assets/img/ford/mustang-GT.png" alt="Ford Mustang GT">
+                    <img src="{{ asset('assets/img/ford/mustang-GT.png') }}" alt="Ford Mustang GT">
                     <div class="info">
                         <h3>Ford Mustang GT</h3>
                         <span class="precio">Desde 61.828€</span>
@@ -243,8 +244,6 @@
                     </div>
                 </article>
 
-            </div>
-            </article>
             </div>
         </section>
 
@@ -293,83 +292,4 @@
                 ¡Sé el primero en opinar!</p>
             @endif
         </section>
-
-        <footer class="pie-pagina">
-            <div class="contenedor-footer">
-
-                <div class="columna-footer">
-                    <h3 class="footer-logo">404 RPM</h3>
-                    <p class="footer-texto">
-                        Expertos en mecánica y venta de vehículos de alta gama en Irun.
-                        Tu coche, nuestra pasión.
-                    </p>
-                </div>
-
-                <div class="columna-footer">
-                    <h4>Navegación</h4>
-                    <ul class="enlaces-footer">
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="taller.html">Taller Mecánico</a></li>
-                        <li><a href="concesionario.html">Concesionario</a></li>
-                        <li><a href="cita.html">Pedir Cita</a></li>
-                    </ul>
-                </div>
-
-                <div class="columna-footer">
-                    <h4>Contacto</h4>
-                    <ul class="info-contacto">
-                        <li>
-                            <span>📍</span> Calle Motor 404, Irun, Gipuzkoa
-                        </li>
-                        <li>
-                            <span>📞</span> +34 943 00 00 00
-                        </li>
-                        <li>
-                            <span>✉️</span> info@404rpm.com
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="columna-footer">
-                    <h4>Síguenos</h4>
-                    <div class="redes-sociales">
-                        <a href="#" aria-label="Instagram" class="icono-social">
-                            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Facebook" class="icono-social">
-                            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Twitter" class="icono-social">
-                            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="barra-copyright">
-                <p>&copy; 2026 404 RPM. Todos los derechos reservados.</p>
-                <div class="legales">
-                    <a href="#">Aviso Legal</a>
-                    <a href="#">Privacidad</a>
-                </div>
-            </div>
-        </footer>
-    </main>
-    <script src="js/app.js"></script>
-    <script src="js/concesionario.js"></script>
-</body>
-
-</html>
+        @endsection

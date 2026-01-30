@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
 
 // Ruta para cargar la página de inicio, redirige al usuario automáticamente a index.html del frontend
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index']
+)->name('home');
 
 // Ruta para inciar sesión
 Route::get('login', function() {
@@ -21,11 +22,13 @@ Route::get('register', function() {
     return view('register');
 })->name('register');
 
+// Si accede a /dashboard, se redigirá automáticamente al usuario a la página de incio
 Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/acceso', function () {
+// Ruta para acceder al menú de inicio de sesión
+Route::get('acceso', function () {
     return view('portal');
 })->name('portal');
 
@@ -57,10 +60,15 @@ Route::get('/ficha/{id}', function ($id) {
     return view('ficha', ['id' => $id]); 
 })->name('ficha');
 
-// Rutas para el middleware de Breeze para la autenticación
+// Rutas del perfil
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Ruta para cambiar la configuración del perfil
+    Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
+
+    // Ruta para actualizar la información del perfil
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Ruta para borrar información del perfil
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Ruta para cargar la página de perfil
@@ -68,7 +76,7 @@ Route::middleware('auth')->group(function () {
         // Se guarda el usuario que ha iniciado sesión en la variable $user, con su perfil y sus coches
         $user = Auth::user()->load('profile', 'cars.brand');
 
-        // Devolvemos la vista "perfil.blade.php" y la variable $user
+        // Devolvemos la vista "perfil.blade.php" y la informacion de $user
         return view('perfil', compact('user'));
     })->name('perfil');
 });

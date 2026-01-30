@@ -60,7 +60,7 @@
                             <li><a href="{{ route('perfil') }}#garaje">🚗 Mi Garaje</a></li>
                             <li><a href="{{ route('perfil') }}#citas">📅 Mis Citas</a></li>
                             <li><a href="{{ route('perfil') }}#facturas">📄 Facturas</a></li>
-                            <li><a href="{{ route('perfil') }}#config">⚙️ Configuración</a></li>
+                            <li><a href="{{ route('configuracion') }}">⚙️ Configuración</a></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
@@ -82,8 +82,7 @@
             <div class="tarjeta-usuario">
                 <div class="avatar">
                     <span>
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                        {{ strtoupper(substr(Auth::user()->profile?->surname ?? '', 0, 1)) }}
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}{{ strtoupper(substr(Auth::user()->profile?->surname ?? '', 0, 1)) }}
                     </span>
                 </div>
                 <h2>{{ Auth::user()->name }} {{ Auth::user()->profile?->surname ?? '' }}</h2>
@@ -99,7 +98,7 @@
                     <a href="#" class="activo">🚗 Mi Garaje</a>
                     <a href="#">📅 Mis Citas</a>
                     <a href="#">📄 Facturas</a>
-                    <a href="#">⚙️ Configuración</a>
+                    <a href="{{ route('configuracion') }}">⚙️ Configuración</a>
 
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
