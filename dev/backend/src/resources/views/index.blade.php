@@ -32,7 +32,7 @@
                 <ul class="lista-navegacion">
                     <li><a href="/" class="enlace-nav activo">Inicio</a></li>
                     <li><a href="taller.html" class="enlace-nav">Taller</a></li>
-                    <li><a href="concesionario.html" class="enlace-nav">Concesionario</a></li>
+                    <li><a href="/concesionario" class="enlace-nav">Concesionario</a></li>
 
                     <li>
                         <a href="cita.html" class="enlace-nav boton-destacado">Pedir Cita</a>

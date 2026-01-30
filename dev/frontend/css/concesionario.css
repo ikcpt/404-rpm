@@ -190,6 +190,57 @@
     z-index: 10;
 }
 
+.contenedor-ver-mas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* CAMBIO AQUÍ: Separación grande respecto a las tarjetas */
+    margin-top: 80px; 
+    margin-bottom: 60px; /* Un poco de aire antes del footer */
+    
+    clear: both; /* Evita que se monte si usas float en las tarjetas */
+}
+
+/* El botón con estilo Racing */
+.btn-desplegar {
+    background-color: var(--color-terciario); /* Fondo Negro */
+    color: var(--color-blanco);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 16px 50px; /* Botón ancho */
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    
+    /* El corte en las esquinas (Polígono) */
+    clip-path: polygon(
+        15px 0, 
+        100% 0, 
+        100% calc(100% - 15px), 
+        calc(100% - 15px) 100%, 
+        0 100%, 
+        0 15px
+    );
+}
+
+/* Efecto al pasar el ratón */
+.btn-desplegar:hover {
+    background-color: var(--color-primario); /* Cambia a Azul */
+    padding-right: 60px; /* Efecto de estiramiento */
+    padding-left: 60px;
+}
+
+/* Efecto de pulsado */
+.btn-desplegar:active {
+    transform: scale(0.98);
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .hero-novedades h1 { font-size: 2rem; }

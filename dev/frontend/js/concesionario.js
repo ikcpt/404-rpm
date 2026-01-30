@@ -1,13 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // Buscamos todos los botones que sirven para desplegar contenido
+    const botonesDesplegar = document.querySelectorAll('.btn-desplegar');
 
-    document.querySelectorAll('.btn-ver').forEach(btn => {
-        btn.addEventListener('click', e => {
+    botonesDesplegar.forEach(boton => {
+        boton.addEventListener('click', function() {
+            // Leemos a qué div apunta este botón (ej: #extra-alta)
+            const selectorObjetivo = this.getAttribute('data-target');
+            const divObjetivo = document.querySelector(selectorObjetivo);
 
-            const card = e.target.closest('.card-coche');
-            const id = card.dataset.id;
-
-            window.location.href = `base.html?id=${id}`;
+            if (divObjetivo) {
+                // Si está oculto, lo mostramos
+                if (divObjetivo.style.display === 'none' || divObjetivo.style.display === '') {
+                    divObjetivo.style.display = 'block';
+                    // Opcional: Cambiar texto del botón
+                    if(this.textContent.includes('Ver')) {
+                         this.textContent = 'Ver menos ↑';
+                    }
+                } 
+                // Si está visible, lo ocultamos
+                else {
+                    divObjetivo.style.display = 'none';
+                    // Restauramos texto (esto es genérico, puedes ajustarlo si quieres textos específicos)
+                    if(this.textContent.includes('Ver')) {
+                        this.textContent = 'Ver colección completa ↓';
+                    }
+                }
+            }
         });
     });
-
 });

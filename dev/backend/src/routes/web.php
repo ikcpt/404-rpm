@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Car;
 
 // Ruta para cargar la página de inicio, redirige al usuario automáticamente a index.html del frontend
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -27,6 +28,34 @@ Route::get('/dashboard', function () {
 Route::get('/acceso', function () {
     return view('portal');
 })->name('portal');
+
+Route::get('/concesionario', function () {
+    // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
+    $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
+    $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
+    $ocasion   = Car::where('class', 'Ocasión')->with('brand')->get();
+
+    return view('concesionario', compact('gamaAlta', 'gamaMedia', 'ocasion'));
+})->name('concesionario');
+
+Route::get('/api/cars/{id}', function ($id) {
+    // Buscamos el coche, su marca y sus extras
+    $car = Car::with(['brand', 'extras'])->find($id);
+
+    if (!$car) {
+        return response()->json(['error' => 'Coche no encontrado'], 404);
+    }
+
+    // Laravel convierte esto automáticamente a JSON
+    return response()->json($car);
+});
+
+// 2. RUTA DE LA FICHA (Solo carga el esqueleto HTML y pasa el ID)
+Route::get('/ficha/{id}', function ($id) {
+    // Solo pasamos el ID a la vista, NO el coche entero.
+    // El JS se encargará de buscar los datos usando el ID.
+    return view('ficha', ['id' => $id]); 
+})->name('ficha');
 
 // Rutas para el middleware de Breeze para la autenticación
 Route::middleware('auth')->group(function () {
