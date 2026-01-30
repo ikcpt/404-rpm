@@ -29,8 +29,8 @@ Route::get('/dashboard', function () {
 
 // Ruta para acceder al menú de inicio de sesión
 Route::get('acceso', function () {
-    return view('portal');
-})->name('portal');
+    return view('acceso');
+})->name('acceso');
 
 Route::get('/concesionario', function () {
     // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
