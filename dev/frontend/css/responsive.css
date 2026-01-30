@@ -1,94 +1,136 @@
-:root {
-  --color-primario: #1e4fa3;
-  --color-secundario: #e10600;
-  --color-terciario: #0b0e13;
-  --color-contraste: #f2f2f2;
-  --color-acento: #2e90ff;
-  --color-acento-secundario: #8c0f14;
-  --color-blanco: #ffffff;
-  --espaciado-sm: 8px;
-  --espaciado-md: 16px;
-  --espaciado-lg: 32px;
-}
+/* =======================================================
+   RESPONSIVE DESIGN - ARREGLO FINAL
+   ======================================================= */
 
-@media (max-width: 480px) {
-  .tarjeta-clima {
-    flex-direction: column;
-    padding: 20px;
-    gap: 15px;
-  }
+/* --- PANTALLAS PEQUEÑAS (MÓVIL Y TABLET) --- */
+@media (max-width: 1024px) {
 
-  .separador-clima {
-    width: 100%;
-    height: 1px;
-  }
-}
+    /* 1. EL BOTÓN HAMBURGUESA */
+    .boton-menu {
+        display: block !important;
+        position: absolute;
+        right: 20px;
+        top: 25px;
+        background: transparent;
+        border: none;
+        font-size: 2.5rem;
+        cursor: pointer;
+        z-index: 99999;
+        color: #333;
+    }
 
-@media (min-width: 768px) {
-  .boton-menu {
-    display: none;
-  }
+    /* 2. EL CONTENEDOR DEL MENÚ (Caja blanca) */
+    .navegacion-principal {
+        position: fixed !important;
+        top: 0 !important;
+        left: -100% !important; /* Escondido a la izquierda */
+        width: 100% !important;
+        height: 100vh !important;
+        background-color: white !important;
+        display: block !important;
+        padding-top: 100px !important;
+        transition: left 0.3s ease !important;
+        z-index: 10000 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        overflow-y: auto !important;
+    }
 
-  .lista-navegacion {
-    display: flex;
-    flex-direction: row;
-    position: static;
-    width: auto;
-    background: transparent;
-    box-shadow: none;
-    padding: 0;
-  }
+    /* 3. CUANDO SE ABRE EL MENÚ (Clase .activo) */
+    .navegacion-principal.activo {
+        left: 0 !important; /* Se mueve al centro */
+    }
 
-  .lista-navegacion li {
+    /* 4. LA LISTA DE ENLACES */
+    .lista-navegacion {
+        display: flex !important;
+        flex-direction: column !important; /* Vertical */
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
 
-  }
+    .lista-navegacion > li {
+        width: 100% !important;
+        border-bottom: 1px solid #eee !important;
+        display: block !important;
+    }
 
-  .lista-navegacion a {
-    font-size: 1rem;
-    position: relative;
-  }
+    .enlace-nav {
+        display: block !important;
+        padding: 20px 30px !important;
+        font-size: 1.2rem !important;
+        color: #333 !important;
+        text-decoration: none !important;
+        text-align: left !important;
+    }
 
-  .lista-navegacion a::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    background: var(--color-blanco);
-    transition: width 0.3s;
-  }
+    /* 5. EL SUBMENÚ (Taller / Concesionario) */
+    /* Por defecto OCULTO en móvil */
+    .submenu {
+        display: none !important; 
+        width: 100% !important;
+        background-color: #f4f4f4 !important;
+        box-shadow: none !important;
+        position: static !important; /* Nada de flotar */
+        padding: 0 !important;
+    }
 
-  .lista-navegacion a:hover::after {
-    width: 100%;
-  }
+    /* 6. LA MAGIA: MOSTRAR SUBMENÚ AL CLICAR */
+    /* El JS añade la clase 'activado' al LI padre */
+    li.item-con-desplegable.activado .submenu {
+        display: block !important; /* ¡APARECE! */
+    }
 
-  .hero {
-    justify-content: flex-start;
-    text-align: left;
-    padding-left: 10%;
-  }
-
-  .hero h1 {
-    font-size: 4rem;
-  }
-
-  .hero p {
-    margin: 0 0 var(--espaciado-lg) 0;
-  }
-}
-
-@media (max-width: 480px) {
-    .widget-clima-moderno {
-        padding: 1.2rem;
-        flex-direction: row; /* Mantener en fila en móvil si cabe */
-        gap: 15px;
+    /* Estilo de los enlaces hijos */
+    .submenu li a {
+        padding: 15px 30px 15px 50px !important; /* Sangría */
+        font-size: 1rem !important;
+        color: #555 !important;
+        display: block !important;
+        border-bottom: 1px solid #ddd !important;
     }
     
-    .clima-info-texto h3 { font-size: 1.2rem; }
-    .clima-temperatura { font-size: 2.5rem; }
-    .grado { font-size: 1.2rem; margin-top: 4px; }
-    .clima-icono-box img { width: 50px; }
+    /* Ocultar flechas CSS conflictivas */
+    .item-con-desplegable::after { display: none !important; }
     
-    .clima-consejo {
-        font-size: 0.75rem;
+    /* Arreglos de layout general para que no se rompa el fondo */
+    .contenedor-header { flex-wrap: nowrap !important; }
+    .hero-carrusel { height: 50vh; }
+    .galeria-coches, .grid-garaje, .contenedor-footer, .contenedor-perfil { 
+        grid-template-columns: 1fr !important; 
+    }
+}
+
+/* --- PANTALLAS GRANDES (ESCRITORIO) --- */
+@media (min-width: 1025px) {
+    .boton-menu { display: none !important; }
+    
+    .navegacion-principal {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+    
+    .lista-navegacion {
+        display: flex !important;
+        flex-direction: row !important; /* Horizontal */
+        gap: 20px !important;
+    }
+    
+    .submenu {
+        position: absolute !important;
+        display: none !important;
+        background: white !important;
+        width: 200px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    }
+    
+    /* En escritorio usamos HOVER */
+    .item-con-desplegable:hover .submenu {
+        display: block !important;
     }
 }
