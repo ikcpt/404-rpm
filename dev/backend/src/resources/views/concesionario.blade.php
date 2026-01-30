@@ -1,79 +1,30 @@
-<!doctype html>
-<html lang="es">
+@extends('layouts.layout')
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Concesionario</title>
-    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Tarjetas.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-</head>
+@section('title', 'Concesionario | 404 RPM')
 
-<body>
-    <header class="encabezado-principal">
-        <div class="contenedor-header">
-            <a href="index.html" class="logo">
-                <img src="assets/img/logo.jpg" alt="404 RPM Inicio">
-            </a>
+@section('content')
 
-            <button class="boton-menu" aria-label="Abrir menú">☰</button>
+<section class="seccion-gama gama-alta">
+    <div class="contenedor-seccion">
+        <h2 class="titulo-seccion">Alta Gama <span class="acento">Exclusiva</span></h2>
 
-            <nav class="navegacion-principal">
-                <ul class="lista-navegacion">
-                    <li><a href="/" class="enlace-nav">Inicio</a></li>
-                    <li><a href="taller.html" class="enlace-nav">Taller</a></li>
-                    <li><a href="concesionario.html" class="enlace-nav activo">Concesionario</a></li>
-
-                    <li>
-                        <a href="cita.html" class="enlace-nav boton-destacado">Pedir Cita</a>
-                    </li>
-
-                    <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
-                        <a href="/acceso" class="enlace-nav">Entrar</a>
-                    </li>
-
-                    <li id="menu-auth" class="item-con-desplegable" style="display: none;">
-                        <a href="/perfil" class="enlace-nav enlace-perfil">
-                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2"
-                                fill="none">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            <span id="user-name">Perfil</span>
-                            <svg class="flecha-baja" width="12" height="12" viewBox="0 0 24 24" stroke="currentColor"
-                                stroke-width="3" fill="none">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </a>
-
-                        <ul class="submenu">
-                            <li><a href="perfil.html#garaje">🚗 Mi Garaje</a></li>
-                            <li><a href="perfil.html#citas">📅 Mis Citas</a></li>
-                            <li><a href="perfil.html#facturas">📄 Facturas</a></li>
-                            <li><a href="perfil.html#config">⚙️ Configuración</a></li>
-                            <li class="separador-menu"></li>
-                            <li><a href="#" id="btn-logout" class="cerrar-sesion">🚪 Cerrar Sesión</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+        <div class="grid-coches">
+            @foreach($gamaAlta->take(3) as $car)
+            <article class="card-coche oscuro">
+                <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                <div class="info">
+                    <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                    <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                    <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                </div>
+            </article>
+            @endforeach
         </div>
-    </header>
 
-    <section class="seccion-gama gama-alta">
-        <div class="contenedor-seccion">
-            <h2 class="titulo-seccion">Alta Gama <span class="acento">Exclusiva</span></h2>
-
+        @if($gamaAlta->count() > 3)
+        <div id="extra-alta" style="display: none; margin-top: 20px;">
             <div class="grid-coches">
-                @foreach($gamaAlta->take(3) as $car)
+                @foreach($gamaAlta->skip(3) as $car)
                 <article class="card-coche oscuro">
                     <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
                     <div class="info">
@@ -84,36 +35,35 @@
                 </article>
                 @endforeach
             </div>
-
-            @if($gamaAlta->count() > 3)
-            <div id="extra-alta" style="display: none; margin-top: 20px;">
-                <div class="grid-coches">
-                    @foreach($gamaAlta->skip(3) as $car)
-                    <article class="card-coche oscuro">
-                        <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
-                        <div class="info">
-                            <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
-                            <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
-                            <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
-                        </div>
-                    </article>
-                    @endforeach
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn-desplegar" data-target="#extra-alta" style="color: #d4af37;">Ver colección
-                    completa ↓</button>
-            </div>
-            @endif
         </div>
-    </section>
+        <div style="text-align: center;">
+            <button class="btn-desplegar" data-target="#extra-alta" style="color: #d4af37;">Ver colección completa ↓</button>
+        </div>
+        @endif
+    </div>
+</section>
 
-    <section class="seccion-gama gama-media">
-        <div class="contenedor-seccion">
-            <h2 class="titulo-seccion">Gama Media</h2>
+<section class="seccion-gama gama-media">
+    <div class="contenedor-seccion">
+        <h2 class="titulo-seccion">Gama Media</h2>
 
+        <div class="grid-coches">
+            @foreach($gamaMedia->take(3) as $car)
+            <article class="card-coche claro">
+                <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                <div class="info">
+                    <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                    <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                    <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                </div>
+            </article>
+            @endforeach
+        </div>
+
+        @if($gamaMedia->count() > 3)
+        <div id="extra-media" style="display: none; margin-top: 20px;">
             <div class="grid-coches">
-                @foreach($gamaMedia->take(3) as $car)
+                @foreach($gamaMedia->skip(3) as $car)
                 <article class="card-coche claro">
                     <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
                     <div class="info">
@@ -124,36 +74,35 @@
                 </article>
                 @endforeach
             </div>
-
-            @if($gamaMedia->count() > 3)
-            <div id="extra-media" style="display: none; margin-top: 20px;">
-                <div class="grid-coches">
-                    @foreach($gamaMedia->skip(3) as $car)
-                    <article class="card-coche claro">
-                        <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
-                        <div class="info">
-                            <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
-                            <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
-                            <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
-                        </div>
-                    </article>
-                    @endforeach
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn-desplegar" data-target="#extra-media" style="color: #333;">Ver más modelos
-                    ↓</button>
-            </div>
-            @endif
         </div>
-    </section>
+        <div style="text-align: center;">
+            <button class="btn-desplegar" data-target="#extra-media" style="color: #333;">Ver más modelos ↓</button>
+        </div>
+        @endif
+    </div>
+</section>
 
-    <section class="seccion-gama gama-baja">
-        <div class="contenedor-seccion">
-            <h2 class="titulo-seccion">Ocasión</h2>
+<section class="seccion-gama gama-baja">
+    <div class="contenedor-seccion">
+        <h2 class="titulo-seccion">Ocasión</h2>
 
+        <div class="grid-coches">
+            @foreach($ocasion->take(3) as $car)
+            <article class="card-coche blanco">
+                <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                <div class="info">
+                    <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                    <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                    <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                </div>
+            </article>
+            @endforeach
+        </div>
+
+        @if($ocasion->count() > 3)
+        <div id="extra-ocasion" style="display: none; margin-top: 20px;">
             <div class="grid-coches">
-                @foreach($ocasion->take(3) as $car)
+                @foreach($ocasion->skip(3) as $car)
                 <article class="card-coche blanco">
                     <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
                     <div class="info">
@@ -164,98 +113,16 @@
                 </article>
                 @endforeach
             </div>
-
-            @if($ocasion->count() > 3)
-            <div id="extra-ocasion" style="display: none; margin-top: 20px;">
-                <div class="grid-coches">
-                    @foreach($ocasion->skip(3) as $car)
-                    <article class="card-coche blanco">
-                        <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
-                        <div class="info">
-                            <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
-                            <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
-                            <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
-                        </div>
-                    </article>
-                    @endforeach
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn-desplegar" data-target="#extra-ocasion" style="color: var(--color-primario);">Ver
-                    stock completo ↓</button>
-            </div>
-            @endif
         </div>
-    </section>
-
-    <footer class="pie-pagina">
-        <div class="contenedor-footer">
-            <div class="columna-footer">
-                <h3 class="footer-logo">404 RPM</h3>
-                <p class="footer-texto">
-                    Expertos en mecánica y venta de vehículos de alta gama en Irun. Tu
-                    coche, nuestra pasión.
-                </p>
-            </div>
-
-            <div class="columna-footer">
-                <h4>Navegación</h4>
-                <ul class="enlaces-footer">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="taller.html">Taller Mecánico</a></li>
-                    <li><a href="concesionario.html">Concesionario</a></li>
-                    <li><a href="cita.html">Pedir Cita</a></li>
-                </ul>
-            </div>
-
-            <div class="columna-footer">
-                <h4>Contacto</h4>
-                <ul class="info-contacto">
-                    <li><span>📍</span> Calle Motor 404, Irun, Gipuzkoa</li>
-                    <li><span>📞</span> +34 943 00 00 00</li>
-                    <li><span>✉️</span> info@404rpm.com</li>
-                </ul>
-            </div>
-
-            <div class="columna-footer">
-                <h4>Síguenos</h4>
-                <div class="redes-sociales">
-                    <a href="#" aria-label="Instagram" class="icono-social">
-                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="Facebook" class="icono-social">
-                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="Twitter" class="icono-social">
-                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+        <div style="text-align: center;">
+            <button class="btn-desplegar" data-target="#extra-ocasion" style="color: var(--color-primario);">Ver stock completo ↓</button>
         </div>
+        @endif
+    </div>
+</section>
 
-        <div class="barra-copyright">
-            <p>&copy; 2026 404 RPM. Todos los derechos reservados.</p>
-            <div class="legales">
-                <a href="#">Aviso Legal</a>
-                <a href="#">Privacidad</a>
-            </div>
-        </div>
-    </footer>
-    <script src="{{ asset('js/concesionario.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
+@endsection
 
-</html>
+@section('scripts')
+<script src="{{ asset('js/concesionario.js') }}"></script>
+@endsection

@@ -11,8 +11,7 @@
         <div class="contenido-slide">
             <span class="tag">Expertos en Mecánica & Performance</span>
             <h1>Siente la potencia <span class="acento">real</span></h1>
-            <p>En 404 RPM cuidamos tu motor con precisión quirúrgica y te ofrecemos los mejores vehículos del mercado.
-            </p>
+            <p>En 404 RPM cuidamos tu motor con precisión quirúrgica y te ofrecemos los mejores vehículos del mercado.</p>
             <div class="actions">
                 <a href="{{ url('/cita') }}" class="boton primario">Pedir Cita Taller</a>
                 <a href="{{ route('concesionario') }}" class="boton contorno">Ver Coches</a>
@@ -173,7 +172,7 @@
                 </div>
                 <div class="estrellas" style="color: #f1c40f; letter-spacing: 2px;">
                     @for($i = 0; $i < $review->rating; $i++)★@endfor
-                        @for($i = $review->rating; $i < 5; $i++)<span style="color: #ddd;">★</span>@endfor
+                    @for($i = $review->rating; $i < 5; $i++)<span style="color: #ddd;">★</span>@endfor
                 </div>
             </div>
             <p style="color: #666; line-height: 1.6; font-style: italic; margin-bottom: 1rem;">"{{ $review->content }}"
@@ -192,6 +191,8 @@
         primero en opinar!</p>
     @endif
 </section>
+
+@endsection
 
 @section('scripts')
 <script>
@@ -231,6 +232,4 @@ function mostrarSlides() {
     puntos[slideIndex].classList.add("activo");
 }
 </script>
-@endsection
-
 @endsection
