@@ -16,9 +16,8 @@
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
-    @stack('styles')
-
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    @stack('styles')    
 </head>
 
 <body>
