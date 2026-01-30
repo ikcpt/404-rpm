@@ -127,11 +127,17 @@
                 @forelse(Auth::user()->cars as $car)
                 <article class="tarjeta-garaje">
                     <div class="foto-garaje">
+                        {{-- Comprobamos si hay imagen. Si la hay, la mostramos --}}
+                        @if($car->image)
+                        <img src="{{ asset($car->image) }}" alt="{{ $car->brand->name }} {{ $car->model }}"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                        @else
+                        {{-- Si NO hay imagen, mostramos la caja gris de respaldo --}}
                         <div
-                            style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#555; font-weight:bold;">
-                            {{ $car->brand->name }}
+                            style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">
+                            <span style="font-size: 3rem;">🚗</span>
                         </div>
-                        {{-- Si tuvieras fotos: <img src="{{ asset('storage/' . $car->image) }}" alt="..."> --}}
+                        @endif
                     </div>
                     <div class="info-garaje">
                         <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
