@@ -13,12 +13,12 @@ Route::get('/', [HomeController::class, 'index']
 )->name('home');
 
 // Ruta para inciar sesión
-Route::get('login', function() {
+Route::get('/login', function() {
     return view('login');
 })->name('login');
 
 // Ruta para registrar un nuevo usuario
-Route::get('register', function() {
+Route::get('/register', function() {
     return view('register');
 })->name('register');
 
@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Ruta para acceder al menú de inicio de sesión
-Route::get('acceso', function () {
+Route::get('/acceso', function () {
     return view('portal');
 })->name('portal');
 

@@ -36,20 +36,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const tabsHTML = `
                 <div id="tabs-wrapper">
                     <ul>
-                        <li><a href="#tab-resumen">Resumen</a></li>
-                        <li><a href="#tab-tecnico">Detalles</a></li>
+                        <li><a href="#tab-general">General</a></li>
+                        <li><a href="#tab-motor">Motor</a></li>
                     </ul>
-                    <div id="tab-resumen">
-                        <div class="dato-fila"><strong>Marca</strong><span>${c.brand.name}</span></div>
-                        <div class="dato-fila"><strong>Origen</strong><span>${c.brand.country}</span></div>
-                        <div class="dato-fila"><strong>Gama</strong><span>${c.class || 'N/A'}</span></div>
-                    </div>
-                    <div id="tab-tecnico">
-                        <div class="dato-fila"><strong>Combustible</strong><span>${c.type}</span></div>
+                    
+                    <div id="tab-general">
+                        <div class="dato-fila"><strong>Año</strong><span>${c.year}</span></div>
+                        <div class="dato-fila"><strong>Kilómetros</strong><span>${c.km} km</span></div>
+                        <div class="dato-fila"><strong>Color</strong><span>${c.color}</span></div>
+                        <div class="dato-fila"><strong>Carrocería</strong><span>${c.type}</span></div>
+                        
+                        <div class="dato-fila"><strong>Peso</strong><span>${c.weight ? c.weight + ' kg' : 'No especificado'}</span></div>
                         <div class="dato-fila"><strong>Precio Base</strong><span>${formatMoney(c.price)}</span></div>
+                    </div>
+
+                    <div id="tab-motor">
+                        <div class="dato-fila"><strong>Combustible</strong><span>${c.fuel}</span></div>
+                        <div class="dato-fila"><strong>Transmisión</strong><span>${c.transmission}</span></div>
+                        <div class="dato-fila"><strong>Potencia</strong><span>${c.hp ? c.hp + ' CV' : 'No especificado'}</span></div>
+                        <div class="dato-fila"><strong>Par Motor</strong><span>${c.torque ? c.torque + ' Nm' : 'No especificado'}</span></div>
+                        <div class="dato-fila"><strong>Motor</strong><span>${c.engine_size ? c.engine_size : 'Consultar'}</span></div>
                     </div>
                 </div>
             `;
+            
+            document.getElementById('ficha-container').innerHTML = tabsHTML;
             
             document.getElementById('ficha-container').innerHTML = tabsHTML;
             

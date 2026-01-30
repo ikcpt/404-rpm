@@ -41,7 +41,7 @@
 
                     @guest
                     <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
-                        <a href="{{ route('login') }}" class="enlace-nav">Entrar</a>
+                        <a href="{{ route('/acceso') }}" class="enlace-nav">Entrar</a>
                     </li>
                     @endguest
 
