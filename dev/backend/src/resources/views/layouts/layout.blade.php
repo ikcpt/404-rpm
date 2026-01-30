@@ -12,12 +12,13 @@
 
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Tarjetas.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
     @stack('styles')
+
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 </head>
 
 <body>
@@ -31,18 +32,21 @@
 
             <nav class="navegacion-principal">
                 <ul class="lista-navegacion">
-                    <li><a href="{{ route('home') }}"
-                            class="enlace-nav {{ Request::is('/') ? 'activo' : '' }}">Inicio</a></li>
-                    <li><a href="{{ url('/taller') }}" class="enlace-nav">Taller</a></li>
-                    <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
+                    <li><a href="{{ route('home') }}" class="enlace-nav">Inicio</a></li>
+
+                    <li><a href="{{ route('taller') }}"
+                            class="enlace-nav {{ request()->routeIs('taller') ? 'activo' : '' }}">Taller</a></li>
+                    <li><a href="{{ route('concesionario') }}"
+                            class="enlace-nav {{ request()->routeIs('concesionario') ? 'activo' : '' }}">Concesionario</a>
+                    </li>
 
                     <li>
-                        <a href="{{ url('/cita') }}" class="enlace-nav boton-destacado">Pedir Cita</a>
+                        <a href="#" class="enlace-nav boton-destacado">Pedir Cita</a>
                     </li>
 
                     @guest
                     <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
-                        <a href="{{ route('acceso') }}" class="enlace-nav">Entrar</a>
+                        <a href="{{ route('login') }}" class="enlace-nav">Entrar</a>
                     </li>
                     @endguest
 
@@ -68,15 +72,18 @@
                             <li><a href="{{ route('configuracion') }}">⚙️ Configuración</a></li>
                             <li class="separador-menu"></li>
                             <li>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                                     @csrf
                                     <a href="#" onclick="event.preventDefault(); this.closest('form').submit();"
-                                        class="cerrar-sesion">🚪 Cerrar Sesión</a>
+                                        class="cerrar-sesion">
+                                        🚪 Cerrar Sesión
+                                    </a>
                                 </form>
                             </li>
                         </ul>
                     </li>
                     @endauth
+
                 </ul>
             </nav>
         </div>
@@ -89,67 +96,44 @@
     <footer class="pie-pagina">
         <div class="contenedor-footer">
             <div class="columna-footer">
-                <h3 class="footer-logo">404 RPM</h3>
-                <p class="footer-texto">
-                    Expertos en mecánica y venta de vehículos de alta gama en Irun.
-                    Tu coche, nuestra pasión.
-                </p>
+                <div class="footer-logo">404 RPM</div>
+                <p class="footer-texto">Pasión por los motores y la excelencia mecánica.</p>
             </div>
 
             <div class="columna-footer">
-                <h4>Navegación</h4>
+                <h4>Enlaces Rápidos</h4>
                 <ul class="enlaces-footer">
                     <li><a href="{{ route('home') }}">Inicio</a></li>
-                    <li><a href="{{ url('/taller') }}">Taller Mecánico</a></li>
+                    <li><a href="{{ route('taller') }}">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}">Concesionario</a></li>
-                    <li><a href="{{ url('/cita') }}">Pedir Cita</a></li>
+                    <li><a href="{{ route('login') }}">Mi Perfil</a></li>
                 </ul>
             </div>
 
             <div class="columna-footer">
                 <h4>Contacto</h4>
                 <ul class="info-contacto">
-                    <li><span>📍</span> Calle Motor 404, Irun, Gipuzkoa</li>
-                    <li><span>📞</span> +34 943 00 00 00</li>
-                    <li><span>✉️</span> info@404rpm.com</li>
+                    <li>📍 Calle del Motor, 404</li>
+                    <li>📞 +34 600 000 000</li>
+                    <li>✉️ contacto@404rpm.com</li>
                 </ul>
             </div>
 
             <div class="columna-footer">
                 <h4>Síguenos</h4>
                 <div class="redes-sociales">
-                    <a href="#" class="icono-social"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg></a>
-                    <a href="#" class="icono-social"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <a href="#" class="icono-social"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg></a>
-                    <a href="#" class="icono-social"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                            </path>
                         </svg></a>
                 </div>
             </div>
         </div>
-
         <div class="barra-copyright">
-            <p>&copy; 2026 404 RPM. Todos los derechos reservados.</p>
-            <div class="legales">
-                <a href="#">Aviso Legal</a>
-                <a href="#">Privacidad</a>
-            </div>
+            <p>&copy; {{ date('Y') }} 404 RPM. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/index.js') }}"></script>
-    @yield('scripts')
 </body>
 
 </html>

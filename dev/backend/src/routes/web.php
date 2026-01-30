@@ -13,12 +13,12 @@ Route::get('/', [HomeController::class, 'index']
 )->name('home');
 
 // Ruta para inciar sesión
-Route::get('login', function() {
+Route::get('/login', function() {
     return view('login');
 })->name('login');
 
 // Ruta para registrar un nuevo usuario
-Route::get('register', function() {
+Route::get('/register', function() {
     return view('register');
 })->name('register');
 
@@ -31,6 +31,10 @@ Route::get('/dashboard', function () {
 Route::get('acceso', function () {
     return view('acceso');
 })->name('acceso');
+
+Route::get('/taller', function () {
+    return view('taller');
+})->name('taller');
 
 Route::get('/concesionario', function () {
     // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
