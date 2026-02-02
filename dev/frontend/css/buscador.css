@@ -8,7 +8,11 @@
 }
 
 .banner-busqueda {
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.4)), 
+        url('../assets/img/fondo.webp'); 
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
     padding: 80px 20px;
     text-align: center;
