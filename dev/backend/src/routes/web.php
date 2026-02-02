@@ -32,10 +32,6 @@ Route::get('acceso', function () {
     return view('acceso');
 })->name('acceso');
 
-Route::get('/taller', function () {
-    return view('taller');
-})->name('taller');
-
 Route::get('/concesionario', function () {
     // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
     $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();

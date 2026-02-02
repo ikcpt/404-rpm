@@ -3,6 +3,19 @@
 @section('title', 'Concesionario | 404 RPM')
 
 @section('content')
+<div class="banner-busqueda" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('{{ asset('assets/img/fondo.png') }}');">
+    
+    <h1 class="titulo-banner">Encuentra tu <span class="acento-banner">Máquina</span></h1>
+    <p class="texto-banner">Busca entre nuestro stock exclusivo</p>
+
+    <form action="{{ route('concesionario') }}" method="GET" class="form-buscador">
+        <input type="text" name="search" class="input-buscador" placeholder="Escribe el modelo, marca o versión...">
+
+        <button type="submit" class="btn-buscador">
+            BUSCAR
+        </button>
+    </form>
+</div>
 
 <section class="seccion-gama gama-alta">
     <div class="contenedor-seccion">

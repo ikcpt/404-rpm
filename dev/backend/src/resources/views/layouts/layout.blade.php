@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/buscador.css') }}">
     @stack('styles')    
 </head>
 
@@ -32,20 +33,13 @@
             <nav class="navegacion-principal">
                 <ul class="lista-navegacion">
                     <li><a href="{{ route('home') }}" class="enlace-nav">Inicio</a></li>
-
-                    <li><a href="{{ route('taller') }}"
-                            class="enlace-nav {{ request()->routeIs('taller') ? 'activo' : '' }}">Taller</a></li>
-                    <li><a href="{{ route('concesionario') }}"
-                            class="enlace-nav {{ request()->routeIs('concesionario') ? 'activo' : '' }}">Concesionario</a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="enlace-nav boton-destacado">Pedir Cita</a>
-                    </li>
+                    <li><a href="{{ asset('taller.html') }}" class="enlace-nav">Taller</a></li>
+                    <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
+                    <li><a href="{{ asset('cita.html') }}" class="enlace-nav">Pedir Cita</a></li>
 
                     @guest
                     <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
-                        <a href="{{ route('login') }}" class="enlace-nav">Entrar</a>
+                        <a href="{{ route('login') }}" class="enlace-nav boton-destacado">Entrar</a>
                     </li>
                     @endguest
 
@@ -103,8 +97,9 @@
                 <h4>Enlaces Rápidos</h4>
                 <ul class="enlaces-footer">
                     <li><a href="{{ route('home') }}">Inicio</a></li>
-                    <li><a href="{{ route('taller') }}">Taller</a></li>
+                    <li><a href="{{ asset('taller.html') }}">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}">Concesionario</a></li>
+                    <li><a href="{{ asset('cita.html') }}">Pedir Cita</a></li>
                     <li><a href="{{ route('login') }}">Mi Perfil</a></li>
                 </ul>
             </div>
