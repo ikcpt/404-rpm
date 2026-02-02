@@ -3,7 +3,7 @@
 @section('title', 'Concesionario | 404 RPM')
 
 @section('content')
-<div class="banner-busqueda" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('{{ asset('assets/img/fondo.png') }}');">
+<div class="banner-busqueda" style="">
     
     <h1 class="titulo-banner">Encuentra tu <span class="acento-banner">Máquina</span></h1>
     <p class="texto-banner">Busca entre nuestro stock exclusivo</p>
