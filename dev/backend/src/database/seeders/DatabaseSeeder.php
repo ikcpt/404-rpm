@@ -37,24 +37,25 @@ class DatabaseSeeder extends Seeder
         $userDavid = User::create(['name' => 'David', 'email' => 'david.padre@email.com', 'password' => '1234']);
         Profile::create(['user_id' => $userDavid->id, 'surname' => 'Fernández', 'phone' => '622334455', 'address' => 'Sevilla']);
 
-        $userElena = User::create(['name' => 'Joan', 'email' => 'joan.new@email.com', 'password' => '1234']);
+        $userElena = User::create(['name' => 'Elena', 'email' => 'elena.new@email.com', 'password' => '1234']);
         Profile::create(['user_id' => $userElena->id, 'surname' => 'Vázquez', 'phone' => '633445566', 'address' => 'Barcelona']);
 
         $userJuan = User::create(['name' => 'Juan Pérez', 'email' => 'juan.perez@email.com', 'password' => '1234']);
         Profile::create(['user_id' => $userJuan->id, 'surname' => 'Pérez', 'phone' => '644556677', 'address' => 'Bilbao']);
 
         // 2. MARCAS
-        $brandFord = Brand::create(['name' => 'Ford', 'country' => 'Estados Unidos']);
-        $brandAudi = Brand::create(['name' => 'Audi', 'country' => 'Alemania']);
-        $brandPorsche = Brand::create(['name' => 'Porsche', 'country' => 'Alemania']);
-        $brandFerrari = Brand::create(['name' => 'Ferrari', 'country' => 'Italia']);
-        $brandBMW = Brand::create(['name' => 'BMW', 'country' => 'Alemania']);
-        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz', 'country' => 'Alemania']);
-        $brandVW = Brand::create(['name' => 'Volkswagen', 'country' => 'Alemania']);
-        $brandMini = Brand::create(['name' => 'Mini', 'country' => 'Alemania']);
-        $brandSeat = Brand::create(['name' => 'Seat', 'country' => 'Alemania']);
-        $brandToyota = Brand::create(['name' => 'Toyota', 'country' => 'Japón']);
-        $brandLamborghini = Brand::create(['name' => 'Lamborghini', 'country' => 'Italia']);
+        
+        $brandLamborghini = Brand::create(['name' => 'Lamborghini', 'country' => 'Italia', 'image' => 'assets/img/lamborguini/logo-lambo.png']);
+        $brandFerrari = Brand::create(['name' => 'Ferrari', 'country' => 'Italia', 'image' => 'assets/img/ferrari/logo-ferrari.png']);
+        $brandPorsche = Brand::create(['name' => 'Porsche', 'country' => 'Alemania', 'image' => 'assets/img/porsche/logo-porsche.png']);
+        $brandAudi = Brand::create(['name' => 'Audi', 'country' => 'Alemania', 'image' => 'assets/img/audi/logo-audi.png']);
+        $brandBMW = Brand::create(['name' => 'BMW', 'country' => 'Alemania', 'image' => 'assets/img/bmw/logo-bmw.png']);
+        $brandMercedes = Brand::create(['name' => 'Mercedes-Benz', 'country' => 'Alemania', 'image' => 'assets/img/mercedes/logo-mercedes.png']);
+        $brandFord = Brand::create(['name' => 'Ford', 'country' => 'Estados Unidos', 'image' => 'assets/img/ford/logo-ford.png']);
+        $brandToyota = Brand::create(['name' => 'Toyota', 'country' => 'Japón', 'image' => 'assets/img/toyota/logo-toyota.png']);
+        $brandVW = Brand::create(['name' => 'Volkswagen', 'country' => 'Alemania', 'image' => 'assets/img/vw/logo-vw.png']);
+        $brandSeat = Brand::create(['name' => 'Seat', 'country' => 'Alemania', 'image' => 'assets/img/seat/logo-seat.png']);
+        $brandMini = Brand::create(['name' => 'Mini', 'country' => 'Alemania', 'image' => 'assets/img/mini/logo-mini.png']);
 
         // 3. EXTRAS
         $exGPS = Extra::create(['name' => 'Navegador', 'description' => 'Pantalla con mapas.']);

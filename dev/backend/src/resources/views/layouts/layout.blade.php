@@ -142,7 +142,7 @@
             </div>
         </div>
         <div class="barra-copyright">
-            <p>&copy; {{ date('Y') }} 404 RPM. Todos los derechos reservados.</p>
+            <p>&copy; 2026 404 RPM. Todos los derechos reservados.</p>
         </div>
     </footer>
 

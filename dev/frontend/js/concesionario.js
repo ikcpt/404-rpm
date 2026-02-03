@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
     // Buscamos todos los botones que sirven para desplegar contenido
     const botonesDesplegar = document.querySelectorAll('.btn-desplegar');
 
