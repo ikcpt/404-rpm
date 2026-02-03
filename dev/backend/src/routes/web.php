@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
+use App\Models\Brand;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -29,6 +30,7 @@ Route::get('acceso', function () {
 })->name('acceso');
 
 Route::get('/concesionario', function () {
+    $brands = Brand::all();
     // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
     $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
     $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
