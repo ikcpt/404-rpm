@@ -92,13 +92,11 @@ function comprobarSesion() {
         return response.json();
     })
     .then(data => {
-        console.log(data.name);
         document.getElementById("menu-guest").style.display = "none";
         document.getElementById("menu-auth").style.display = "block";
         document.getElementById("user-name").textContent = data.name;
     })
     .catch(error => {
-        console.log("Invitado");
         document.getElementById("menu-guest").style.display = "flex";
         document.getElementById("menu-auth").style.display = "none";
     })

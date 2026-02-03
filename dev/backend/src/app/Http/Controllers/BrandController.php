@@ -36,7 +36,9 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        //
+        $brand = Brand::with('cars')->find($id);
+        
+        return view('marca', compact('brand'));
     }
 
     /**

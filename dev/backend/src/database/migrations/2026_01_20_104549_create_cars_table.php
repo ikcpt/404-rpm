@@ -14,25 +14,21 @@ public function up(): void
     Schema::create('cars', function (Blueprint $table) {
         $table->id();
         $table->foreignId('brand_id')->constrained()->onDelete('cascade');
-        $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null'); // El dueño puede ser null (coche de stock)
-        
+        $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
         $table->string('model');
-        $table->string('color')->nullable();        // <--- COLOR
-        $table->string('type');                     // Carrocería (Coupé, SUV...)
-        
-        // Detalles técnicos
-        $table->string('fuel')->nullable();         // Gasolina, Híbrido...
-        $table->string('transmission')->nullable(); // Automática/Manual
+        $table->string('color')->nullable();   
+        $table->string('type');
+        $table->string('fuel')->nullable();    
+        $table->string('transmission')->nullable();
         $table->integer('year')->nullable();
         $table->integer('km')->nullable();
-        $table->string('engine_size')->nullable();  // ej: V8 4.0L
-        $table->integer('hp')->nullable();          // Caballos
-        $table->integer('torque')->nullable();      // Par
-        $table->integer('weight')->nullable();      // Peso
-        
+        $table->string('engine_size')->nullable();
+        $table->integer('hp')->nullable();    
+        $table->integer('torque')->nullable();   
+        $table->integer('weight')->nullable();      
         $table->text('description');
         $table->decimal('price', 10, 2);
-        $table->string('class');                    // Gama Alta, Media...
+        $table->string('class');    
         $table->string('image');
         $table->timestamps();
     });
