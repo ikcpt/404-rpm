@@ -7,33 +7,30 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
+use App\Models\Appointment;
+use App\Http\Controllers\CitaController;
 
-// Ruta para cargar la página de inicio, redirige al usuario automáticamente a index.html del frontend
-Route::get('/', [HomeController::class, 'index']
-)->name('home');
+// --- RUTAS PÚBLICAS ---
 
-// Ruta para inciar sesión
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/login', function() {
     return view('login');
 })->name('login');
 
-// Ruta para registrar un nuevo usuario
 Route::get('/register', function() {
     return view('register');
 })->name('register');
 
-// Si accede a /dashboard, se redigirá automáticamente al usuario a la página de incio
 Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Ruta para acceder al menú de inicio de sesión
 Route::get('acceso', function () {
     return view('acceso');
 })->name('acceso');
 
 Route::get('/concesionario', function () {
-    // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
     $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
     $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
     $ocasion   = Car::where('class', 'Ocasión')->with('brand')->get();
@@ -42,21 +39,14 @@ Route::get('/concesionario', function () {
 })->name('concesionario');
 
 Route::get('/api/cars/{id}', function ($id) {
-    // Buscamos el coche, su marca y sus extras
     $car = Car::with(['brand', 'extras'])->find($id);
-
     if (!$car) {
         return response()->json(['error' => 'Coche no encontrado'], 404);
     }
-
-    // Laravel convierte esto automáticamente a JSON
     return response()->json($car);
 });
 
-// 2. RUTA DE LA FICHA (Solo carga el esqueleto HTML y pasa el ID)
 Route::get('/ficha/{id}', function ($id) {
-    // Solo pasamos el ID a la vista, NO el coche entero.
-    // El JS se encargará de buscar los datos usando el ID.
     return view('ficha', ['id' => $id]); 
 })->name('ficha');
 
@@ -64,43 +54,48 @@ Route::get('/factura/{id}', function ($id) {
     return "Aquí se descargará la factura " . $id;
 })->name('invoice');
 
-// Rutas del perfil
-Route::middleware('auth')->group(function () {
-    // Ruta para cambiar la configuración del perfil
-    Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
+Route::get('/cita', [CitaController::class, 'create'])->name('cita.create');
+Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');
 
-    // Ruta para actualizar la información del perfil
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+// --- RUTAS PRIVADAS (Requieren Login) ---
 
-    // Ruta para borrar información del perfil
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Ruta para cargar la página de perfil
 Route::middleware('auth')->group(function () {
     
-    // ... tus otras rutas (configuracion, update, destroy) ...
+    // Configuración y Perfil (Controller)
     Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // 1. RUTA PERFIL (Ya no carga facturas, solo usuario y coches)
+    
+    // Perfil (Vista principal)
     Route::get('/perfil', function() {
         $user = Auth::user()->load('profile', 'cars.brand'); 
         return view('perfil', compact('user'));
     })->name('perfil');
 
-    // 2. NUEVA RUTA SOLO PARA FACTURAS
+    // Facturas
     Route::get('/mis-facturas', function() {
         $user = Auth::user();
-        // Aquí sí cargamos las facturas
         $facturas = $user->facturas()->orderBy('fecha_emision', 'desc')->get();
         return view('mis-facturas', compact('user', 'facturas'));
     })->name('mis-facturas');
 
-});
+    // Citas (AQUÍ ES DONDE DEBE ESTAR)
+    Route::get('/mis-citas', function () {
+        $citas = Appointment::where('user_id', Auth::id())
+            ->with('car') 
+            ->orderBy('fecha', 'desc')
+            ->get();
+            
+        return view('profile.citas', compact('citas'));
+    })->name('mis-citas');
+
 });
 
-// Ruta que muestra la página de Error 404 si no se encuentra la página indicada
+
+// --- RUTA COMODÍN (SIEMPRE AL FINAL) ---
+// Esta ruta captura cualquier URL que no coincida con las anteriores.
+// DEBE ser la última antes del require auth.php
+
 Route::get('{any}', function ($filename) {
     $path = base_path('../frontend/' . $filename);
 

@@ -11,6 +11,7 @@ use App\Models\Invoice; // <--- AÑADIDO: Importante para que funcione
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\Appointment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -541,5 +542,32 @@ class DatabaseSeeder extends Seeder
             'fecha_emision' => Carbon::now()->subYear(1),
         ]);
 
+    // 7. CITAS (APPOINTMENTS)
+    Appointment::create([
+        'user_id' => $userDavid->id,
+        'car_id' => $car->id, // Usamos el último coche creado o Car::first()->id
+        'fecha' => Carbon::now()->addDays(2), // Dentro de 2 días
+        'hora' => '10:30:00',
+        'tipo' => 'Prueba de conducción',
+        'estado' => 'Pendiente'
+    ]);
+
+    Appointment::create([
+        'user_id' => $userDavid->id,
+        'car_id' => null, // Cita general, sin coche específico
+        'fecha' => Carbon::now()->subDays(10),
+        'hora' => '16:00:00',
+        'tipo' => 'Asesoramiento Financiero',
+        'estado' => 'Finalizada'
+    ]);
+
+    Appointment::create([
+        'user_id' => $userDavid->id,
+        'car_id' => Car::where('brand_id', $brandPorsche->id)->first()->id ?? null, // Intentamos coger un Porsche
+        'fecha' => Carbon::now()->addDays(5),
+        'hora' => '09:00:00',
+        'tipo' => 'Mantenimiento / Taller',
+        'estado' => 'Confirmada'
+    ]);
     }
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Appointment;
 
 class User extends Authenticatable
 {
@@ -63,4 +64,8 @@ public function facturas()
         // Cambia 'Factura::class' por 'Invoice::class'
         return $this->hasMany(Invoice::class); 
     }
+    public function appointments()
+{
+    return $this->hasMany(Appointment::class);
+}
 }
