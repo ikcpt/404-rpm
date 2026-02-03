@@ -59,6 +59,9 @@ Route::get('/factura/{id}', function ($id) {
     return "Aquí se descargará la factura " . $id;
 })->name('invoice');
 
+Route::get('/cita', [CitaController::class, 'create'])->name('cita.create');
+Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');
+
 // Rutas del perfil
 Route::middleware('auth')->group(function () {
     // Ruta para cambiar la configuración del perfil
