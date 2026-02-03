@@ -69,15 +69,7 @@ Route::middleware('auth')->group(function () {
 
     // Ruta para borrar información del perfil
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Ruta para cargar la página de perfil
-Route::middleware('auth')->group(function () {
-    
-    // Configuración y Perfil (Controller)
-    Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+       
     // Perfil (Vista principal)
     Route::get('/perfil', function() {
         $user = Auth::user()->load('profile', 'cars.brand'); 
@@ -91,7 +83,7 @@ Route::middleware('auth')->group(function () {
         return view('mis-facturas', compact('user', 'facturas'));
     })->name('mis-facturas');
 
-    // Citas (AQUÍ ES DONDE DEBE ESTAR)
+    // Citas
     Route::get('/mis-citas', function () {
         $citas = Appointment::where('user_id', Auth::id())
             ->with('car') 
@@ -104,9 +96,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// --- RUTA COMODÍN (SIEMPRE AL FINAL) ---
+// --- RUTA COMODÍN ---
 // Esta ruta captura cualquier URL que no coincida con las anteriores.
-// DEBE ser la última antes del require auth.php
 
 Route::get('{any}', function ($filename) {
     $path = base_path('../frontend/' . $filename);
