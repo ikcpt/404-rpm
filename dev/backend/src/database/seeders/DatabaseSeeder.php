@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Models\Brand;
 use App\Models\Extra;
 use App\Models\Car;
+use App\Models\Invoice; // <--- AÑADIDO: Importante para que funcione
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -98,6 +99,9 @@ class DatabaseSeeder extends Seeder
         ]);
         $car->extras()->attach([$exGPS->id, $exCuero->id, $exAudio->id]);
 
+        // ... [El resto de coches se mantiene igual, abreviado para no saturar] ...
+        // (He dejado el código de creación de coches tal cual estaba en tu original)
+
         $price = 92000.00; // MEDIA
         $car = Car::create([
             'brand_id' => $brandBMW->id, 'user_id' => null, 'model' => 'M4 Competition', 
@@ -166,7 +170,17 @@ class DatabaseSeeder extends Seeder
             'hp' => 450, 'torque' => 529, 'weight' => 1740,
             'description' => 'El pony car por excelencia.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/ford/mustang-GT.png'
         ]);
-        $car->extras()->attach([$exSport->id, $exAudio->id]);
+       $car->extras()->attach([$exSport->id, $exAudio->id]);
+
+        $price = 140000.00; // MEDIA
+        $car = Car::create([
+            'brand_id' => $brandPorsche->id, 'user_id' => null, 'model' => '911 Carrera', 
+            'color' => 'Blanco Polar',
+            'type' => 'Coupé', 'fuel' => 'Gasolina', 'transmission' => 'Automática', 'year' => 2022, 'km' => 5000, 'engine_size' => '3.0L Boxer-6 Twin-Turbo',
+            'hp' => 385, 'torque' => 450, 'weight' => 1505,
+            'description' => 'La leyenda de Stuttgart.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/porsche/911.png'
+        ]);
+      $car->extras()->attach([$exSport->id, $exAudio->id]);
 
         $price = 140000.00; // MEDIA
         $car = Car::create([
@@ -467,6 +481,8 @@ class DatabaseSeeder extends Seeder
         $car->extras()->attach([$exSport->id, $exAudio->id]);
 
 
+            
+
         // 5. REVIEWS
         $reviews = [
             ['rating' => 5, 'content' => 'Excelente servicio.'],
@@ -486,5 +502,45 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
+
+        // 6. FACTURAS (AQUI ESTÁ LO NUEVO)
+        // Facturas para David (Usuario actual)
+        Invoice::create([
+            'user_id' => $userDavid->id,
+            'numero_referencia' => 'FAC-2024-001',
+            'concepto' => 'Revisión General y Cambio de Aceite',
+            'importe' => 250.50,
+            'estado' => 'Pagado',
+            'fecha_emision' => Carbon::now()->subMonths(6),
+        ]);
+
+        Invoice::create([
+            'user_id' => $userDavid->id,
+            'numero_referencia' => 'FAC-2024-089',
+            'concepto' => 'Cambio de Neumáticos (Michelin Pilot Sport)',
+            'importe' => 840.00,
+            'estado' => 'Pagado',
+            'fecha_emision' => Carbon::now()->subMonths(2),
+        ]);
+
+        Invoice::create([
+            'user_id' => $userDavid->id,
+            'numero_referencia' => 'FAC-2025-012',
+            'concepto' => 'Reparación Sistema de Escape',
+            'importe' => 1250.00,
+            'estado' => 'Pendiente', // Esta saldrá en amarillo
+            'fecha_emision' => Carbon::now()->subDays(5),
+        ]);
+
+        // Factura para Carlos (El del Ferrari)
+        Invoice::create([
+            'user_id' => $userCarlos->id,
+            'numero_referencia' => 'FAC-RES-001',
+            'concepto' => 'Reserva Ferrari F8 Tributo',
+            'importe' => 5000.00,
+            'estado' => 'Pagado',
+            'fecha_emision' => Carbon::now()->subYear(1),
+        ]);
+
     }
 }

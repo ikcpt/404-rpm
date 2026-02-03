@@ -23,13 +23,13 @@
 
             <nav class="menu-perfil">
                 <a href="#" class="activo">🚗 Mi Garaje</a>
-                <a href="#">📅 Mis Citas</a>
-                <a href="#">📄 Facturas</a>
+                <a href="{{ route('mis-facturas') }}">📄 Mis Facturas</a>
                 <a href="{{ route('configuracion') }}">⚙️ Configuración</a>
-
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" style="background:none; border:none; color: inherit; font: inherit; cursor: pointer; padding: 10px 0;">🚪 Cerrar Sesión</button>
+                    <button type="submit"
+                        style="background:none; border:none; color: inherit; font: inherit; cursor: pointer; padding: 10px 0;">🚪
+                        Cerrar Sesión</button>
                 </form>
             </nav>
         </div>
@@ -52,9 +52,11 @@
             <article class="tarjeta-garaje">
                 <div class="foto-garaje">
                     @if($car->image)
-                    <img src="{{ asset($car->image) }}" alt="{{ $car->brand->name }} {{ $car->model }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                    <img src="{{ asset($car->image) }}" alt="{{ $car->brand->name }} {{ $car->model }}"
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                     @else
-                    <div style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">
+                    <div
+                        style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">
                         <span style="font-size: 3rem;">🚗</span>
                     </div>
                     @endif
@@ -79,7 +81,8 @@
             @empty
             <div class="sin-coches">
                 <p>No tienes vehículos registrados en tu garaje.</p>
-                <a href="{{ route('concesionario') }}" class="boton-destacado" style="margin-top:10px; display:inline-block;">Ir al Concesionario</a>
+                <a href="{{ route('concesionario') }}" class="boton-destacado"
+                    style="margin-top:10px; display:inline-block;">Ir al Concesionario</a>
             </div>
             @endforelse
         </div>

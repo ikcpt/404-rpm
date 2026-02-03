@@ -63,6 +63,11 @@ Route::get('/ficha/{id}', function ($id) {
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
 // Middleware de autenticación. Las rutas que están dentro funcionarán si el usuario ha iniciado sesión
+Route::get('/factura/{id}', function ($id) {
+    return "Aquí se descargará la factura " . $id;
+})->name('invoice');
+
+// Rutas del perfil
 Route::middleware('auth')->group(function () {
     // Ruta para cambiar la configuración del perfil
     Route::get('/configuracion', [ProfileController::class, 'edit'])->name('configuracion');
@@ -74,13 +79,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Ruta para cargar la página de perfil
-    Route::get('/perfil', function() {
-        // Se guarda el usuario que ha iniciado sesión en la variable $user, con su perfil y sus coches
-        $user = Auth::user()->load('profile', 'cars.brand');
+Route::middleware('auth')->group(function () {
+    
+    // ... tus otras rutas (configuracion, update, destroy) ...
+    Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        // Devolvemos la vista "perfil.blade.php" y la informacion de $user
+    // 1. RUTA PERFIL (Ya no carga facturas, solo usuario y coches)
+    Route::get('/perfil', function() {
+        $user = Auth::user()->load('profile', 'cars.brand'); 
         return view('perfil', compact('user'));
     })->name('perfil');
+
+    // 2. NUEVA RUTA SOLO PARA FACTURAS
+    Route::get('/mis-facturas', function() {
+        $user = Auth::user();
+        // Aquí sí cargamos las facturas
+        $facturas = $user->facturas()->orderBy('fecha_emision', 'desc')->get();
+        return view('mis-facturas', compact('user', 'facturas'));
+    })->name('mis-facturas');
+
+});
 });
 
 // Ruta que muestra la página de Error 404 si no se encuentra la página indicada
