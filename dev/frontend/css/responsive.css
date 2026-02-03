@@ -133,4 +133,101 @@
     .item-con-desplegable:hover .submenu {
         display: block !important;
     }
+    /* Estilos Tabla de Facturas */
+.tabla-responsive {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.tabla-facturas {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+}
+
+.tabla-facturas th {
+    background-color: var(--color-terciario, #0b0e13); /* Tu color negro */
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.tabla-facturas td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.tabla-facturas tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-facturas tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Referencia y Concepto */
+.referencia {
+    font-family: monospace;
+    color: #666;
+}
+
+.concepto-main {
+    font-weight: 600;
+    color: var(--color-primario, #1e4fa3);
+}
+
+.importe {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Etiquetas de Estado */
+.etiqueta-estado {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.estado-ok {
+    background-color: #d4edda;
+    color: #155724; /* Verde */
+}
+
+.estado-pendiente {
+    background-color: #fff3cd;
+    color: #856404; /* Amarillo/Naranja */
+}
+
+/* Botón Descargar */
+.btn-descargar {
+    text-decoration: none;
+    color: var(--color-acento, #2e90ff);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.btn-descargar:hover {
+    color: var(--color-primario, #1e4fa3);
+    text-decoration: underline;
+}
+
+/* Mensaje Vacio */
+.vacio-mensaje {
+    text-align: center;
+    padding: 40px;
+    color: #777;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px dashed #ddd;
+}
 }
