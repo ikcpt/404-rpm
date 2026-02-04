@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
 use App\Models\Brand;
+use App\Models\Appointment;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -89,14 +90,18 @@ Route::middleware('auth')->group(function () {
     })->name('mis-facturas');
 
     // Citas
-    Route::get('/mis-citas', function () {
-        $citas = Appointment::where('user_id', Auth::id())
-            ->with('car') 
-            ->orderBy('fecha', 'desc')
-            ->get();
-            
-        return view('profile.citas', compact('citas'));
-    })->name('mis-citas');
+Route::get('/mis-citas', function () {
+    $user = Auth::user();
+    
+    // 1. Obtenemos las citas
+    $citas = App\Models\Cita::where('user_id', $user->id)->get();
+    
+    // 2. Obtenemos los coches (ESTO ES LO QUE FALTABA)
+    $misCoches = $user->cars; 
+
+    // 3. Enviamos AMBAS variables a la vista
+    return view('profile.citas', compact('citas', 'misCoches'));
+})->name('mis-citas');
 
 });
 

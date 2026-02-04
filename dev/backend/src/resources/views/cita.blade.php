@@ -61,10 +61,14 @@
                         @endforeach
                     </select>
                 </div>
-                <label class="toggle-manual">
-                    <input type="checkbox" id="check-manual" onchange="toggleManualInput()">
-                    <span>No encuentro mi coche / Traeré otro vehículo</span>
-                </label>
+                <div style="margin-top: 15px;">
+                    <label class="toggle-manual"
+                        style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="check-manual" onchange="toggleManualInput()"
+                            style="width: auto; margin: 0;">
+                        <span>No encuentro mi coche / Traeré otro vehículo</span>
+                    </label>
+                </div>
             </div>
             <div id="manual-coche-wrapper"
                 style="display: none; margin-top: 15px; border-top: 1px dashed #e2e8f0; padding-top: 15px;">
