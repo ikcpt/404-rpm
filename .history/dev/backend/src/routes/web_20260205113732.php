@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CarController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
@@ -10,6 +7,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
 use App\Models\Brand;
 use App\Models\Appointment;
+
+// Controllers
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\CitaController; // Asegúrate de tener este import si usas CitaController
+use App\Http\Controllers\ComparacionController; // Import del comparador movido arriba
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -40,14 +50,13 @@ Route::get('/concesionario', function () {
     return view('concesionario', compact('brands', 'gamaAlta', 'gamaMedia', 'ocasion'));
 })->name('concesionario');
 
+// API simple existente (cuidado de no confundirla con la del comparador)
 Route::get('/api/cars/{id}', function ($id) {
     $car = Car::with(['brand', 'extras'])->find($id);
 
     if (!$car) {
         return response()->json(['error' => 'Coche no encontrado'], 404);
     }
-
-    // Laravel convierte esto automáticamente a JSON
     return response()->json($car);
 });
 
@@ -57,7 +66,7 @@ Route::get('/ficha/{id}', function ($id) {
 
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
-// Middleware de autenticación. Las rutas que están dentro funcionarán si el usuario ha iniciado sesión
+// Middleware de autenticación
 Route::get('/factura/{id}', function ($id) {
     return "Aquí se descargará la factura " . $id;
 })->name('invoice');
@@ -65,18 +74,21 @@ Route::get('/factura/{id}', function ($id) {
 Route::get('/cita', [CitaController::class, 'create'])->name('cita.create');
 Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');
 
-// Rutas del perfil
+// --- RUTAS DEL COMPARADOR (NUEVAS) ---
+// Vista principal
+Route::get('/comparador', [ComparacionController::class, 'index'])->name('comparador.index');
+// API para que el JavaScript cargue los datos (JSON)
+Route::get('/comparador/api/coche/{id}', [ComparacionController::class, 'show'])->name('comparador.show');
+
+
+// --- RUTAS DE PERFIL ---
 Route::middleware('auth')->group(function () {
-    // Ruta para cambiar la configuración del perfil
+    // Configuración del perfil
     Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
-
-    // Ruta para actualizar la información del perfil
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
-    // Ruta para borrar información del perfil
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-       
-    // Perfil (Vista principal)
+        
+    // Vista principal del perfil
     Route::get('/perfil', function() {
         $user = Auth::user()->load('profile', 'cars.brand'); 
         return view('perfil', compact('user'));
@@ -90,45 +102,17 @@ Route::middleware('auth')->group(function () {
     })->name('mis-facturas');
 
     // Citas
-Route::get('/mis-citas', function () {
-    $user = Auth::user();
-    
-    // 1. Obtenemos las citas
-    $citas = App\Models\Cita::where('user_id', $user->id)->get();
-    
-    // 2. Obtenemos los coches (ESTO ES LO QUE FALTABA)
-    $misCoches = $user->cars; 
-
-    // 3. Enviamos AMBAS variables a la vista
-    return view('profile.citas', compact('citas', 'misCoches'));
-})->name('mis-citas');
+    Route::get('/mis-citas', function () {
+        $user = Auth::user();
+        $citas = \App\Models\Cita::where('user_id', $user->id)->get(); // He puesto el namespace completo por seguridad
+        $misCoches = $user->cars; 
+        return view('profile.citas', compact('citas', 'misCoches'));
+    })->name('mis-citas');
 
 });
 
-
-use App\Http\Controllers\ComparacionController;
-
-// Grupo protegido: solo usuarios logueados pueden usar comparador
-Route::middleware('auth')->group(function () {
-    // Página del comparador
-    Route::get('/comparacion', [ComparacionController::class, 'index'])->name('comparacion');
-
-    // Guardar una nueva comparación
-    Route::post('/comparacion', [ComparacionController::class, 'store'])->name('comparacion.store');
-
-    // Ver las comparaciones del usuario
-    Route::get('/mis-comparaciones', [ComparacionController::class, 'showUserComparisons'])->name('mis.comparaciones');
-
-    // Datos JSON de un coche individual (para arrastrar y soltar)
-    Route::get('/comparacion/{id}', [ComparacionController::class, 'show']);
-});
-
-
-
-
-// --- RUTA COMODÍN ---
-// Esta ruta captura cualquier URL que no coincida con las anteriores.
-
+// --- RUTA COMODÍN (Frontend Assets) ---
+// IMPORTANTE: Esta ruta siempre debe ir AL FINAL DEL TODO
 Route::get('{any}', function ($filename) {
     $path = base_path('../frontend/' . $filename);
 

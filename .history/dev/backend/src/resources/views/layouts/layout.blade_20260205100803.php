@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/buscador.css') }}">
-    
     @stack('styles')
 </head>
 
@@ -36,7 +35,6 @@
                     <li><a href="{{ route('home') }}" class="enlace-nav">Inicio</a></li>
                     <li><a href="{{ asset('taller.html') }}" class="enlace-nav">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
-                    <li><a href="{{ route('comparacion') }}" class="enlace-nav">Comparador</a></li>
                     <li><a href="{{ route('cita.create') }}" class="enlace-nav">Pedir Cita</a></li>
 
                     @guest
@@ -63,7 +61,6 @@
                         <ul class="submenu">
                             <li><a href="{{ route('perfil') }}#garaje">🚗 Mi Garaje</a></li>
                             <li><a href="{{ route('perfil') }}#citas">📅 Mis Citas</a></li>
-                            <li><a href="{{ route('perfil') }}#comparacion">📊 Mis comparaciones</a></li>
                             <li><a href="{{ route('mis-facturas') }}">📄 Facturas</a></li>
                             <li><a href="{{ route('configuracion') }}">⚙️ Configuración</a></li>
                             <li class="separador-menu"></li>
@@ -102,6 +99,7 @@
                     <li><a href="{{ route('home') }}">Inicio</a></li>
                     <li><a href="{{ asset('taller.html') }}">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}">Concesionario</a></li>
+                    
                     <li><a href="{{ asset('cita.html') }}">Pedir Cita</a></li>
                     <li><a href="{{ route('login') }}">Mi Perfil</a></li>
                 </ul>

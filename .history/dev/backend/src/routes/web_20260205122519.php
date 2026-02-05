@@ -108,19 +108,14 @@ Route::get('/mis-citas', function () {
 
 use App\Http\Controllers\ComparacionController;
 
-// Grupo protegido: solo usuarios logueados pueden usar comparador
+Route::get('/comparacion', [ComparacionController::class, 'index'])->name('comparacion');
+Route::get('/comparacion/{id}', [ComparacionController::class, 'show']);
+use App\Http\Controllers\ComparacionController;
+
 Route::middleware('auth')->group(function () {
-    // Página del comparador
     Route::get('/comparacion', [ComparacionController::class, 'index'])->name('comparacion');
-
-    // Guardar una nueva comparación
     Route::post('/comparacion', [ComparacionController::class, 'store'])->name('comparacion.store');
-
-    // Ver las comparaciones del usuario
     Route::get('/mis-comparaciones', [ComparacionController::class, 'showUserComparisons'])->name('mis.comparaciones');
-
-    // Datos JSON de un coche individual (para arrastrar y soltar)
-    Route::get('/comparacion/{id}', [ComparacionController::class, 'show']);
 });
 
 

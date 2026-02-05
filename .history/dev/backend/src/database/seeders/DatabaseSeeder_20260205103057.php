@@ -70,48 +70,9 @@ class DatabaseSeeder extends Seeder
         //  COCHES
         // ============================================
 
-        $price = 285000.00; // ALTA
-        $car = Car::create([
-            'brand_id' => $brandFerrari->id, 'user_id' => $userCarlos->id, 'model' => 'F8 Tributo', 
-            'color' => 'Rojo Rosso Corsa',
-            'type' => 'Coupé', 'fuel' => 'Gasolina', 'transmission' => 'Automática', 'year' => 2021, 'km' => 3500, 'engine_size' => '3.9L V8 Twin-Turbo',
-            'hp' => 720, 'torque' => 770, 'weight' => 1435,
-            'description' => 'Deportivo de alto rendimiento con motor V8.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/ferrari/f8-tributo.png'
-        ]);
-        $car->extras()->attach([$exGPS->id, $exCuero->id, $exSport->id, $exLed->id, $exAudio->id]);
+       http://localhost/comparacion
+http://localhost/comparacion
 
-        $price = 240000.00; // ALTA
-        $car = Car::create([
-            'brand_id' => $brandLamborghini->id, 'user_id' => $userLaura->id, 'model' => 'Huracán', 
-            'color' => 'Negro Mate',
-            'type' => 'Coupé', 'fuel' => 'Gasolina', 'transmission' => 'Automática', 'year' => 2022, 'km' => 2100, 'engine_size' => '5.2L V10',
-            'hp' => 640, 'torque' => 600, 'weight' => 1422,
-            'description' => 'Superdeportivo italiano con motor V10.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/lamborguini/huracan.png'
-        ]);
-        $car->extras()->attach([$exGPS->id, $exSport->id, $exLed->id]);
-
-        $price = 145000.00; // MEDIA
-        $car = Car::create([
-            'brand_id' => $brandAudi->id, 'user_id' => $userDavid->id, 'model' => 'R8 V10', 
-            'color' => 'Gris Anthracita',
-            'type' => 'Coupé', 'fuel' => 'Gasolina', 'transmission' => 'Automática', 'year' => 2020, 'km' => 15000, 'engine_size' => '5.2L V10 FSI',
-            'hp' => 620, 'torque' => 580, 'weight' => 1595,
-            'description' => 'Coupé deportivo con motor V10.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/audi/r8.png'
-        ]);
-        $car->extras()->attach([$exGPS->id, $exCuero->id, $exAudio->id]);
-
-        // ... [El resto de coches se mantiene igual, abreviado para no saturar] ...
-        // (He dejado el código de creación de coches tal cual estaba en tu original)
-
-        $price = 92000.00; // MEDIA
-        $car = Car::create([
-            'brand_id' => $brandBMW->id, 'user_id' => null, 'model' => 'M4 Competition', 
-            'color' => 'Gris Anthracita',
-            'type' => 'Coupé', 'fuel' => 'Gasolina', 'transmission' => 'Automática', 'year' => 2021, 'km' => 12000, 'engine_size' => '3.0L L6 Twin-Turbo',
-            'hp' => 510, 'torque' => 650, 'weight' => 1725,
-            'description' => 'Coupé deportivo con motor S58, 510 CV.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/bmw/m4-competition.png'
-        ]);
-        $car->extras()->attach([$exSport->id, $exLed->id]);
 
         $price = 85000.00; // MEDIA
         $car = Car::create([
@@ -172,6 +133,16 @@ class DatabaseSeeder extends Seeder
             'description' => 'El pony car por excelencia.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/ford/mustang-GT.png'
         ]);
        $car->extras()->attach([$exSport->id, $exAudio->id]);
+
+        $price = 140000.00; // MEDIA
+        $car = Car::create([
+            'brand_id' => $brandPorsche->id, 'user_id' => null, 'model' => '911 Carrera', 
+            'color' => 'Blanco Polar',
+            'type' => 'Coupé', 'fuel' => 'Gasolina', 'transmission' => 'Automática', 'year' => 2022, 'km' => 5000, 'engine_size' => '3.0L Boxer-6 Twin-Turbo',
+            'hp' => 385, 'torque' => 450, 'weight' => 1505,
+            'description' => 'La leyenda de Stuttgart.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/porsche/911.png'
+        ]);
+      $car->extras()->attach([$exSport->id, $exAudio->id]);
 
         $price = 140000.00; // MEDIA
         $car = Car::create([

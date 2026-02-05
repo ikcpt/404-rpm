@@ -68,11 +68,4 @@ public function facturas()
 {
     return $this->hasMany(Appointment::class);
 }
-
-public function comparations()
-{
-    return $this->hasMany(Comparation::class);
-}
-
-
 }

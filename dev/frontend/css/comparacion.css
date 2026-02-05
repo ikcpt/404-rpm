@@ -1,0 +1,142 @@
+.comparador {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 25px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+}
+
+.comparador h1.titulo {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    font-size: 2rem;
+}
+
+/* Garage de coches */
+.garage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.car-card {
+    width: 150px;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    cursor: grab;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.car-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.car-card:hover {
+    transform: scale(1.05);
+}
+
+/* Zona de comparación */
+.zona-comparacion {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 30px;
+}
+
+.drop-slot {
+    width: 400px;
+    min-height: 300px;
+    background: #fff;
+    border: 2px dashed #4a90e2;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: background 0.2s, border 0.2s;
+}
+
+.drop-slot p {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #4a90e2;
+}
+
+.drop-slot.drag-over {
+    background: #e6f0ff;
+    border-color: #2c6ed5;
+}
+
+/* VS central */
+.vs {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    align-self: center;
+}
+
+/* Specs comparadas */
+.specs {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.specs .spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.specs .spec-item:last-child {
+    border-bottom: none;
+}
+
+.specs .spec-name {
+    font-weight: 600;
+    color: #555;
+}
+
+.specs .spec-value {
+    color: #333;
+}
+
+.reiniciar-btn {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 12px 25px;
+    background: #ff4a4a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.reiniciar-btn:hover {
+    background: #ff1f1f;
+    transform: scale(1.05);
+}
+
+
+/* Responsive */
+@media (max-width: 950px) {
+    .zona-comparacion {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .drop-slot {
+        width: 90%;
+    }
+}

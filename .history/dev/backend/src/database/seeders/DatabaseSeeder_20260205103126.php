@@ -181,6 +181,16 @@ class DatabaseSeeder extends Seeder
             'hp' => 385, 'torque' => 450, 'weight' => 1505,
             'description' => 'La leyenda de Stuttgart.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/porsche/911.png'
         ]);
+      $car->extras()->attach([$exSport->id, $exAudio->id]);
+
+        $price = 140000.00; // MEDIA
+        $car = Car::create([
+            'brand_id' => $brandPorsche->id, 'user_id' => null, 'model' => '911 Carrera', 
+            'color' => 'Blanco Polar',
+            'type' => 'Coupé', 'fuel' => 'Gasolina', 'transmission' => 'Automática', 'year' => 2022, 'km' => 5000, 'engine_size' => '3.0L Boxer-6 Twin-Turbo',
+            'hp' => 385, 'torque' => 450, 'weight' => 1505,
+            'description' => 'La leyenda de Stuttgart.', 'price' => $price, 'class' => $getClase($price), 'image' => 'assets/img/porsche/911.png'
+        ]);
         $car->extras()->attach([$exGPS->id, $exSport->id]);
 
         $price = 69000.00; // MEDIA

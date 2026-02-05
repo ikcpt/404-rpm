@@ -1,0 +1,88 @@
+.comparador{
+    width:1200px;
+    margin:40px auto;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.titulo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.garage{
+    display:grid;
+    grid-template-columns:repeat(9,1fr);
+    gap:15px;
+    margin-bottom:60px;
+}
+
+.car-card{
+    background:#1c1c1c;
+    border-radius:12px;
+    padding:10px;
+    text-align:center;
+    cursor:grab;
+    transition:0.2s;
+}
+
+.car-card:hover{
+    transform:scale(1.05);
+}
+
+.car-card img{
+    width:100%;
+    height:90px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+.car-card span{
+    display:block;
+    margin-top:8px;
+    font-size:14px;
+    color:white;
+}
+
+.zona-comparacion{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:60px;
+}
+
+.drop-slot{
+    width:380px;
+    min-height:420px;
+    border:2px dashed #999;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+}
+
+.drop-slot.hover{
+    border-color:#00ffb3;
+}
+
+.specs{
+    margin-top:20px;
+    text-align:left;
+}
+
+.specs h3{
+    margin-bottom:10px;
+}
+
+.specs ul{
+    list-style:none;
+    padding:0;
+}
+
+.specs li{
+    margin-bottom:6px;
+}
+
+.vs{
+    font-size:40px;
+    font-weight:bold;
+    margin-top:160px;
+}
