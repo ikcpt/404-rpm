@@ -35,7 +35,7 @@
                     <li><a href="{{ route('home') }}" class="enlace-nav">Inicio</a></li>
                     <li><a href="{{ asset('taller.html') }}" class="enlace-nav">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
-                    <li><a href="{{ route('cita.create') }}" class="enlace-nav">Pedir Cita</a></li>
+                    <li><a href="{{ route('pedir-cita') }}" class="enlace-nav">Pedir Cita</a></li>
 
                     @guest
                     <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
@@ -60,7 +60,7 @@
 
                         <ul class="submenu">
                             <li><a href="{{ route('perfil') }}#garaje">🚗 Mi Garaje</a></li>
-                            <li><a href="{{ route('perfil') }}#citas">📅 Mis Citas</a></li>
+                            <li><a href="{{ route('mis-citas') }}">📅 Mis Citas</a></li>
                             <li><a href="{{ route('mis-facturas') }}">📄 Facturas</a></li>
                             <li><a href="{{ route('configuracion') }}">⚙️ Configuración</a></li>
                             <li class="separador-menu"></li>
