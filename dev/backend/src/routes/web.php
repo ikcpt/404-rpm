@@ -31,7 +31,7 @@ Route::get('acceso', function () {
 })->name('acceso');
 
 Route::get('/concesionario', function () {
-    $brands = Brand::all();
+    $brands = Brand::with('cars')->get();
     // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
     $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
     $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
@@ -62,6 +62,21 @@ Route::get('/factura/{id}', function ($id) {
     return "Aquí se descargará la factura " . $id;
 })->name('invoice');
 
+
+
+Route::get('/pedir-cita', function () {
+    $user = Auth::user();
+    
+    // 1. Obtenemos las citas
+    $citas = App\Models\Cita::where('user_id', $user->id)->get();
+    
+    // 2. Obtenemos los coches (ESTO ES LO QUE FALTABA)
+    $misCoches = $user->cars; 
+
+    // 3. Enviamos AMBAS variables a la vista
+    return view('cita', compact('citas', 'misCoches'));
+})->name('pedir-cita');
+
 Route::get('/cita', [CitaController::class, 'create'])->name('cita.create');
 Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');
 
@@ -78,9 +93,19 @@ Route::middleware('auth')->group(function () {
        
     // Perfil (Vista principal)
     Route::get('/perfil', function() {
-        $user = Auth::user()->load('profile', 'cars.brand'); 
-        return view('perfil', compact('user'));
-    })->name('perfil');
+            $user = Auth::user()->load('profile', 'cars.brand'); 
+            
+            // BUSCAMOS SI HAY UN COCHE EN EL TALLER
+            // Buscamos una cita que NO esté finalizada ni cancelada
+            $citaActiva = App\Models\Cita::where('user_id', $user->id)
+                            ->whereNotIn('estado', ['Finalizada', 'Cancelada'])
+                            ->with('car.brand') // Cargamos datos del coche y la marca
+                            ->latest('fecha')   // Si hay varias, cogemos la más reciente
+                            ->first();
+
+            // Pasamos la variable $citaActiva a la vista
+            return view('perfil', compact('user', 'citaActiva'));
+        })->name('perfil');
 
     // Facturas
     Route::get('/mis-facturas', function() {
@@ -90,18 +115,19 @@ Route::middleware('auth')->group(function () {
     })->name('mis-facturas');
 
     // Citas
+
 Route::get('/mis-citas', function () {
     $user = Auth::user();
     
-    // 1. Obtenemos las citas
+    // Obtenemos historial
     $citas = App\Models\Cita::where('user_id', $user->id)->get();
-    
-    // 2. Obtenemos los coches (ESTO ES LO QUE FALTABA)
     $misCoches = $user->cars; 
 
-    // 3. Enviamos AMBAS variables a la vista
-    return view('profile.citas', compact('citas', 'misCoches'));
-})->name('mis-citas');
+    // Retornamos la vista que renombraste a 'Mis-citas.blade.php'
+    return view('profile.Mis-citas', compact('citas', 'misCoches'));
+
+})->name('mis-citas'); // <--- Nombre correcto para el historial
+
 
 });
 

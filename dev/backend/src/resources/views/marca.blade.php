@@ -9,9 +9,6 @@
         @foreach($brand->cars as $car)
             <article class="card-coche oscuro">
                 <img src="{{ asset($car->image) }}" alt="{{ $car->model }}">
-                
-                <div class="etiqueta-coche">{{ $car->year }}</div>
-
                 <div class="info">
                     <h3>{{ $car->model }}</h3>
                     <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
