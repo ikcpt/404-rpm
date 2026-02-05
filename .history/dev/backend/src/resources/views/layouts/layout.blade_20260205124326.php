@@ -38,6 +38,7 @@
                     <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
                     <li><a href="{{ route('comparacion') }}" class="enlace-nav">Comparador</a></li>
                     <li><a href="{{ route('pedir-cita') }}" class="enlace-nav">Pedir Cita</a></li>
+>>>>>>> 039b069f4a748339af594c82ae6caa0dc04096d3
 
                     @guest
                     <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
