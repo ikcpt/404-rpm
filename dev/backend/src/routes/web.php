@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ComparacionController;
 use App\Http\Controllers\CitaController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -131,9 +132,6 @@ Route::get('/mis-citas', function () {
 
 
 });
-
-
-use App\Http\Controllers\ComparacionController;
 
 // Grupo protegido: solo usuarios logueados pueden usar comparador
 Route::middleware('auth')->group(function () {
