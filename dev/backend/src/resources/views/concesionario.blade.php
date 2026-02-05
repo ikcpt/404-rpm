@@ -32,9 +32,15 @@
         <div class="contenedor-seccion">            
             <div class="grid-marcas">
                 @foreach($brands as $brand)
-                    <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca">
-                        <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
-                    </a>
+                    @if ($brand->name == 'Lamborghini' || $brand->name == 'Ferrari' || $brand->name == 'Porsche')
+                        <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca exclusivo">
+                            <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                        </a>
+                    @else
+                        <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca">
+                            <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                        </a>
+                    @endif
                 @endforeach
             </div>
         </div>

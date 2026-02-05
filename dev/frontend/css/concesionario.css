@@ -56,6 +56,7 @@
 }
 
 .grid-coches {
+    margin: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
@@ -169,24 +170,13 @@
     font-weight: 700;
 }
 
-.btn-ver:hover { opacity: 1; transform: translateX(5px); }
+.btn-ver:hover { 
+    opacity: 1; 
+    transform: translateX(5px);
+}
 
 .card-coche {
     position: relative; 
-}
-
-.etiqueta-coche {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background-color: var(--color-secundario); 
-    color: white;
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    z-index: 10;
 }
 
 .contenedor-ver-mas {
@@ -354,9 +344,17 @@
     background-color: var(--color-contraste);
 }
 
+.exclusivo {
+    background: #1d1d1dff;
+}
+.exclusivo:hover {
+    background: #333333ff;
+    border: 3px solid #ddb70fff;
+}
+
 @media (max-width: 900px) {
     .grid-marcas {
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

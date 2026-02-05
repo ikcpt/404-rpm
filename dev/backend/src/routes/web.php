@@ -31,7 +31,7 @@ Route::get('acceso', function () {
 })->name('acceso');
 
 Route::get('/concesionario', function () {
-    $brands = Brand::all();
+    $brands = Brand::with('cars')->get();
     // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
     $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
     $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
