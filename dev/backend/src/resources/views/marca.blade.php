@@ -3,14 +3,14 @@
 @section('title', $brand->name . ' | Stock Disponible')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
+
 @if($brand->cars->count() > 0)
     <div class="grid-coches">
         @foreach($brand->cars as $car)
             <article class="card-coche oscuro">
                 <img src="{{ asset($car->image) }}" alt="{{ $car->model }}">
                 <div class="info">
-                    <h3>{{ $car->model }}</h3>
+                    <h3>{{ $brand->name }} {{ $car->model }}</h3>
                     <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
                     
                     <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>

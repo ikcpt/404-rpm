@@ -284,8 +284,7 @@
                         </td>
 
                         <td style="text-align: right;">
-                            <a href="{{ route('invoice', $factura->id) }}" class="btn-descarga"
-                                title="Descargar Factura">
+                            <a href="#" class="btn-descarga">
                                 <i class="fa-solid fa-file-pdf" style="color: #dc3545;"></i> PDF
                             </a>
                         </td>

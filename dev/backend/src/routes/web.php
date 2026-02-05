@@ -59,13 +59,6 @@ Route::get('/ficha/{id}', function ($id) {
 
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
-// Middleware de autenticación. Las rutas que están dentro funcionarán si el usuario ha iniciado sesión
-Route::get('/factura/{id}', function ($id) {
-    return "Aquí se descargará la factura " . $id;
-})->name('invoice');
-
-
-
 Route::get('/pedir-cita', function () {
     $user = Auth::user();
     
