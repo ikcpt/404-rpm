@@ -5,23 +5,34 @@
 <div class="comparador">
 
     <h1 class="titulo">Comparador de coches</h1>
+    <div class="brand-filter-wrapper">
+        <div class="brand-filter-container">
+            <button class="brand-btn active" onclick="filterCars('all', this)">
+                Todas
+            </button>
+
+            @foreach($brands as $brand)
+            <button class="brand-btn" onclick="filterCars({{ $brand->id }}, this)">
+                {{ $brand->name }}
+            </button>
+            @endforeach
+        </div>
+    </div>
 
     <!-- Sección de coches disponibles -->
-    <section class="garage">
+    <section class="garage" id="garage-container">
         @foreach($coches as $coche)
-            <div 
-                class="car-card"
-                draggable="true"
-                data-id="{{ $coche->id }}"
-            >
-                <img src="{{ $coche->image }}">
-                <span>{{ $coche->model }}</span>
+        <div class="car-card" draggable="true" data-id="{{ $coche->id }}" data-brand-id="{{ $coche->brand_id }}"> <img
+                src="{{ $coche->image }}" alt="{{ $coche->model }}">
+            <div class="car-info">
+                <span class="car-brand">{{ $coche->brand->name ?? '' }}</span>
+                <span class="car-model">{{ $coche->model }}</span>
             </div>
+        </div>
         @endforeach
     </section>
-
-    <!-- Zona de comparación -->
     <section class="zona-comparacion">
+
 
         <div class="drop-slot" id="slotA">
             <p>Arrastra coche A</p>
@@ -34,10 +45,10 @@
             <p>Arrastra coche B</p>
             <div class="specs"></div>
         </div>
-
-  <!-- Botón para reiniciar -->
-    <button id="reiniciar-comparacion" class="reiniciar-btn">Reiniciar Comparación</button>
     </section>
+    <div class="acciones-comparador">
+        <button id="reiniciar-comparacion" class="reiniciar-btn">Reiniciar Comparación</button>
+    </div>
 
 </div>
 

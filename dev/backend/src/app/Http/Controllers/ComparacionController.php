@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Comparation;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ComparacionController extends Controller
 {
-    public function index()
+   public function index()
     {
-        $coches = Car::with(['brand', 'extras'])->take(14)->get();
-        return view('comparacion', compact('coches'));
+        $brands = Brand::orderBy('name', 'asc')->get();
+        $coches = Car::with('brand')->get();
+        return view('comparacion', compact('coches', 'brands')); 
     }
 
     public function show($id)

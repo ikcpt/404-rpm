@@ -129,58 +129,79 @@
 
         @else
         @foreach($user->cars as $car)
-        <div class="coche-card" id="coche-{{ $car->id }}">
-            <div class="coche-header"
-                style="background-image: url('{{ asset($car->image ?? 'assets/img/placeholder.jpg') }}');">
-                <div class="year-badge">{{ $car->year }}</div>
-            </div>
+        <div class="coche-card" style="{{ $car->status == 'reserved' ? 'border: 2px solid #ffc107;' : '' }}">
 
             <div class="coche-body">
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <h3 class="coche-titulo">{{ $car->brand->name }} {{ $car->model }}</h3>
+                <div style="display: flex; justify-content: space-between;">
+                    <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+
+                    @if($car->status == 'reserved')
                     <span
-                        style="background: #eee; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #666;">
-                        {{ $car->type }}
+                        style="background: #ffc107; color: #333; padding: 2px 8px; border-radius: 4px; font-weight:bold;">
+                        RESERVADO
                     </span>
-                </div>
-
-                <p style="color: #777; margin-bottom: 10px; font-size: 0.95rem;">
-                    {{ Str::limit($car->description, 90) }}
-                </p>
-
-                <div class="specs-row">
-                    <div class="spec-item" title="Potencia">
-                        <i class="fa-solid fa-gauge-high"></i>
-                        <strong>{{ $car->hp }} CV</strong>
-                    </div>
-                    <div class="spec-item" title="Combustible">
-                        <i class="fa-solid fa-gas-pump"></i>
-                        <span>{{ $car->fuel }}</span>
-                    </div>
-                    <div class="spec-item" title="Transmisión">
-                        <i class="fa-solid fa-gears"></i>
-                        <span>{{ substr($car->transmission, 0, 4) }}.</span>
-                    </div>
-                    <div class="spec-item" title="Kilometraje">
-                        <i class="fa-solid fa-road"></i>
-                        <span>{{ number_format($car->km, 0, ',', '.') }} km</span>
-                    </div>
+                    @else
+                    <span
+                        style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-weight:bold;">
+                        EN PROPIEDAD
+                    </span>
+                    @endif
                 </div>
 
                 <div class="coche-actions">
+                    @if($car->status == 'reserved')
+                    <form action="{{ route('coche.comprar', $car->id) }}" method="POST" style="flex:1;">
+                        @csrf
+                        <button type="submit" class="btn-reservar" style="width:100%; background:#28a745;">
+                            <i class="fa-solid fa-check"></i> Completar Compra
+                        </button>
+                    </form>
+                    @else
                     <a href="{{ route('ficha', $car->id) }}" class="btn-timeline">
-                        <i class="fa-solid fa-clock-rotate-left"></i> Historial / Timeline
+                        <i class="fa-solid fa-clock-rotate-left"></i> Historial
                     </a>
-
-                    <a href="{{ route('pedir-cita', $car->id) }}" class="btn-reservar">
-                        <i class="fa-solid fa-calendar-check"></i> Pedir Cita
-                    </a>
+                    @endif
                 </div>
             </div>
         </div>
-        @endforeach
-        @endif
 
-    </main>
+        <p style="color: #777; margin-bottom: 10px; font-size: 0.95rem;">
+            {{ Str::limit($car->description, 90) }}
+        </p>
+
+        <div class="specs-row">
+            <div class="spec-item" title="Potencia">
+                <i class="fa-solid fa-gauge-high"></i>
+                <strong>{{ $car->hp }} CV</strong>
+            </div>
+            <div class="spec-item" title="Combustible">
+                <i class="fa-solid fa-gas-pump"></i>
+                <span>{{ $car->fuel }}</span>
+            </div>
+            <div class="spec-item" title="Transmisión">
+                <i class="fa-solid fa-gears"></i>
+                <span>{{ substr($car->transmission, 0, 4) }}.</span>
+            </div>
+            <div class="spec-item" title="Kilometraje">
+                <i class="fa-solid fa-road"></i>
+                <span>{{ number_format($car->km, 0, ',', '.') }} km</span>
+            </div>
+        </div>
+
+        <div class="coche-actions">
+            <a href="{{ route('ficha', $car->id) }}" class="btn-timeline">
+                <i class="fa-solid fa-clock-rotate-left"></i> Historial / Timeline
+            </a>
+
+            <a href="{{ route('pedir-cita', $car->id) }}" class="btn-reservar">
+                <i class="fa-solid fa-calendar-check"></i> Pedir Cita
+            </a>
+        </div>
+</div>
+</div>
+@endforeach
+@endif
+
+</main>
 </div>
 @endsection
