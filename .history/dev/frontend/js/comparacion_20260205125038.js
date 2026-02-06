@@ -96,7 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
             if (data.success) {
                 console.log('Comparación guardada ✅', data.comparacion_id);
-
+                // Opcional: reiniciar slots automáticamente si quieres
+                // reiniciarBtn.click();
             }
         } catch (err) {
             console.error('Error guardando comparación:', err);

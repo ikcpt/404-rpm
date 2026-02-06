@@ -37,6 +37,7 @@
 
   <!-- Botón para reiniciar -->
     <button id="reiniciar-comparacion" class="reiniciar-btn">Reiniciar Comparación</button>
+
     </section>
 
 </div>

@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
             if (data.success) {
                 console.log('Comparación guardada ✅', data.comparacion_id);
-
+    ;
             }
         } catch (err) {
             console.error('Error guardando comparación:', err);
