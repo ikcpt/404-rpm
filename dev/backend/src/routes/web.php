@@ -36,18 +36,8 @@ Route::get('acceso', function () {
     return view('acceso');
 })->name('acceso');
 
-// Rutas de concesionario
-Route::get('/concesionario', function () {
-    // Obtenemos todas las marcas de los coches
-    $brands = Brand::with('cars')->get();
-    // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
-    $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
-    $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
-    $ocasion   = Car::where('class', 'Ocasión')->with('brand')->get();
-
-    // A la vista se le pasan las marcas, y los coches de cada categoría
-    return view('concesionario', compact('brands', 'gamaAlta', 'gamaMedia', 'ocasion'));
-})->name('concesionario');
+// Rutas de concesionario, para filtrar los coches según la marca, y buscar el modelo de cada coche con el buscador
+Route::get('/concesionario', [CarController::class, 'concesionario'])->name('concesionario');
 
 Route::get('/api/cars/{id}', function ($id) {
     $car = Car::with(['brand', 'extras'])->find($id);
@@ -72,7 +62,7 @@ Route::get('/pedir-cita', function () {
     // 1. Obtenemos las citas
     $citas = App\Models\Cita::where('user_id', $user->id)->get();
     
-    // 2. Obtenemos los coches (ESTO ES LO QUE FALTABA)
+    // 2. Obtenemos los coches
     $misCoches = $user->cars; 
 
     // 3. Enviamos AMBAS variables a la vista

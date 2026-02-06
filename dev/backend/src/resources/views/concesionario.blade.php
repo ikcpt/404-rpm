@@ -7,20 +7,25 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
-<script>
-    $(function() {
-        $("#tabs").tabs();
-    });
-</script>
 
 <div class="banner-busqueda">
     <h1 class="titulo-banner">Encuentra tu <span class="acento-banner">Máquina</span></h1>
     <p class="texto-banner">Busca entre nuestro stock exclusivo</p>
 
     <form action="{{ route('concesionario') }}" method="GET" class="form-buscador">
-        <input type="text" name="search" class="input-buscador" placeholder="Escribe el modelo, marca o versión...">
+        <input type="text" name="buscar" class="input-buscador" placeholder="Escribe el modelo (Huracán, 911, Mustang, M4 Competition...)" value="{{ $busqueda ?? '' }}">
         <button type="submit" class="btn-buscador">BUSCAR</button>
     </form>
+
+    @if(isset($busqueda) && $busqueda)
+        <div style="text-align: center; margin-bottom: 20px; color: #fff;">
+            <p>Resultados para: <strong>"{{ $busqueda }}"</strong></p>
+            
+            @if($gamaAlta->isEmpty() && $gamaMedia->isEmpty() && $ocasion->isEmpty())
+                <h3 style="color: #ff6b6b; margin-top: 10px;">No hemos encontrado coches con ese nombre.</h3>
+            @endif
+        </div>
+    @endif
 </div>
 
 <div id="tabs">
@@ -170,4 +175,15 @@
 
 @section('scripts')
 <script src="{{ asset('js/concesionario.js') }}"></script>
+<script>
+    $(function() {
+        // Inicializar las pestañas tabs de jQuery
+        var tabs = $("#tabs").tabs();
+
+        // Si se devuelve un resultado en el buscador del modelo, se moestrará la primera pestaña del tabs
+        @if(request()->has('buscar'))
+            tabs.tabs("option", "active", 1);
+        @endif
+    });
+</script>
 @endsection

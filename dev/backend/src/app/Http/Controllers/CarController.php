@@ -43,4 +43,35 @@ class CarController extends Controller
 
         return view('marca', compact('brand', 'cars'));
     }
+
+    // Función para filtrar los coches por cada marca y gama, y búsqueda manual del modelo del coche
+    public function concesionario(Request $request) {
+        // Se guarda en la variable $busqueda lo que ha escrito el usuario en el formulario
+        $busqueda = $request->input('buscar');
+        
+        // Obtenemos todas las marcas de los coches
+        $brands = Brand::with('cars')->get();
+
+        // Se ejecuta la consulta en la BBDD dependiendo de lo que haya introducido el usuario, se mostrará el modelo concreto del coche, o todos los modelos de la marca
+        $filtrar = function($query) use ($busqueda) {
+            if ($busqueda) {
+                // Se ejecuta la consulta en la BBDD
+                $query->where(function($q) use ($busqueda) {
+                    // Se busca que el nombre del modelo coincida con la búsqueda del usuario
+                    $q->where('model', 'LIKE', "%$busqueda%")
+                    // Se busca que el nombre de la marca coincida con la búsqueda del usuario
+                    ->orWhereRelation('brand', 'name', 'LIKE', "%$busqueda%");
+                });
+            }
+            return $query;
+        };
+
+        // Obtenemos los coches separándolos por su clase
+        $gamaAlta  = $filtrar(Car::where('class', 'Gama Alta')->with('brand'))->get();
+        $gamaMedia = $filtrar(Car::where('class', 'Gama Media')->with('brand'))->get();
+        $ocasion   = $filtrar(Car::where('class', 'Ocasión')->with('brand'))->get();
+
+        // A la vista se le pasan las marcas, y los coches de cada categoría, y el resultado de la búsqueda
+        return view('concesionario', compact('brands', 'gamaAlta', 'gamaMedia', 'ocasion', 'busqueda'));
+    }
 }
