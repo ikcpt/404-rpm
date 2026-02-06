@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/buscador.css') }}">
-    
+
     @stack('styles')
 </head>
 
@@ -41,7 +41,7 @@
 
                     @guest
                     <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
-                        <a href="{{ route('login') }}" class="enlace-nav boton-destacado">Entrar</a>
+                        <a href="{{ route('acceso') }}" class="enlace-nav boton-destacado">Entrar</a>
                     </li>
                     @endguest
 

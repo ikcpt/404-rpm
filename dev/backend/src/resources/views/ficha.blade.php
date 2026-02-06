@@ -36,20 +36,23 @@
             </ul>
         </div>
 
-        <div class="barra-acciones">
-            <button id="btn-reserva" class="btn-racing btn-primario">Reservar</button>
-            <button id="btn-comprar" class="btn-racing btn-secundario">Comprar</button>
+        <div id="acciones-servidor">
+            <a href="{{ route('coche.reservar.form', $car->id) }}" class="btn-reservar">RESERVAR</a>
 
-            <a href="{{ route('concesionario') }}" id="btn-volver" class="btn-racing btn-outline"
-                style="text-decoration:none; display:flex; justify-content:center; align-items:center;">
-                Volver
-            </a>
+            <form action="{{ route('coche.comprar', $car->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn-comprar" onclick="return confirm('¿Confirmar compra inmediata?')">
+                    COMPRAR
+                </button>
+            </form>
+
+            <a href="{{ route('concesionario') }}" class="btn-volver">Volver</a>
         </div>
 
     </main>
 
     <script>
-    window.carId = "{{ $id }}";
+    window.carId = "{{ $car->id }}";
     window.assetUrl = "{{ asset('') }}";
     </script>
 
