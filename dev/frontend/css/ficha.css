@@ -12,7 +12,56 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    margin: 0;
+    padding-bottom: 90px; /* espacio para la barra inferior */
+}
 
+#acciones-servidor {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+#acciones-servidor form {
+    margin: 0;
+}
+
+.btn-reservar {
+    background: #1a4a9c;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-comprar {
+    background: #d60000;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-volver {
+    background: #eee;
+    color: #333;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   background-color: var(--color-blanco);
