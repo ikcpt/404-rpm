@@ -1,171 +1,186 @@
-<!DOCTYPE html>
-<html lang="es">
+@extends('layouts.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil - {{ Auth::user()->name }}</title>
-    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Tarjetas.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-</head>
+@section('title', 'Mi Garaje | 404 RPM')
 
-<body>
-    <header class="encabezado-principal">
-        <div class="contenedor-header">
-            <a href="{{ url('/') }}" class="logo">
-                <img src="{{ asset('assets/img/logo.jpg') }}" alt="404 RPM Inicio">
+@section('content')
+
+
+<div class="layout-perfil">
+
+    <aside class="sidebar-perfil">
+        <div class="nivel-badge">🏆 Nivel: Piloto Experto</div>
+
+        <div class="avatar-container" style="margin-bottom: 15px;">
+            <div
+                style="width: 90px; height: 90px; background: #1a4a9c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto; border: 4px solid #f0f4ff;">
+                {{ substr($user->name, 0, 2) }}
+            </div>
+        </div>
+
+        <h3 style="margin: 10px 0 5px; font-weight: 700; color: #333;">{{ $user->name }}</h3>
+        <p style="color: #777; font-size: 0.9rem;">{{ $user->email }}</p>
+
+        <div class="puntos-rpm">
+            Tienes <strong>1,250 RPM</strong> puntos<br>
+            <small style="color: #888;">Canjeables por descuentos</small>
+        </div>
+
+        <nav class="menu-lateral" style="text-align: left; margin-top: 30px;">
+            <a href="{{ route('perfil') }}"
+                style="display: block; padding: 12px; color: #1a4a9c; background: #eef4ff; font-weight: 600; border-radius: 8px; margin-bottom: 5px;">
+                🚗 Mi Garaje
+            </a>
+            <a href="{{ route('mis-citas') }}"
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
+                📅 Mis Citas
+            </a>
+            <a href="{{ route('mis-facturas') }}"
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
+                📄 Facturas
+            </a>
+            <a href="{{ route('configuracion') }}"
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; transition: 0.2s;">
+                ⚙️ Configuración
             </a>
 
-            <button class="boton-menu" aria-label="Abrir menú">☰</button>
+            <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        style="background: none; border: none; color: #dc3545; padding: 12px; width: 100%; text-align: left; cursor: pointer; font-weight: 500; font-size: 1rem;">
+                        🚪 Cerrar Sesión
+                    </button>
+                </form>
+            </div>
+        </nav>
+    </aside>
 
-            <nav class="navegacion-principal">
-                <ul class="lista-navegacion">
-                    <li><a href="/" class="enlace-nav">Inicio</a></li>
-                    <li><a href="taller.html" class="enlace-nav">Taller</a></li>
-                    <li><a href="concesionario.html" class="enlace-nav">Concesionario</a></li>
+    <main>
 
-                    <li>
-                        <a href="cita.html" class="enlace-nav boton-destacado">Pedir Cita</a>
-                    </li>
+        @if(isset($citaActiva) && $citaActiva && $citaActiva->car)
 
-                    @guest
-                    <li>
-                        <a href="{{ route('login') }}" class="enlace-nav">Iniciar Sesión</a>
-                        <a href="{{ route('register') }}" class="enlace-nav" style="font-weight: 600;">Registrarse</a>
-                    </li>
-                    @endguest
+        @php
+        $paso = 1;
+        if($citaActiva->estado == 'Confirmada') $paso = 3;
+        @endphp
 
-                    @auth
-                    <li class="item-con-desplegable">
-                        <a href="{{ route('perfil') }}" class="enlace-nav enlace-perfil">
-                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2"
-                                fill="none">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            <span id="user-name">{{ Auth::user()->name }}</span>
-                            <svg class="flecha-baja" width="12" height="12" viewBox="0 0 24 24" stroke="currentColor"
-                                stroke-width="3" fill="none">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="{{ route('perfil') }}#garaje">🚗 Mi Garaje</a></li>
-                            <li><a href="{{ route('perfil') }}#citas">📅 Mis Citas</a></li>
-                            <li><a href="{{ route('perfil') }}#facturas">📄 Facturas</a></li>
-                            <li><a href="{{ route('perfil') }}#config">⚙️ Configuración</a></li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="cerrar-sesion">🚪 Cerrar Sesión</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    @endauth
+        <div class="tracker-widget">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 style="font-size: 1.1rem; color: #333; margin: 0;">
+                    🛠️ Estado del Taller: <strong>{{ $citaActiva->car->brand->name }}
+                        {{ $citaActiva->car->model }}</strong>
+                </h3>
+                <span
+                    style="background: #fff3cd; color: #856404; padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold;">
+                    {{ $citaActiva->estado }}
+                </span>
+            </div>
 
-                </ul>
-            </nav>
+            <div class="progress-steps">
+                <div class="step {{ $paso >= 1 ? 'completed' : '' }}">
+                    <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                    <div class="step-label">Recepción</div>
+                </div>
+                <div class="step {{ $paso >= 2 ? 'completed' : '' }}">
+                    <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                    <div class="step-label">Diagnóstico</div>
+                </div>
+                <div class="step {{ $paso == 3 ? 'active' : '' }}">
+                    <div class="step-circle"><i class="fa-solid fa-wrench"></i></div>
+                    <div class="step-label">Reparación</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Calidad</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">5</div>
+                    <div class="step-label">Listo</div>
+                </div>
+            </div>
+
+            <p
+                style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666; background: #fafafa; padding: 10px; border-radius: 8px;">
+                Cita programada para el: <strong>{{ $citaActiva->fecha->format('d/m/Y') }}</strong> a las
+                <strong>{{ \Carbon\Carbon::parse($citaActiva->hora)->format('H:i') }}h</strong>
+            </p>
         </div>
-    </header>
 
-    <main class="contenedor-perfil">
+        @endif
 
-        <aside class="sidebar-perfil">
-            <div class="tarjeta-usuario">
-                <div class="avatar">
-                    <span>
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                        {{ strtoupper(substr(Auth::user()->profile?->surname ?? '', 0, 1)) }}
+        <h2
+            style="font-size: 1.5rem; color: #333; margin-bottom: 20px; padding-left: 5px; border-left: 4px solid #1a4a9c;">
+            Mi Garaje
+        </h2>
+
+        @if($user->cars->isEmpty())
+
+        <div class="empty-state-card">
+            <div class="empty-state-icon">
+                <i class="fa-solid fa-car-side"></i>
+            </div>
+            <p class="empty-state-text">
+                Aún no tienes ningún vehículo en tu garaje personal.
+            </p>
+            <a href="{{ route('concesionario') }}" class="btn-explorar">
+                <i class="fa-solid fa-plus"></i> Ver Coches Disponibles
+            </a>
+        </div>
+
+        @else
+        @foreach($user->cars as $car)
+        <div class="coche-card" id="coche-{{ $car->id }}">
+            <div class="coche-header"
+                style="background-image: url('{{ asset($car->image ?? 'assets/img/placeholder.jpg') }}');">
+                <div class="year-badge">{{ $car->year }}</div>
+            </div>
+
+            <div class="coche-body">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <h3 class="coche-titulo">{{ $car->brand->name }} {{ $car->model }}</h3>
+                    <span
+                        style="background: #eee; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #666;">
+                        {{ $car->type }}
                     </span>
                 </div>
-                <h2>{{ Auth::user()->name }} {{ Auth::user()->profile?->surname ?? '' }}</h2>
-                <p class="email-usuario">{{ Auth::user()->email }}</p>
 
-                @if(Auth::user()->profile)
-                <p class="telefono-usuario">Teléfono: {{ Auth::user()->profile->phone }}</p>
-                @endif
+                <p style="color: #777; margin-bottom: 10px; font-size: 0.95rem;">
+                    {{ Str::limit($car->description, 90) }}
+                </p>
 
-                <p class="miembro-desde">Miembro desde: {{ Auth::user()->created_at->format('Y') }}</p>
-
-                <nav class="menu-perfil">
-                    <a href="#" class="activo">🚗 Mi Garaje</a>
-                    <a href="#">📅 Mis Citas</a>
-                    <a href="#">📄 Facturas</a>
-                    <a href="#">⚙️ Configuración</a>
-
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit"
-                            style="background:none; border:none; color: inherit; font: inherit; cursor: pointer; padding: 10px 0;">🚪
-                            Cerrar Sesión</button>
-                    </form>
-                </nav>
-            </div>
-        </aside>
-
-        <section class="contenido-dashboard">
-
-            <div class="widget-alerta">
-                <div class="icono-alerta">🔧</div>
-                <div class="texto-alerta">
-                    <h3>Estado del Taller</h3>
-                    <p>No tienes reparaciones activas en este momento.</p>
-                </div>
-                <button class="boton contorno">Ver historial</button>
-            </div>
-
-            <h2 class="titulo-seccion-perfil" id="garaje">Mis Vehículos</h2>
-            <div class="grid-garaje">
-                {{-- Se cargan todos los coches que tiene el, usuario logeado, registrados en la base de datos --}}
-                @forelse(Auth::user()->cars as $car)
-                <article class="tarjeta-garaje">
-                    <div class="foto-garaje">
-                        <div
-                            style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#555; font-weight:bold;">
-                            {{ $car->brand->name }}
-                        </div>
-                        {{-- Si tuvieras fotos: <img src="{{ asset('storage/' . $car->image) }}" alt="..."> --}}
+                <div class="specs-row">
+                    <div class="spec-item" title="Potencia">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <strong>{{ $car->hp }} CV</strong>
                     </div>
-                    <div class="info-garaje">
-                        <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
-                        <p class="tipo-motor">{{ $car->type }}</p>
-
-                        @if($car->extras->count() > 0)
-                        <p style="font-size: 0.8rem; color: #666; margin-top:5px;">
-                            + {{ $car->extras->first()->name }}
-                            @if($car->extras->count() > 1) y más... @endif
-                        </p>
-                        @endif
-
-                        <div class="acciones-garaje">
-                            <a href="{{ url('/cita') }}" class="boton-pequeno">Pedir Cita</a>
-                            <a href="#" class="enlace-historial">Ver ficha</a>
-                        </div>
+                    <div class="spec-item" title="Combustible">
+                        <i class="fa-solid fa-gas-pump"></i>
+                        <span>{{ $car->fuel }}</span>
                     </div>
-                </article>
-                {{-- Si el usuario no tiene ningún coche,  --}}
-                @empty
-                {{-- Esto se muestra si el usuario NO tiene coches --}}
-                <div class="sin-coches">
-                    <p>No tienes vehículos registrados en tu garaje.</p>
-                    <a href="concesionario.html" class="boton-destacado"
-                        style="margin-top:10px; display:inline-block;">Ir al Concesionario</a>
+                    <div class="spec-item" title="Transmisión">
+                        <i class="fa-solid fa-gears"></i>
+                        <span>{{ substr($car->transmission, 0, 4) }}.</span>
+                    </div>
+                    <div class="spec-item" title="Kilometraje">
+                        <i class="fa-solid fa-road"></i>
+                        <span>{{ number_format($car->km, 0, ',', '.') }} km</span>
+                    </div>
                 </div>
-                @endforelse
 
+                <div class="coche-actions">
+                    <a href="{{ route('ficha', $car->id) }}" class="btn-timeline">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Historial / Timeline
+                    </a>
+
+                    <a href="{{ route('pedir-cita', $car->id) }}" class="btn-reservar">
+                        <i class="fa-solid fa-calendar-check"></i> Pedir Cita
+                    </a>
+                </div>
             </div>
+        </div>
+        @endforeach
+        @endif
 
-        </section>
     </main>
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
-
-</html>
+</div>
+@endsection

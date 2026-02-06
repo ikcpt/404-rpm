@@ -57,7 +57,7 @@ body {
   width: var(--ancho-contenido);
   height: 100vh;
   overflow-y: auto;
-  padding: 50px 40px;
+  padding: 50px 40px 120px 40px; /* Padding inferior aumentado para no tapar con botones */
   background: var(--color-blanco);
 }
 
@@ -95,89 +95,125 @@ h3 {
   letter-spacing: 1px;
 }
 
-/* --- ESTILOS JQUERY TABS (BRUTAL DESIGN) --- */
+/* --------------------------------------------------------- */
+/* --- ESTILOS JQUERY TABS (CORREGIDOS Y FULL CLICK) --- */
+/* --------------------------------------------------------- */
 
-/* Contenedor de Tabs */
-#ficha.ui-tabs {
+/* Contenedor principal de los Tabs */
+.ui-tabs {
   margin-bottom: 30px;
-  border: 1px solid #ddd;
-  background: var(--color-contraste);
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
-/* La lista de pestañas (nav) */
+/* La barra de navegación (la lista de botones) */
 .ui-tabs-nav {
   display: flex;
   list-style: none;
-  background: var(--color-terciario); /* Fondo negro para los tabs */
+  background: var(--color-contraste); /* Fondo gris claro para la barra */
   padding: 0;
   margin: 0;
+  border-radius: 4px; /* Un poco de redondeo */
+  overflow: hidden; /* Para que los hijos no se salgan del borde */
 }
 
+/* Cada elemento de la lista (el contenedor del botón) */
 .ui-tabs-nav li {
-  flex: 1; /* Tabs ocupan ancho igual */
-  text-align: center;
+  flex: 1; /* Todos ocupan el mismo ancho */
+  margin: 0;
+  padding: 0; /* CRUCIAL: Sin padding aquí para que el enlace ocupe todo */
+  border-right: 1px solid #ddd; /* Separador entre pestañas */
 }
 
-/* Enlaces de las pestañas */
+.ui-tabs-nav li:last-child {
+  border-right: none;
+}
+
+/* El enlace (EL BOTÓN REAL) */
 .ui-tabs-nav li a {
-  display: block;
-  padding: 15px 0;
+  display: flex; /* Usamos flex para centrar el texto verticalmente */
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100%; /* Ocupa todo el alto */
+  padding: 15px 10px; /* Aquí es donde va el espacio clickeable */
+  
   text-decoration: none;
-  color: #888;
+  color: #666;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.85rem;
-  transition: all 0.3s;
-  outline: none;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  background: var(--color-contraste); /* Fondo inactivo */
+  cursor: pointer;
 }
 
-/* Pestaña Activa */
+/* Efecto Hover (pasar el ratón) */
+.ui-tabs-nav li a:hover {
+  background-color: #e5e5e5;
+  color: var(--color-terciario);
+}
+
+/* ESTADO ACTIVO (Pestaña seleccionada) */
+/* jQuery añade la clase .ui-tabs-active al li seleccionado */
 .ui-tabs-nav li.ui-tabs-active a {
-  color: var(--color-blanco);
-  background-color: var(--color-primario); /* Azul activo */
-  box-shadow: inset 0 -4px 0 var(--color-acento); /* Línea de acento abajo */
+  background-color: var(--color-primario); /* Fondo Azul */
+  color: var(--color-blanco); /* Texto Blanco */
+  box-shadow: inset 0 -4px 0 var(--color-acento); /* Línea decorativa inferior */
 }
 
-/* Paneles de contenido */
+/* Paneles de contenido (lo que se muestra al clicar) */
 .ui-tabs-panel {
-  padding: 20px;
-  animation: fadeIn 0.3s ease-in-out;
+  padding: 20px 0; /* Un poco de aire arriba y abajo */
+  border-top: 2px solid var(--color-primario); /* Línea que conecta con la pestaña */
+  animation: fadeIn 0.4s ease-out;
 }
 
 /* Filas de datos dentro de los tabs */
 .dato-fila {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  padding: 12px 10px;
+  border-bottom: 1px solid #eee;
   font-size: 0.95rem;
+  transition: background 0.2s;
 }
+
+.dato-fila:hover {
+  background-color: #fcfcfc;
+}
+
 .dato-fila:last-child { border-bottom: none; }
-.dato-fila strong { color: var(--color-primario); }
+.dato-fila strong { color: var(--color-terciario); font-weight: 700; }
+.dato-fila span { color: #555; }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ... resto de tu CSS anterior ... */
+/* --------------------------------------------------------- */
+/* --- FIN TABS --- */
+/* --------------------------------------------------------- */
 
-/* --- EXTRAS ACTUALIZADO --- */
+/* --- EXTRAS --- */
 #extras {
   list-style: none;
-  display: grid; /* Usamos Grid en vez de Flex para que queden alineados */
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adaptable */
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 12px;
-  padding-bottom: 80px; /* Espacio extra para scroll */
+  padding-bottom: 20px;
 }
 
 #extras li {
   display: flex;
-  flex-direction: column; /* Apilamos nombre y descripción */
+  flex-direction: column;
   background: var(--color-contraste);
   border: 1px solid #ddd;
   padding: 12px;
-  border-radius: 6px; /* Bordes menos redondeados, más técnico */
+  border-radius: 6px;
   transition: all 0.2s ease;
 }
 
@@ -201,4 +237,74 @@ h3 {
   font-size: 0.8rem;
   color: #666;
   line-height: 1.3;
+}
+
+/* --- BARRA INFERIOR --- */
+.barra-acciones {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: var(--ancho-contenido); 
+  height: 90px;
+  background-color: rgba(255, 255, 255, 0.95); /* Ligeramente transparente */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.1); 
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0 40px; 
+  z-index: 100; 
+}
+
+.btn-racing {
+  padding: 12px 24px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  text-decoration: none; 
+  text-align: center;
+  flex: 1; 
+  margin: 0 5px; 
+  /* Diseño poligonal "Racing" */
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.btn-primario {
+  background-color: var(--color-primario);
+  color: white;
+}
+.btn-primario:hover {
+  background-color: var(--color-acento);
+  transform: translateY(-2px);
+}
+
+.btn-secundario {
+  background-color: var(--color-secundario);
+  color: white;
+}
+.btn-secundario:hover {
+  background-color: var(--color-acento-secundario);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid #ddd;
+  color: #666;
+  clip-path: none; 
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-outline:hover {
+  border-color: var(--color-terciario);
+  color: var(--color-terciario);
+  background-color: #f9f9f9;
 }

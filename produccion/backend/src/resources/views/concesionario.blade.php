@@ -1,0 +1,188 @@
+@extends('layouts.layout')
+
+@section('title', 'Concesionario | 404 RPM')
+
+@section('content')
+<link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+
+<div class="banner-busqueda">
+    <h1 class="titulo-banner">Encuentra tu <span class="acento-banner">Máquina</span></h1>
+    <p class="texto-banner">Busca entre nuestro stock exclusivo</p>
+
+    <form action="{{ route('concesionario') }}" method="GET" class="form-buscador">
+        <input type="text" name="buscar" class="input-buscador" placeholder="Escribe el modelo (Huracán, 911, Mustang, M4 Competition...)" value="{{ $busqueda ?? '' }}">
+        <button type="submit" class="btn-buscador">BUSCAR</button>
+    </form>
+
+    @if(isset($busqueda) && $busqueda)
+        <div style="text-align: center; margin-bottom: 20px; color: #fff;">            
+            @if($gamaAlta->isEmpty() && $gamaMedia->isEmpty() && $ocasion->isEmpty())
+                <h3 style="color: #ff6b6b; margin-top: 10px;">No hemos encontrado coches con ese nombre. Vuelve a intentarlo.</h3>
+            @else
+            <a href="{{ route('concesionario') }}" class="limpiar">Limpiar búsqueda</a>
+            @endif
+        </div>
+    @endif
+</div>
+
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Marcas</a></li>
+        <li><a href="#tabs-2">Modelos</a></li>
+    </ul>
+<div id="tabs-1">
+        <div class="contenedor-seccion">            
+            <div class="grid-marcas">
+                @foreach($brands as $brand)
+                    @if ($brand->name == 'Lamborghini' || $brand->name == 'Ferrari' || $brand->name == 'Porsche')
+                        <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca exclusivo">
+                            <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                        </a>
+                    @else
+                        <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca">
+                            <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div id="tabs-2">
+        <section class="seccion-gama gama-alta">
+            <div class="contenedor-seccion">
+                <h2 class="titulo-seccion">Alta Gama <span class="acento">Exclusiva</span></h2>
+
+                <div class="grid-coches">
+                    @foreach($gamaAlta->take(3) as $car)
+                    <article class="card-coche oscuro">
+                        <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                        <div class="info">
+                            <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                            
+                            <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                            <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                        </div>
+                    </article>
+                    @endforeach
+                </div>
+
+                @if($gamaAlta->count() > 3)
+                <div id="extra-alta" style="display: none; margin-top: 20px;">
+                    <div class="grid-coches">
+                        @foreach($gamaAlta->skip(3) as $car)
+                        <article class="card-coche oscuro">
+                            <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                            <div class="info">
+                                <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                                <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                                <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                            </div>
+                        </article>
+                        @endforeach
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn-desplegar" data-target="#extra-alta" style="color: #d4af37;">Ver colección completa ↓</button>
+                </div>
+                @endif
+            </div>
+        </section>
+
+        <section class="seccion-gama gama-media">
+            <div class="contenedor-seccion">
+                <h2 class="titulo-seccion">Gama Media</h2>
+
+                <div class="grid-coches">
+                    @foreach($gamaMedia->take(3) as $car)
+                    <article class="card-coche claro">
+                        <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                        <div class="info">
+                            <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                            <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                            <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                        </div>
+                    </article>
+                    @endforeach
+                </div>
+
+                @if($gamaMedia->count() > 3)
+                <div id="extra-media" style="display: none; margin-top: 20px;">
+                    <div class="grid-coches">
+                        @foreach($gamaMedia->skip(3) as $car)
+                        <article class="card-coche claro">
+                            <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                            <div class="info">
+                                <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                                <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                                <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                            </div>
+                        </article>
+                        @endforeach
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn-desplegar" data-target="#extra-media" style="color: #333;">Ver más modelos ↓</button>
+                </div>
+                @endif
+            </div>
+        </section>
+
+        <section class="seccion-gama gama-baja">
+            <div class="contenedor-seccion">
+                <h2 class="titulo-seccion">Ocasión</h2>
+
+                <div class="grid-coches">
+                    @foreach($ocasion->take(3) as $car)
+                    <article class="card-coche blanco">
+                        <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                        <div class="info">
+                            <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                            <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                            <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                        </div>
+                    </article>
+                    @endforeach
+                </div>
+
+                @if($ocasion->count() > 3)
+                <div id="extra-ocasion" style="display: none; margin-top: 20px;">
+                    <div class="grid-coches">
+                        @foreach($ocasion->skip(3) as $car)
+                        <article class="card-coche blanco">
+                            <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
+                            <div class="info">
+                                <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
+                                <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
+                                <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
+                            </div>
+                        </article>
+                        @endforeach
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn-desplegar" data-target="#extra-ocasion" style="color: var(--color-primario);">Ver stock completo ↓</button>
+                </div>
+                @endif
+            </div>
+        </section>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/concesionario.js') }}"></script>
+<script>
+    $(function() {
+        // Inicializar las pestañas tabs de jQuery
+        var tabs = $("#tabs").tabs();
+
+        // Si se devuelve un resultado en el buscador del modelo, se moestrará la primera pestaña del tabs
+        @if(request()->has('buscar'))
+            tabs.tabs("option", "active", 1);
+        @endif
+    });
+</script>
+@endsection
