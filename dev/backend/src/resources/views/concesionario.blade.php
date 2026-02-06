@@ -18,22 +18,22 @@
     </form>
 
     @if(isset($busqueda) && $busqueda)
-        <div style="text-align: center; margin-bottom: 20px; color: #fff;">
-            <p>Resultados para: <strong>"{{ $busqueda }}"</strong></p>
-            
+        <div style="text-align: center; margin-bottom: 20px; color: #fff;">            
             @if($gamaAlta->isEmpty() && $gamaMedia->isEmpty() && $ocasion->isEmpty())
-                <h3 style="color: #ff6b6b; margin-top: 10px;">No hemos encontrado coches con ese nombre.</h3>
+                <h3 style="color: #ff6b6b; margin-top: 10px;">No hemos encontrado coches con ese nombre. Vuelve a intentarlo.</h3>
+            @else
+            <a href="{{ route('concesionario') }}" class="limpiar">Limpiar búsqueda</a>
             @endif
         </div>
     @endif
 </div>
 
 <div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Marcas</a></li>
-    <li><a href="#tabs-2">Modelos</a></li>
-  </ul>
-  <div id="tabs-1">
+    <ul>
+        <li><a href="#tabs-1">Marcas</a></li>
+        <li><a href="#tabs-2">Modelos</a></li>
+    </ul>
+<div id="tabs-1">
         <div class="contenedor-seccion">            
             <div class="grid-marcas">
                 @foreach($brands as $brand)
@@ -170,7 +170,6 @@
         </section>
     </div>
 </div>
-
 @endsection
 
 @section('scripts')
