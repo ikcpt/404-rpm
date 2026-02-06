@@ -3,6 +3,17 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CarController;
+use App\Models\Car;
+
+Route::get('/cars/{id}', function ($id) {
+    $car = Car::with(['brand', 'extras'])->find($id);
+
+    if (!$car) {
+        return response()->json(['error' => 'Coche no encontrado'], 404);
+    }
+
+    return response()->json($car);
+});
 
 // Ruta que realiza la petición a la API del tiempo Open Meteo, donde se le pasan las coordenadas de Irún. Devuelve un JSON con los datos recibidos
 Route::get('/clima', function() {

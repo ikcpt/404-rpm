@@ -39,20 +39,17 @@ Route::get('acceso', function () {
 // Rutas de concesionario, para filtrar los coches según la marca, y buscar el modelo de cada coche con el buscador
 Route::get('/concesionario', [CarController::class, 'concesionario'])->name('concesionario');
 
-Route::get('/api/cars/{id}', function ($id) {
-    $car = Car::with(['brand', 'extras'])->find($id);
+// Route::get('/api/cars/{id}', function ($id) {
+//     $car = \App\Models\Car::with(['brand', 'extras'])->find($id);
 
-    if (!$car) {
-        return response()->json(['error' => 'Coche no encontrado'], 404);
-    }
+//     if (!$car) {
+//         return response()->json(['error' => 'Coche no encontrado'], 404);
+//     }
 
-    // Laravel convierte esto automáticamente a JSON
-    return response()->json($car);
-});
+//     return response()->json($car);
+// });
 
-Route::get('/ficha/{id}', function ($id) {
-    return view('ficha', ['id' => $id]); 
-})->name('ficha');
+Route::get('/ficha/{id}', [CarController::class, 'show'])->name('ficha');
 
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
@@ -98,7 +95,17 @@ Route::middleware('auth')->group(function () {
             // Pasamos la variable $citaActiva a la vista
             return view('perfil', compact('user', 'citaActiva'));
         })->name('perfil');
+    
+    // Rutas para la COMPRA:
+    Route::post('/coche/{car}/comprar', [CarController::class, 'comprar'])->name('coche.comprar');
 
+    // Rutas para la RESERVA:
+    // 1. Mostrar el formulario (GET)
+    Route::get('/coche/{car}/reservar', [CarController::class, 'mostrarFormularioReserva'])->name('coche.reservar.form');
+    
+    // 2. Procesar el formulario (POST)
+    Route::post('/coche/{car}/reservar', [CarController::class, 'procesarReserva'])->name('coche.reservar.proceso');
+    Route::post('/coche/{car}/finalizar', [CarController::class, 'finalizarReserva'])->name('coche.finalizar');
     // Facturas
     Route::get('/mis-facturas', function() {
         $user = Auth::user();
