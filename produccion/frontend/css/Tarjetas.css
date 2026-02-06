@@ -232,68 +232,136 @@
 /* --- COCHES - NOVEDADES --- */
 
 .tarjeta-coche {
-  background-color: var(--color-blanco);
-  border: 1px solid #e0e0e0;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden; /* Para que la imagen y la barra no se salgan */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Sombra suave inicial */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative; /* Necesario para la barra inferior */
+    border: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column; /* Asegura que el contenido se apile bien */
 }
 
+/* BARRA DE POTENCIA (Animación inferior) */
+.tarjeta-coche::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%; /* Empieza vacía */
+    height: 4px; /* Grosor de la línea */
+    background: var(--color-primario); /* Rojo Racing */
+    transition: width 0.4s ease-in-out;
+    z-index: 10;
+}
+
+/* --- ESTADO HOVER (AL PASAR EL RATÓN) --- */
 .tarjeta-coche:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px); /* Se levanta */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Sombra más difusa */
+    border-color: transparent;
 }
 
+/* La barra roja se llena de izquierda a derecha */
+.tarjeta-coche:hover::after {
+    width: 100%;
+}
+
+/* --- IMAGEN DEL COCHE (Zoom suave) --- */
 .imagen-coche {
-  position: relative;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 200px; /* Altura fija para uniformidad */
+    overflow: hidden; /* Corta lo que sobresalga al hacer zoom */
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
 }
 
+.imagen-coche img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen cubre todo el hueco sin deformarse */
+    transition: transform 0.5s ease;
+}
+
+/* Al pasar el ratón por la tarjeta, la foto hace zoom */
+.tarjeta-coche:hover .imagen-coche img {
+    transform: scale(1.1);
+}
+
+/* Etiqueta "NUEVO" opcional sobre la foto */
+.imagen-coche::before {
+    content: "Stock";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    z-index: 2;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* --- CONTENIDO DE LA TARJETA --- */
 .contenido-tarjeta {
-  padding: 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+    padding: 1.5rem;
+    
+    /* EL TRUCO: Añadimos más espacio abajo para que el texto suba */
+    padding-bottom: 3rem; /* Espacio de seguridad para la barra */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; 
+    background: white;
+    position: relative;
+    z-index: 2;
 }
 
 .contenido-tarjeta h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-terciario); 
+    margin-bottom: 5px;
 }
 
-.detalles {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+.contenido-tarjeta .detalles {
+    font-size: 0.9rem;
+    color: #64748b; 
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
-.precio {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-primario);
-  margin-bottom: 1.5rem;
-  margin-top: auto;
+.contenido-tarjeta .precio {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-primario);
+    
+    /* Empuja todo lo anterior hacia arriba */
+    margin-top: auto; 
+    margin-bottom: 10px;
 }
-.novedades-coches {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  background-color: var(--color-terciario);
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: background 0.3s;
+
+/* --- BOTÓN DE LA TARJETA --- */
+.btn-tarjeta {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--color-terciario);
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
-.novedades-coches:hover {
-  background-color: var(--color-primario);
+
+/* El botón se vuelve rojo al pasar el ratón por la tarjeta */
+.tarjeta-coche:hover .btn-tarjeta {
+    background-color: var(--color-terciario); /* Fondo negro */
+    color: white; /* Texto blanco */
+    border-color: var(--color-terciario);
 }
 
 /* ================= REACTIVIDAD DE TARJETAS ================= */

@@ -1,10 +1,17 @@
-/* ================= HERO NOVEDADES ================= */
+:root {
+  --color-primario: #1e4fa3;
+  --color-secundario: #e10600;
+  --color-terciario: #0b0e13;
+  --color-contraste: #f2f2f2;
+  --color-acento: #2e90ff;
+  --color-blanco: #ffffff;
+}
+
 .hero-novedades {
-    /* Pon aquí una foto de un coche muy guapo de fondo */
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../assets/img/porsche/GT3.png');
     background-size: cover;
     background-position: center;
-    height: 60vh; /* Altura del 60% de la pantalla */
+    height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,7 +35,6 @@
     text-transform: uppercase;
 }
 
-/* ================= SECCIONES COMUNES ================= */
 .seccion-gama {
     padding: 4rem 1.5rem;
 }
@@ -50,21 +56,19 @@
 }
 
 .grid-coches {
+    margin: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-/* ================= ESTILOS ESPECÍFICOS POR GAMA ================= */
-
-/* --- ALTA GAMA (Fondo Oscuro) --- */
 .gama-alta {
-    background-color: #111; /* Negro casi puro */
+    background-color: #111; 
     color: white;
 }
 
 .gama-alta .subtitulo { color: #aaa; }
-.gama-alta .acento { color: gold; } /* Toque dorado */
+.gama-alta .acento { color: gold; } 
 
 .card-coche.oscuro {
     background: #222;
@@ -76,16 +80,14 @@
 }
 
 .card-coche.oscuro:hover {
-    transform: translateY(-8px); /* Subir un poco más */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5); /* Sombra profunda */
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5); 
     border-color: gold;
 }
 
-.card-coche.oscuro:hover { transform: translateY(-5px); border-color: gold; }
 .card-coche.oscuro h3 { color: white; }
 .card-coche.oscuro .precio { color: gold; font-size: 1.3rem; font-weight: bold; }
 
-/* --- GAMA MEDIA (Fondo Blanco) --- */
 .gama-media {
     background-color: white;
 }
@@ -102,14 +104,13 @@
 .card-coche.claro:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
 .card-coche.claro .precio { color: var(--color-primario); font-size: 1.3rem; font-weight: bold; }
 
-/* --- GAMA ASEQUIBLE (Fondo Gris) --- */
 .gama-baja {
     background-color: #f4f4f4;
 }
 .acento-rojo { color: var(--color-secundario); }
 
 .card-coche.blanco {
-    background: white; /* Tarjeta blanca sobre fondo gris */
+    background: white; 
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid #ddd;
@@ -119,7 +120,6 @@
 .card-coche.blanco .precio { color: var(--color-secundario); font-size: 1.3rem; font-weight: bold; }
 
 
-/* ================= ESTILOS INTERNOS TARJETA ================= */
 .card-coche img {
     width: 100%;
     height: 220px;
@@ -170,27 +170,212 @@
     font-weight: 700;
 }
 
-.btn-ver:hover { opacity: 1; transform: translateX(5px); }
+.btn-ver:hover { 
+    opacity: 1; 
+    transform: translateX(5px);
+}
 
 .card-coche {
-    position: relative; /* Necesario para posicionar la etiqueta */
+    position: relative; 
 }
 
-.etiqueta-coche {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background-color: var(--color-secundario); /* Rojo */
-    color: white;
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: bold;
+.contenedor-ver-mas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px; 
+    margin-bottom: 60px; 
+    clear: both; 
+}
+
+.btn-desplegar {
+    background-color: var(--color-terciario); 
+    color: var(--color-blanco);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
     text-transform: uppercase;
-    z-index: 10;
+    letter-spacing: 1.5px;
+    padding: 16px 50px; 
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    
+    clip-path: polygon(
+        15px 0, 
+        100% 0, 
+        100% calc(100% - 15px), 
+        calc(100% - 15px) 100%, 
+        0 100%, 
+        0 15px
+    );
 }
 
-/* RESPONSIVE */
+.btn-desplegar:hover {
+    background-color: var(--color-primario); 
+    padding-right: 60px; 
+    padding-left: 60px;
+}
+
+.btn-desplegar:active {
+    transform: scale(0.98);
+}
+
+#tabs {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 15px;
+    background: transparent;
+    border: 1px solid #666;
+}
+
+#tabs ul {
+    display: flex;
+    list-style: none;
+    background: var(--color-contraste);
+    padding: 0;
+    margin: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    border: none;
+}
+
+#tabs ul li {
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    float: none;
+    display: block;
+    border: none;
+}
+
+#tabs ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 15px 10px;
+    text-decoration: none;
+    color: #666;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    background: var(--color-contraste);
+    cursor: pointer;
+    border: 1px solid #e2e2e2ff;
+    border-radius: 4px;
+}
+
+#tabs ul li a:hover {
+    background-color: #e5e5e5;
+    color: var(--color-terciario);
+}
+
+#tabs ul li.ui-tabs-active a {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    box-shadow: inset 0 -4px 0 var(--color-acento);
+}
+
+#tabs .ui-tabs-panel {
+    padding: 20px 0;
+    animation: fadeIn 0.4s ease-out;
+    background: transparent;
+    color: inherit;
+    border: none;
+}
+
+#tabs .ui-widget-header {
+    background: transparent;
+    border: none;
+}
+
+#tabs .ui-widget-content {
+    background: transparent;
+    border: none;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; transform: translateY(0); 
+    }
+}
+
+.grid-marcas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.card-marca {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-blanco);
+    border: 1px solid #666;
+    border-radius: 15px;
+    height: 200px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-marca img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    transition: all 0.4s ease;
+}
+
+.card-marca:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-acento);
+    background-color: var(--color-contraste);
+}
+
+.exclusivo {
+    background: #1d1d1dff;
+}
+.exclusivo:hover {
+    background: #333333ff;
+    border: 3px solid #ddb70fff;
+}
+
+.marca {
+    background-color: red;
+}
+
+.limpiar {
+    color: var(--color-contraste);
+    text-decoration: none;
+    margin: 2rem;
+}
+
+@media (max-width: 900px) {
+    .grid-marcas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .hero-novedades h1 { font-size: 2rem; }
+    .hero-novedades h1 { 
+        font-size: 2rem; 
+    }
+    .grid-marcas {
+        grid-template-columns: repeat(1, 1fr)
+    }
+    .card-marca {
+        height: 150px;
+    }
 }

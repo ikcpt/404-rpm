@@ -1,0 +1,97 @@
+:root {
+    --color-primario: #1e4fa3;       /* Azul */
+    --color-secundario: #e10600;     /* Rojo */
+    --color-terciario: #0b0e13;      /* Negro Fondo */
+    --color-contraste: #f2f2f2;      /* Blanco Texto */
+    --color-acento: #2e90ff;         /* Azul Claro */
+    --color-gris-oscuro: #151a23;    /* Gris Tarjeta */
+}
+
+.banner-busqueda {
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.4)), url('../assets/img/fondo.webp'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.titulo-banner {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.acento-banner {
+    color: var(--color-secundario);
+}
+
+.texto-banner {
+    font-size: 1.1rem;
+    color: var(--color-contraste);
+    margin-bottom: 30px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.form-buscador {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.input-buscador {
+    padding: 18px 25px;
+    border-radius: 50px 0 0 50px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-buscador {
+    background-color: var(--color-secundario);
+    color: white;
+    border: none;
+    padding: 0 35px;
+    border-radius: 0 50px 50px 0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.btn-buscador:hover {
+    background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+    .titulo-banner {
+        font-size: 2rem;
+    }
+    
+    .form-buscador {
+        flex-direction: column;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .input-buscador {
+        border-radius: 0;
+        text-align: center;
+    }
+
+    .btn-buscador {
+        border-radius: 0;
+        padding: 15px;
+        width: 100%;
+    }
+}

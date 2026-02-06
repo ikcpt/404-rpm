@@ -34,7 +34,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('configuracion')->with('status', 'profile-updated');
     }
 
     /**
@@ -56,5 +56,14 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    public function index()
+    {
+        $user = Auth::user();
+        
+        // Obtenemos las facturas ordenadas por fecha (la más nueva primero)
+        $facturas = $user->facturas()->orderBy('fecha_emision', 'desc')->get();
+
+        return view('profile.invoice', compact('user', 'facturas'));
     }
 }

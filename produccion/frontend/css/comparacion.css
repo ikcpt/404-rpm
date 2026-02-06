@@ -1,0 +1,220 @@
+.comparador {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 25px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+}
+
+.comparador h1.titulo {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    font-size: 2rem;
+}
+
+/* Garage de coches */
+.garage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.car-card {
+    width: 150px;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    cursor: grab;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.car-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.car-card:hover {
+    transform: scale(1.05);
+}
+
+/* Zona de comparación */
+.zona-comparacion {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 30px;
+    /* Quitamos el margin-bottom de aquí si queremos controlar el espacio con el botón */
+}
+
+/* Contenedor del botón para asegurar separación */
+.acciones-comparador {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px; /* Espacio entre las cajas y el botón */
+}
+
+.drop-slot {
+    width: 400px;
+    min-height: 300px;
+    background: #fff;
+    border: 2px dashed #4a90e2;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: background 0.2s, border 0.2s;
+}
+
+.drop-slot p {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #4a90e2;
+}
+
+.drop-slot.drag-over {
+    background: #e6f0ff;
+    border-color: #2c6ed5;
+}
+
+/* VS central */
+.vs {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    align-self: center;
+}
+
+/* Specs comparadas */
+.specs {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.specs .spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.specs .spec-item:last-child {
+    border-bottom: none;
+}
+
+.specs .spec-name {
+    font-weight: 600;
+    color: #555;
+}
+
+.specs .spec-value {
+    color: #333;
+}
+
+.reiniciar-btn {
+    display: inline-block; 
+    padding: 12px 35px;    
+    background: #ff4a4a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 74, 74, 0.3);
+    transition: all 0.3s ease;
+}
+
+.reiniciar-btn:hover {
+    background: #ff1f1f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 74, 74, 0.4);
+}
+
+/* --- BARRA DE FILTROS --- */
+.brand-filter-wrapper {
+    max-width: 100%;
+    margin: 0 auto 30px auto;
+    padding: 0 10px;
+    overflow: hidden; /* Para contener el scroll */
+}
+
+.brand-filter-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto; /* Scroll horizontal si no caben */
+    padding-bottom: 10px; /* Espacio para la barra de scroll */
+    scrollbar-width: none; /* Ocultar scrollbar en Firefox */
+    justify-content: flex-start; /* Alineado a la izq para scroll natural */
+}
+
+/* Ocultar barra de scroll en Chrome/Safari */
+.brand-filter-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Estilo del botón */
+.brand-btn {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 8px 24px;
+    border-radius: 50px; /* Forma de píldora */
+    font-size: 0.95rem;
+    color: #555;
+    cursor: pointer;
+    white-space: nowrap; /* Que no se rompa el texto */
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.brand-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+
+/* Estado ACTIVO (Azul) */
+.brand-btn.active {
+    background-color: #1a4a9c; /* Tu azul corporativo */
+    color: white;
+    border-color: #1a4a9c;
+    box-shadow: 0 4px 10px rgba(26, 74, 156, 0.3);
+}
+
+/* --- ANIMACIONES DE LAS TARJETAS --- */
+.car-card {
+    transition: all 0.4s ease; /* Suavidad al aparecer/desaparecer */
+}
+
+/* Clase para ocultar */
+.car-card.hidden {
+    display: none;
+}
+
+/* Clase para animación de entrada */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Responsive */
+@media (max-width: 950px) {
+    .zona-comparacion {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .drop-slot {
+        width: 90%;
+    }
+}

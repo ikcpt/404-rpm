@@ -1,9 +1,19 @@
-/* ================= BANNER HERO CITA ================= */
+/* public/css/formulario.css */
+
+/* VARIABLES */
+:root {
+    --color-primario: #1a4a9c;
+    --color-terciario: #0f172a;
+    --bg-inputs: #f8fafc;
+}
+
+/* 1. BANNER HERO */
 .banner-hero-cita {
     width: 100%;
-    height: 45vh; /* Un poco más bajo para que luzca el formulario */
+    height: 45vh;
     min-height: 350px;
-    background-image: url('../assets/img/banner-taller.png'); /* Asegúrate que la ruta es correcta */
+    /* Ruta relativa: sale de 'css' (..) y entra en 'assets' */
+    background-image: url('../assets/img/banner-taller.png'); 
     background-size: cover;
     background-position: center;
     position: relative;
@@ -13,7 +23,7 @@
     text-align: center;
 }
 
-/* Capa oscura para que se lea el texto */
+/* Capa oscura */
 .banner-hero-cita::before {
     content: '';
     position: absolute;
@@ -21,7 +31,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(11, 14, 19, 0.7), rgba(11, 14, 19, 0.9)); /* Gradiente oscuro */
+    background: linear-gradient(rgba(11, 14, 19, 0.7), rgba(11, 14, 19, 0.9));
 }
 
 .banner-contenido {
@@ -29,7 +39,7 @@
     z-index: 2;
     color: white;
     padding: 20px;
-    margin-top: -40px; /* Subir un poco el texto visualmente */
+    margin-top: -40px;
 }
 
 .banner-contenido h1 {
@@ -38,6 +48,7 @@
     color: white;
     text-transform: uppercase;
     letter-spacing: 2px;
+    font-weight: 800;
 }
 
 .banner-contenido p {
@@ -46,149 +57,76 @@
     font-weight: 300;
 }
 
-/* ================= CONTENEDOR PRINCIPAL ================= */
+/* 2. CONTENEDOR FLOTANTE */
 .contenedor-formulario-main {
     max-width: 800px;
-    margin: -80px auto 4rem; /* Margen negativo para subir el form sobre el banner */
+    margin: -80px auto 4rem; /* El truco para flotar */
     position: relative;
     z-index: 10;
     padding: 0 20px;
 }
 
-/* ================= ESTILOS DEL FORMULARIO ================= */
+/* 3. FORMULARIO */
 .form-cita {
     background-color: white;
     padding: 2.5rem 3rem;
     border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Sombra potente */
-    border-top: 5px solid var(--color-primario); /* Borde azul arriba */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-top: 5px solid var(--color-primario);
 }
 
-.cabecera-form {
-    text-align: center;
-    margin-bottom: 2rem;
-}
+.cabecera-form { text-align: center; margin-bottom: 2rem; }
+.cabecera-form h2 { color: var(--color-terciario); font-size: 2rem; margin-bottom: 5px; font-weight: 700; }
+.cabecera-form p { color: #64748b; font-size: 0.95rem; }
 
-.cabecera-form h2 {
-    color: var(--color-terciario);
-    font-size: 2rem;
-    margin-bottom: 5px;
-}
-
-.cabecera-form p {
-    color: #64748b;
-}
-
-/* Fieldset (Agrupaciones) */
-fieldset.grupo-form {
-    border: none;
-    margin-bottom: 2rem;
-    padding: 0;
-}
-
+/* Fieldsets */
+fieldset.grupo-form { border: none; margin-bottom: 2rem; padding: 0; }
 fieldset legend {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-primario);
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 2px solid #e2e8f0;
-    width: 100%;
-    display: block;
+    font-size: 1.1rem; font-weight: 700; color: var(--color-primario);
+    margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid #e2e8f0;
+    width: 100%; display: block;
 }
 
-/* ================= GRID SYSTEM (La clave del diseño) ================= */
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-    gap: 20px;
-    margin-bottom: 15px;
-}
+/* Grid System */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+.input-box { display: flex; flex-direction: column; }
+.input-box.full-width { width: 100%; margin-bottom: 15px; grid-column: 1 / -1; }
 
-.input-box {
-    display: flex;
-    flex-direction: column;
-}
-
-.input-box.full-width {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-/* ================= INPUTS Y LABELS ================= */
-label {
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 6px;
-    color: #334155;
-}
-
+/* Inputs */
+label { font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; color: #334155; }
 input, select, textarea {
-    padding: 12px 15px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: #f8fafc;
-    transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
-    color: #333;
+    padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px;
+    font-size: 1rem; background-color: var(--bg-inputs); transition: all 0.3s ease;
+    font-family: inherit; color: #333; width: 100%; box-sizing: border-box;
 }
 
 input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--color-primario);
-    background-color: white;
-    box-shadow: 0 0 0 4px rgba(46, 144, 255, 0.15); /* Halo azul suave */
+    outline: none; border-color: var(--color-primario); background-color: white;
+    box-shadow: 0 0 0 4px rgba(26, 74, 156, 0.15);
 }
 
-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
+textarea { min-height: 120px; resize: vertical; }
+.input-readonly { background-color: #e2e8f0; color: #64748b; cursor: not-allowed; }
 
-/* ================= BOTÓN ================= */
+/* Botón */
 .btn-submit {
-    width: 100%;
-    padding: 18px;
-    background: var(--color-primario);
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(30, 79, 163, 0.3);
-    margin-top: 1rem;
+    width: 100%; padding: 18px; background: var(--color-primario); color: white;
+    font-size: 1.1rem; font-weight: 700; text-transform: uppercase; border: none;
+    border-radius: 8px; cursor: pointer; transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(30, 79, 163, 0.3); margin-top: 1rem;
+}
+.btn-submit:hover { background-color: var(--color-terciario); transform: translateY(-3px); }
+
+/* Toggle manual */
+.toggle-manual {
+    margin-top: 10px; font-size: 0.9rem; color: #64748b; display: flex;
+    align-items: center; gap: 8px; cursor: pointer; user-select: none;
 }
 
-.btn-submit:hover {
-    background-color: var(--color-terciario); /* Se vuelve negro/oscuro */
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* ================= RESPONSIVE ================= */
+/* Responsive */
 @media (max-width: 768px) {
-    .banner-hero-cita {
-        height: 300px;
-    }
-    
-    .contenedor-formulario-main {
-        margin-top: -50px; /* Menos solapamiento en móvil */
-    }
-
-    .form-cita {
-        padding: 1.5rem;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr; /* Una columna en móvil */
-        gap: 15px;
-    }
-
-    .banner-contenido h1 {
-        font-size: 2rem;
-    }
+    .banner-hero-cita { height: 300px; }
+    .contenedor-formulario-main { margin-top: -50px; }
+    .form-cita { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; gap: 15px; }
 }
