@@ -13,16 +13,20 @@ use App\Models\Car;
 use App\Models\Brand;
 use App\Models\Appointment;
 
+// Ruta para acceder a la página de inicio
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Ruta para cargar la página de inicio de sesión
 Route::get('/login', function() {
     return view('login');
 })->name('login');
 
+// Ruta para cargar la página de registro de un nuevo usuario
 Route::get('/register', function() {
     return view('register');
 })->name('register');
 
+// Si cualquier usuario accede a esta ruta, se le redigirá a la página de inicio
 Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -32,13 +36,16 @@ Route::get('acceso', function () {
     return view('acceso');
 })->name('acceso');
 
+// Rutas de concesionario
 Route::get('/concesionario', function () {
+    // Obtenemos todas las marcas de los coches
     $brands = Brand::with('cars')->get();
     // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
     $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
     $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
     $ocasion   = Car::where('class', 'Ocasión')->with('brand')->get();
 
+    // A la vista se le pasan las marcas, y los coches de cada categoría
     return view('concesionario', compact('brands', 'gamaAlta', 'gamaMedia', 'ocasion'));
 })->name('concesionario');
 
@@ -121,7 +128,7 @@ Route::get('/mis-citas', function () {
     // Retornamos la vista que renombraste a 'Mis-citas.blade.php'
     return view('profile.Mis-citas', compact('citas', 'misCoches'));
 
-})->name('mis-citas'); // <--- Nombre correcto para el historial
+})->name('mis-citas');
 
 
 });
