@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', '404 RPM')</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Tarjetas.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/buscador.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/citas.css') }}">
+
+    @stack('styles')
+</head>
+
+<body>
+    <header class="encabezado-principal">
+        <div class="contenedor-header">
+            <a href="{{ route('home') }}" class="logo">
+                <img src="{{ asset('assets/img/logo.jpg') }}" alt="404 RPM Inicio">
+            </a>
+
+            <button class="boton-menu" aria-label="Abrir menú">☰</button>
+
+            <nav class="navegacion-principal">
+                <ul class="lista-navegacion">
+                    <li><a href="{{ route('home') }}" class="enlace-nav">Inicio</a></li>
+                    <li><a href="{{ asset('taller.html') }}" class="enlace-nav">Taller</a></li>
+                    <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
+                    <li><a href="{{ route('comparacion') }}" class="enlace-nav">Comparador</a></li>
+                    <li><a href="{{ route('pedir-cita') }}" class="enlace-nav">Pedir Cita</a></li>
+
+                    @guest
+                    <li id="menu-guest" style="display: flex; gap: 15px; align-items: center;">
+                        <a href="{{ route('acceso') }}" class="enlace-nav boton-destacado">Entrar</a>
+                    </li>
+                    @endguest
+
+                    @auth
+                    <li id="menu-auth" class="item-con-desplegable">
+                        <a href="{{ route('perfil') }}" class="enlace-nav enlace-perfil">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2"
+                                fill="none">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span id="user-name">{{ Auth::user()->name }}</span>
+                            <svg class="flecha-baja" width="12" height="12" viewBox="0 0 24 24" stroke="currentColor"
+                                stroke-width="3" fill="none">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </a>
+
+                        <ul class="submenu">
+                            <li><a href="{{ route('perfil') }}#garaje">🚗 Mi Garaje</a></li>
+                            <li><a href="{{ route('mis-citas') }}">📅 Mis Citas</a></li>
+
+                            <li><a href="{{ route('mis-facturas') }}">📄 Facturas</a></li>
+                            <li><a href="{{ route('configuracion') }}">⚙️ Configuración</a></li>
+                            <li class="separador-menu"></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                                    @csrf
+                                    <a href="#" onclick="event.preventDefault(); this.closest('form').submit();"
+                                        class="cerrar-sesion">
+                                        🚪 Cerrar Sesión
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    @endauth
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        @yield('content')
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="contenedor-footer">
+            <div class="columna-footer">
+                <div class="footer-logo">404 RPM</div>
+                <p class="footer-texto">Pasión por los motores y la excelencia mecánica.</p>
+            </div>
+
+            <div class="columna-footer">
+                <h4>Enlaces Rápidos</h4>
+                <ul class="enlaces-footer">
+                    <li><a href="{{ route('home') }}">Inicio</a></li>
+                    <li><a href="{{ asset('taller.html') }}">Taller</a></li>
+                    <li><a href="{{ route('concesionario') }}">Concesionario</a></li>
+                    <li><a href="{{ asset('cita.html') }}">Pedir Cita</a></li>
+                    <li><a href="{{ route('login') }}">Mi Perfil</a></li>
+                </ul>
+            </div>
+
+            <div class="columna-footer">
+                <h4>Contacto</h4>
+                <ul class="info-contacto">
+                    <li>📍 Calle del Motor, 404</li>
+                    <li>📞 +34 600 000 000</li>
+                    <li>✉️ contacto@404rpm.com</li>
+                </ul>
+            </div>
+
+            <div class="columna-footer">
+                <h4>Síguenos</h4>
+                <div class="redes-sociales">
+                    <a href="#" aria-label="Instagram" class="icono-social">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook" class="icono-social">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter" class="icono-social">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="barra-copyright">
+            <p>&copy; 2026 404 RPM. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
+</body>
+
+</html>

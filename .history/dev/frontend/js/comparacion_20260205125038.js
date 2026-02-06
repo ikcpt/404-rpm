@@ -96,7 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
             if (data.success) {
                 console.log('Comparación guardada ✅', data.comparacion_id);
-
+                // Opcional: reiniciar slots automáticamente si quieres
+                // reiniciarBtn.click();
             }
         } catch (err) {
             console.error('Error guardando comparación:', err);
@@ -115,37 +116,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
-
-function filterCars(brandId, btnElement) {
-    // 1. GESTIÓN DE BOTONES (ESTÉTICA)
-    // Quitamos la clase 'active' de todos los botones
-    const allButtons = document.querySelectorAll('.brand-btn');
-    allButtons.forEach(btn => btn.classList.remove('active'));
-    
-    // Se la ponemos solo al que hemos hecho clic
-    btnElement.classList.add('active');
-
-
-    // 2. FILTRADO DE COCHES (LÓGICA)
-    const allCars = document.querySelectorAll('.car-card');
-
-    allCars.forEach(car => {
-        // Obtenemos el ID de marca de la tarjeta (el que pusimos en el HTML)
-        const carBrandId = car.getAttribute('data-brand-id');
-
-        // Lógica: Si pulsamos "Todas" ('all') O el ID coincide...
-        // Usamos '==' en vez de '===' para que no importe si es texto o número
-        if (brandId === 'all' || carBrandId == brandId) {
-            
-            car.classList.remove('hidden'); // Lo mostramos
-            
-            // Reiniciamos la animación para que quede bonito
-            car.classList.remove('fade-in');
-            void car.offsetWidth; // Truco para reiniciar animación CSS
-            car.classList.add('fade-in');
-
-        } else {
-            car.classList.add('hidden'); // Lo ocultamos
-        }
-    });
-}
