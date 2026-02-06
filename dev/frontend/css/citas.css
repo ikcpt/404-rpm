@@ -1,0 +1,230 @@
+/* --- 1. LAYOUT GENERAL --- */
+.layout-perfil {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    align-items: start;
+}
+
+/* --- 2. SIDEBAR GAMIFICADA --- */
+.sidebar-perfil {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    position: sticky;
+    top: 20px;
+}
+
+.nivel-badge {
+    background: linear-gradient(135deg, #1a4a9c, #0d2e6b);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(26, 74, 156, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.puntos-rpm {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.puntos-rpm strong {
+    color: #dc3545;
+    font-size: 1.2rem;
+}
+
+/* --- 3. CONTENIDO Y TABLA --- */
+.card-contenido {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    min-height: 400px;
+}
+
+/* CABECERA CON BOTÓN DE ACCIÓN */
+.encabezado-seccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.titulo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.encabezado-seccion h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+    border-left: 4px solid #1a4a9c;
+    padding-left: 10px;
+}
+
+/* NUEVO BOTÓN: PEDIR CITA */
+.btn-nueva-cita {
+    background: #1a4a9c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(26, 74, 156, 0.2);
+}
+
+.btn-nueva-cita:hover {
+    background: #133a7a;
+    transform: translateY(-2px);
+}
+
+.btn-volver-movil {
+    display: none;
+    /* Oculto en PC */
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* Estilos de Tabla */
+.tabla-citas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tabla-citas th {
+    text-align: left;
+    padding: 15px;
+    background-color: #f8f9fa;
+    color: #666;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #eee;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabla-citas td {
+    padding: 15px;
+    border-bottom: 1px solid #f5f5f5;
+    color: #444;
+    vertical-align: middle;
+    font-size: 0.95rem;
+}
+
+.tabla-citas tr:hover {
+    background-color: #fafafa;
+}
+
+/* Badges */
+.estado-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.estado-confirmada {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.estado-pendiente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.estado-finalizada {
+    background: #e2e3e5;
+    color: #41464b;
+}
+
+.estado-cancelada {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.link-coche {
+    color: #1a4a9c;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.link-coche:hover {
+    color: #dc3545;
+    text-decoration: underline;
+}
+
+.btn-cancelar {
+    border: 1px solid #dc3545;
+    background: white;
+    color: #dc3545;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-cancelar:hover {
+    background: #dc3545;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .layout-perfil {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla-container {
+        overflow-x: auto;
+    }
+
+    .encabezado-seccion h2 {
+        font-size: 1.2rem;
+    }
+
+    .btn-volver-movil {
+        display: block;
+        margin-right: 10px;
+    }
+
+    .btn-nueva-cita span {
+        display: none;
+    }
+
+    /* En móvil solo icono + */
+    .btn-nueva-cita {
+        padding: 10px;
+    }
+}

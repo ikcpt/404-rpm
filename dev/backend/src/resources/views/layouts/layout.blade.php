@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/buscador.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('css/citas.css') }}">
+
     @stack('styles')
 </head>
 

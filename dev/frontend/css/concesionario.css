@@ -352,6 +352,16 @@
     border: 3px solid #ddb70fff;
 }
 
+.marca {
+    background-color: red;
+}
+
+.limpiar {
+    color: var(--color-contraste);
+    text-decoration: none;
+    margin: 2rem;
+}
+
 @media (max-width: 900px) {
     .grid-marcas {
         grid-template-columns: repeat(2, 1fr);

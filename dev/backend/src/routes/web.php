@@ -13,16 +13,20 @@ use App\Models\Car;
 use App\Models\Brand;
 use App\Models\Appointment;
 
+// Ruta para acceder a la página de inicio
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Ruta para cargar la página de inicio de sesión
 Route::get('/login', function() {
     return view('login');
 })->name('login');
 
+// Ruta para cargar la página de registro de un nuevo usuario
 Route::get('/register', function() {
     return view('register');
 })->name('register');
 
+// Si cualquier usuario accede a esta ruta, se le redigirá a la página de inicio
 Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -32,15 +36,8 @@ Route::get('acceso', function () {
     return view('acceso');
 })->name('acceso');
 
-Route::get('/concesionario', function () {
-    $brands = Brand::with('cars')->get();
-    // Obtenemos los coches separándolos por su clase y cargando la marca para optimizar
-    $gamaAlta  = Car::where('class', 'Gama Alta')->with('brand')->get();
-    $gamaMedia = Car::where('class', 'Gama Media')->with('brand')->get();
-    $ocasion   = Car::where('class', 'Ocasión')->with('brand')->get();
-
-    return view('concesionario', compact('brands', 'gamaAlta', 'gamaMedia', 'ocasion'));
-})->name('concesionario');
+// Rutas de concesionario, para filtrar los coches según la marca, y buscar el modelo de cada coche con el buscador
+Route::get('/concesionario', [CarController::class, 'concesionario'])->name('concesionario');
 
 // Route::get('/api/cars/{id}', function ($id) {
 //     $car = \App\Models\Car::with(['brand', 'extras'])->find($id);
@@ -56,20 +53,13 @@ Route::get('/ficha/{id}', [CarController::class, 'show'])->name('ficha');
 
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
-// Middleware de autenticación. Las rutas que están dentro funcionarán si el usuario ha iniciado sesión
-Route::get('/factura/{id}', function ($id) {
-    return "Aquí se descargará la factura " . $id;
-})->name('invoice');
-
-
-
 Route::get('/pedir-cita', function () {
     $user = Auth::user();
     
     // 1. Obtenemos las citas
     $citas = App\Models\Cita::where('user_id', $user->id)->get();
     
-    // 2. Obtenemos los coches (ESTO ES LO QUE FALTABA)
+    // 2. Obtenemos los coches
     $misCoches = $user->cars; 
 
     // 3. Enviamos AMBAS variables a la vista
@@ -135,7 +125,7 @@ Route::get('/mis-citas', function () {
     // Retornamos la vista que renombraste a 'Mis-citas.blade.php'
     return view('profile.Mis-citas', compact('citas', 'misCoches'));
 
-})->name('mis-citas'); // <--- Nombre correcto para el historial
+})->name('mis-citas');
 
 
 });
