@@ -94,4 +94,18 @@ class CarController extends Controller
         // A la vista se le pasan las marcas, y los coches de cada categoría, y el resultado de la búsqueda
         return view('concesionario', compact('brands', 'gamaAlta', 'gamaMedia', 'ocasion', 'busqueda'));
     }
+
+    public function finalizarReserva(Car $car)
+    {
+        // Seguridad: Verificar que el coche es del usuario y está reservado
+        if ($car->user_id !== auth()->id() || $car->status !== 'reserved') {
+            return back()->with('error', 'Acción no autorizada.');
+        }
+
+        // Simplemente cambiamos el estado
+        $car->status = 'sold';
+        $car->save();
+
+        return redirect()->route('perfil')->with('success', '¡Compra completada! El coche es tuyo oficialmente.');
+    }
 }

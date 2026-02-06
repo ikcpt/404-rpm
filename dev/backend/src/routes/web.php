@@ -105,7 +105,7 @@ Route::middleware('auth')->group(function () {
     
     // 2. Procesar el formulario (POST)
     Route::post('/coche/{car}/reservar', [CarController::class, 'procesarReserva'])->name('coche.reservar.proceso');
-    
+    Route::post('/coche/{car}/finalizar', [CarController::class, 'finalizarReserva'])->name('coche.finalizar');
     // Facturas
     Route::get('/mis-facturas', function() {
         $user = Auth::user();
