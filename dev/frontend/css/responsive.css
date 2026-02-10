@@ -1,233 +1,113 @@
-/* =======================================================
-   RESPONSIVE DESIGN - ARREGLO FINAL
-   ======================================================= */
-
-/* --- PANTALLAS PEQUEÑAS (MÓVIL Y TABLET) --- */
 @media (max-width: 1024px) {
 
-    /* 1. EL BOTÓN HAMBURGUESA */
     .boton-menu {
-        display: block !important;
+        display: block;
         position: absolute;
         right: 20px;
-        top: 25px;
         background: transparent;
         border: none;
         font-size: 2.5rem;
         cursor: pointer;
-        z-index: 99999;
-        color: #333;
+        z-index: 20000;
+        color: #333; 
     }
 
-    /* 2. EL CONTENEDOR DEL MENÚ (Caja blanca) */
+    /* EL FONDO GRIS (OVERLAY) */
     .navegacion-principal {
-        position: fixed !important;
-        top: 0 !important;
-        left: -100% !important; /* Escondido a la izquierda */
-        width: 100% !important;
-        height: 100vh !important;
-        background-color: white !important;
-        display: block !important;
-        padding-top: 100px !important;
-        transition: left 0.3s ease !important;
-        z-index: 10000 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        overflow-y: auto !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    /* 3. CUANDO SE ABRE EL MENÚ (Clase .activo) */
     .navegacion-principal.activo {
-        left: 0 !important; /* Se mueve al centro */
+        opacity: 1;
+        visibility: visible;
     }
 
-    /* 4. LA LISTA DE ENLACES */
+    /* LA CAJA BLANCA DEL MENÚ */
     .lista-navegacion {
-        display: flex !important;
-        flex-direction: column !important; /* Vertical */
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100%;
+        background-color: white;
+        padding-top: 80px;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        overflow-y: auto;
+    }
+
+    /* ANIMACIÓN DE ENTRADA */
+    .navegacion-principal.activo .lista-navegacion {
+        right: 0;
     }
 
     .lista-navegacion > li {
-        width: 100% !important;
-        border-bottom: 1px solid #eee !important;
-        display: block !important;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        display: block;
     }
 
     .enlace-nav {
-        display: block !important;
-        padding: 20px 30px !important;
-        font-size: 1.2rem !important;
-        color: #333 !important;
-        text-decoration: none !important;
-        text-align: left !important;
+        display: block;
+        padding: 15px 20px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        text-align: left;
+        color: #333;
     }
 
-    /* 5. EL SUBMENÚ (Taller / Concesionario) */
-    /* Por defecto OCULTO en móvil */
     .submenu {
-        display: none !important; 
-        width: 100% !important;
-        background-color: #f4f4f4 !important;
-        box-shadow: none !important;
-        position: static !important; /* Nada de flotar */
-        padding: 0 !important;
+        display: none;
+        width: 100%;
+        background-color: #f9f9f9;
+        box-shadow: none;
+        position: static;
+        padding: 0;
     }
 
-    /* 6. LA MAGIA: MOSTRAR SUBMENÚ AL CLICAR */
-    /* El JS añade la clase 'activado' al LI padre */
     li.item-con-desplegable.activado .submenu {
-        display: block !important; /* ¡APARECE! */
+        display: block;
     }
 
-    /* Estilo de los enlaces hijos */
     .submenu li a {
-        padding: 15px 30px 15px 50px !important; /* Sangría */
-        font-size: 1rem !important;
-        color: #555 !important;
-        display: block !important;
-        border-bottom: 1px solid #ddd !important;
+        padding: 15px 20px 15px 40px;
+        font-size: 0.95rem;
+        color: #555;
+        display: block;
+        border-bottom: 1px solid #eee;
     }
     
-    /* Ocultar flechas CSS conflictivas */
-    .item-con-desplegable::after { display: none !important; }
+    .item-con-desplegable::after { 
+        display: none; 
+    }
     
-    /* Arreglos de layout general para que no se rompa el fondo */
-    .contenedor-header { flex-wrap: nowrap !important; }
-    .hero-carrusel { height: 50vh; }
+    .contenedor-header { 
+        flex-wrap: nowrap; 
+    }
+
+    .hero-carrusel { 
+        height: 50vh; 
+    }
+
     .galeria-coches, .grid-garaje, .contenedor-footer, .contenedor-perfil { 
-        grid-template-columns: 1fr !important; 
-    }
-}
-
-/* --- PANTALLAS GRANDES (ESCRITORIO) --- */
-@media (min-width: 1025px) {
-    .boton-menu { display: none !important; }
-    
-    .navegacion-principal {
-        position: static !important;
-        width: auto !important;
-        height: auto !important;
-        background: transparent !important;
-        padding: 0 !important;
-        display: block !important;
+        grid-template-columns: 1fr; 
     }
     
-    .lista-navegacion {
-        display: flex !important;
-        flex-direction: row !important; /* Horizontal */
-        gap: 20px !important;
+    .boton-destacado {
+        width: 120px;
+        margin: 0 0 10px 10px;
+        padding: 10px;
+        text-align: center;
     }
-    
-    .submenu {
-        position: absolute !important;
-        display: none !important;
-        background: white !important;
-        width: 200px !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
-    }
-    
-    /* En escritorio usamos HOVER */
-    .item-con-desplegable:hover .submenu {
-        display: block !important;
-    }
-    /* Estilos Tabla de Facturas */
-.tabla-responsive {
-    overflow-x: auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid #eee;
-}
-
-.tabla-facturas {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Inter', sans-serif;
-}
-
-.tabla-facturas th {
-    background-color: var(--color-terciario, #0b0e13); /* Tu color negro */
-    color: white;
-    padding: 15px;
-    text-align: left;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.tabla-facturas td {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    color: #333;
-    font-size: 0.95rem;
-}
-
-.tabla-facturas tr:last-child td {
-    border-bottom: none;
-}
-
-.tabla-facturas tr:hover {
-    background-color: #f9f9f9;
-}
-
-/* Referencia y Concepto */
-.referencia {
-    font-family: monospace;
-    color: #666;
-}
-
-.concepto-main {
-    font-weight: 600;
-    color: var(--color-primario, #1e4fa3);
-}
-
-.importe {
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-/* Etiquetas de Estado */
-.etiqueta-estado {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.estado-ok {
-    background-color: #d4edda;
-    color: #155724; /* Verde */
-}
-
-.estado-pendiente {
-    background-color: #fff3cd;
-    color: #856404; /* Amarillo/Naranja */
-}
-
-/* Botón Descargar */
-.btn-descargar {
-    text-decoration: none;
-    color: var(--color-acento, #2e90ff);
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-}
-
-.btn-descargar:hover {
-    color: var(--color-primario, #1e4fa3);
-    text-decoration: underline;
-}
-
-/* Mensaje Vacio */
-.vacio-mensaje {
-    text-align: center;
-    padding: 40px;
-    color: #777;
-    background: #f8f9fa;
-    border-radius: 10px;
-    border: 2px dashed #ddd;
-}
 }
