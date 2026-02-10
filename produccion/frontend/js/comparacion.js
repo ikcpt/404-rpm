@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carCards = document.querySelectorAll('.car-card');
     const slots = document.querySelectorAll('.drop-slot');
     const compararBtn = document.getElementById('btnComparar');
+    const reiniciarBtn = document.getElementById('reiniciar-comparacion');
     let draggedCar = null;
 
     // DRAG START
@@ -36,7 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderSpecs(slot.querySelector('.specs'), car);
 
-                checkCompararBtn(); // Activamos el botón si ambos slots tienen coche
+                // Comprobamos si ambos slots tienen coche
+                const carAId = document.querySelector('#slotA .specs').dataset.carId;
+                const carBId = document.querySelector('#slotB .specs').dataset.carId;
+                compararBtn.disabled = !(carAId && carBId);
+
+                if (carAId && carBId) {
+                    await guardarComparacion(carAId, carBId);
+                }
 
             } catch (err) {
                 console.error('Error al cargar coche:', err);
@@ -74,31 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(p) p.style.display = 'none';
     }
 
-    function checkCompararBtn() {
-        const carAId = document.querySelector('#slotA .specs').dataset.carId;
-        const carBId = document.querySelector('#slotB .specs').dataset.carId;
-        compararBtn.disabled = !(carAId && carBId);
-    }
-
-    // BOTÓN REINICIAR
-    const reiniciarBtn = document.getElementById('reiniciar-comparacion');
-    reiniciarBtn.addEventListener('click', () => {
-        slots.forEach(slot => {
-            slot.querySelector('.specs').innerHTML = '';
-            slot.querySelector('.specs').dataset.carId = '';
-            const p = slot.querySelector('p');
-            if(p) p.style.display = 'block';
-        });
-        compararBtn.disabled = true;
-    });
-
-    // BOTÓN COMPARAR
-    compararBtn.addEventListener('click', async () => {
-        const carAId = document.querySelector('#slotA .specs').dataset.carId;
-        const carBId = document.querySelector('#slotB .specs').dataset.carId;
-
-        if (!carAId || !carBId) return;
-
+    // GUARDAR AUTOMÁTICAMENTE LA COMPARACIÓN
+    async function guardarComparacion(carAId, carBId) {
         try {
             const res = await fetch('/comparacion', {
                 method: 'POST',
@@ -110,12 +95,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             if (data.success) {
-                alert('Comparación guardada ✅');
-                reiniciarBtn.click();
+                console.log('Comparación guardada ✅', data.comparacion_id);
+
             }
         } catch (err) {
-            console.error(err);
+            console.error('Error guardando comparación:', err);
         }
+    }
+
+    // BOTÓN REINICIAR
+    reiniciarBtn.addEventListener('click', () => {
+        slots.forEach(slot => {
+            slot.querySelector('.specs').innerHTML = '';
+            slot.querySelector('.specs').dataset.carId = '';
+            const p = slot.querySelector('p');
+            if(p) p.style.display = 'block';
+        });
+        compararBtn.disabled = true;
     });
 
 });

@@ -42,9 +42,10 @@ class ComparacionController extends Controller
         ]);
     }
 
-    public function showUserComparisons()
-    {
-        $comparaciones = Auth::user()->comparations()->with(['carA.brand', 'carB.brand'])->get();
-        return view('mis_comparaciones', compact('comparaciones'));
-    }
+public function showUserComparisons()
+{
+    $comparaciones = Auth::user()->comparations()->with(['carA.brand', 'carB.brand'])->get();
+    return view('mis_comparaciones', compact('comparaciones'));
+}
+
 }

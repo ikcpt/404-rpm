@@ -8,39 +8,59 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-    // Devuelve una lista de todos los coches del concesionario, con los extras de cada uno.
+    // API: Lista de todos los coches
     public function index()
     {
         $cars = Car::with(['brand', 'extras'])->get();
         return response()->json($cars);
     }
-    
-    /**
-     * Display the specified resource.
-     */
+
+    // --- ESTA ES LA ÚNICA FUNCIÓN SHOW QUE DEBES TENER ---
+    // WEB: Carga la página visual (el esqueleto)
     public function show($id)
     {
-        $car = Car::with(['brand', 'extras'])->find($id);
-        
-        // Si no se encuentra el ID del coche, el JSON devolverá un mensaje de error
-        if (!$car) {
-            return response()->json(['message' => 'Car not found'], 404);
-        }
-        
-        return response()->json($car);
+        $car = Car::findOrFail($id);
+        return view('ficha', compact('car'));
+    }
+    // -----------------------------------------------------
+
+    public function comprar(Car $car)
+    {
+        $nuevoCoche = $car->replicate();
+        $nuevoCoche->user_id = auth()->id();
+        $nuevoCoche->status = 'sold';
+        $nuevoCoche->save();
+
+        return redirect()->route('perfil')->with('success', '¡Compra realizada con éxito!');
     }
 
-    // Función para filtrar coches por cada marca diferente, utilizando el ID de la marca
+    public function mostrarFormularioReserva(Car $car)
+    {
+        return view('reservar', compact('car'));
+    }
+
+    public function procesarReserva(Request $request, Car $car)
+    {
+        $request->validate([
+            'fecha_entrada' => 'required|date',
+            'mensaje' => 'nullable|string'
+        ]);
+
+        $cocheReservado = $car->replicate();
+        $cocheReservado->user_id = auth()->id();
+        $cocheReservado->status = 'reserved';
+        $cocheReservado->save();
+
+        return redirect()->route('perfil')->with('success', 'Reserva confirmada.');
+    }
+    
+    // Filtrado por marca
     public function carsByBrand($id) {
         $brand = Brand::find($id);
-
-        // Si no se encuentra el ID se redigirá al usuario a la página del conesionario
         if (!$brand) {
             return redirect()->route('concesionario');
         }
-
         $cars = Car::where('brand_id', $id)->get();
-
         return view('marca', compact('brand', 'cars'));
     }
 
@@ -73,5 +93,19 @@ class CarController extends Controller
 
         // A la vista se le pasan las marcas, y los coches de cada categoría, y el resultado de la búsqueda
         return view('concesionario', compact('brands', 'gamaAlta', 'gamaMedia', 'ocasion', 'busqueda'));
+    }
+
+    public function finalizarReserva(Car $car)
+    {
+        // Seguridad: Verificar que el coche es del usuario y está reservado
+        if ($car->user_id !== auth()->id() || $car->status !== 'reserved') {
+            return back()->with('error', 'Acción no autorizada.');
+        }
+
+        // Simplemente cambiamos el estado
+        $car->status = 'sold';
+        $car->save();
+
+        return redirect()->route('perfil')->with('success', '¡Compra completada! El coche es tuyo oficialmente.');
     }
 }

@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <div class="layout-perfil">
 
     <aside class="sidebar-perfil">
@@ -27,160 +26,128 @@
 
         <nav class="menu-lateral" style="text-align: left; margin-top: 30px;">
             <a href="{{ route('perfil') }}"
-                style="display: block; padding: 12px; color: #1a4a9c; background: #eef4ff; font-weight: 600; border-radius: 8px; margin-bottom: 5px;">
-                🚗 Mi Garaje
+                style="display: block; padding: 12px; color: #1a4a9c; font-weight: bold; background: #f0f4ff; border-radius: 8px; margin-bottom: 5px;">
+                <i class="fa-solid fa-car"></i> Mi Garaje
             </a>
             <a href="{{ route('mis-citas') }}"
-                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
-                📅 Mis Citas
+                style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
+                <i class="fa-solid fa-calendar"></i> Mis Citas
             </a>
-            <a href="{{ route('mis-facturas') }}"
-                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
-                📄 Facturas
+            <a href="{{ route('mis.comparaciones') }}"
+                style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
+                <i class="fa-solid fa-code-compare"></i> Comparador
             </a>
-            <a href="{{ route('configuracion') }}"
-                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; transition: 0.2s;">
-                ⚙️ Configuración
+            <a href="#" style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
+                <i class="fa-solid fa-gear"></i> Ajustes
             </a>
 
-            <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit"
-                        style="background: none; border: none; color: #dc3545; padding: 12px; width: 100%; text-align: left; cursor: pointer; font-weight: 500; font-size: 1rem;">
-                        🚪 Cerrar Sesión
-                    </button>
-                </form>
-            </div>
+            <form method="POST" action="{{ route('logout') }}"
+                style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
+                @csrf
+                <button type="submit"
+                    style="background:none; border:none; color:#d60000; cursor:pointer; padding: 12px; width: 100%; text-align: left;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                </button>
+            </form>
         </nav>
     </aside>
 
-    <main>
+    <section class="contenido-perfil">
 
-        @if(isset($citaActiva) && $citaActiva && $citaActiva->car)
-
-        @php
-        $paso = 1;
-        if($citaActiva->estado == 'Confirmada') $paso = 3;
-        @endphp
-
-        <div class="tracker-widget">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h3 style="font-size: 1.1rem; color: #333; margin: 0;">
-                    🛠️ Estado del Taller: <strong>{{ $citaActiva->car->brand->name }}
-                        {{ $citaActiva->car->model }}</strong>
-                </h3>
-                <span
-                    style="background: #fff3cd; color: #856404; padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold;">
-                    {{ $citaActiva->estado }}
-                </span>
-            </div>
-
-            <div class="progress-steps">
-                <div class="step {{ $paso >= 1 ? 'completed' : '' }}">
-                    <div class="step-circle"><i class="fa-solid fa-check"></i></div>
-                    <div class="step-label">Recepción</div>
-                </div>
-                <div class="step {{ $paso >= 2 ? 'completed' : '' }}">
-                    <div class="step-circle"><i class="fa-solid fa-check"></i></div>
-                    <div class="step-label">Diagnóstico</div>
-                </div>
-                <div class="step {{ $paso == 3 ? 'active' : '' }}">
-                    <div class="step-circle"><i class="fa-solid fa-wrench"></i></div>
-                    <div class="step-label">Reparación</div>
-                </div>
-                <div class="step">
-                    <div class="step-circle">4</div>
-                    <div class="step-label">Calidad</div>
-                </div>
-                <div class="step">
-                    <div class="step-circle">5</div>
-                    <div class="step-label">Listo</div>
-                </div>
-            </div>
-
-            <p
-                style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666; background: #fafafa; padding: 10px; border-radius: 8px;">
-                Cita programada para el: <strong>{{ $citaActiva->fecha->format('d/m/Y') }}</strong> a las
-                <strong>{{ \Carbon\Carbon::parse($citaActiva->hora)->format('H:i') }}h</strong>
-            </p>
+        @if(session('success'))
+        <div
+            style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+            {{ session('success') }}
         </div>
-
+        @endif
+        @if(session('error'))
+        <div
+            style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+            {{ session('error') }}
+        </div>
         @endif
 
-        <h2
-            style="font-size: 1.5rem; color: #333; margin-bottom: 20px; padding-left: 5px; border-left: 4px solid #1a4a9c;">
-            Mi Garaje
-        </h2>
+        <h2 style="margin-bottom: 25px; font-size: 1.8rem; color: #333;">Mi Colección</h2>
 
-        @if($user->cars->isEmpty())
+        @if($user->cars->count() > 0)
+        <div class="garage-grid">
 
-        <div class="empty-state-card">
-            <div class="empty-state-icon">
-                <i class="fa-solid fa-car-side"></i>
+            @foreach($user->cars as $car)
+            <div class="coche-card" style="{{ $car->status == 'reserved' ? 'border: 2px solid #ffc107;' : '' }}">
+
+                <div class="coche-img-container"
+                    style="width: 100%; height: 180px; overflow: hidden; border-radius: 10px 10px 0 0;">
+                    <img src="{{ asset($car->image) }}" alt="{{ $car->model }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <div class="coche-body" style="padding: 15px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="margin:0; font-size: 1.1rem;">{{ $car->brand->name }} {{ $car->model }}</h3>
+
+                        @if($car->status == 'reserved')
+                        <span
+                            style="background: #ffc107; color: #333; padding: 4px 10px; border-radius: 4px; font-weight:bold; font-size: 0.8rem;">
+                            RESERVADO
+                        </span>
+                        @else
+                        <span
+                            style="background: #28a745; color: white; padding: 4px 10px; border-radius: 4px; font-weight:bold; font-size: 0.8rem;">
+                            EN PROPIEDAD
+                        </span>
+                        @endif
+                    </div>
+
+                    <p style="color: #777; margin-bottom: 15px; font-size: 0.9rem; min-height: 40px;">
+                        {{ Str::limit($car->description, 80) }}
+                    </p>
+
+                    <div class="specs-row"
+                        style="display: flex; gap: 10px; margin-bottom: 15px; font-size: 0.85rem; color: #555;">
+                        <span><i class="fa-solid fa-gauge-high"></i> {{ $car->hp }} CV</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> {{ $car->fuel }}</span>
+                        <span><i class="fa-solid fa-road"></i> {{ number_format($car->km, 0, ',', '.') }} km</span>
+                    </div>
+
+                    <div class="coche-actions" style="display: flex; gap: 10px;">
+                        @if($car->status == 'reserved')
+                        <form action="{{ route('coche.finalizar', $car->id) }}" method="POST" style="flex:1;">
+                            @csrf
+                            <button type="submit" class="btn-reservar"
+                                style="width:100%; background:#28a745; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                                <i class="fa-solid fa-check"></i> Completar Compra
+                            </button>
+                        </form>
+                        @else
+                        <a href="{{ route('ficha', $car->id) }}" class="btn-timeline"
+                            style="flex: 1; text-align: center; background: #1a4a9c; color: white; padding: 10px; border-radius: 5px; text-decoration: none;">
+                            <i class="fa-solid fa-clock-rotate-left"></i> Historial
+                        </a>
+                        <a href="{{ route('pedir-cita', ['car_id' => $car->id]) }}" class="btn-reservar"
+                            style="flex: 1; text-align: center; background: #eee; color: #333; padding: 10px; border-radius: 5px; text-decoration: none;">
+                            <i class="fa-solid fa-calendar-check"></i> Taller
+                        </a>
+                        @endif
+                    </div>
+                </div>
             </div>
-            <p class="empty-state-text">
-                Aún no tienes ningún vehículo en tu garaje personal.
-            </p>
-            <a href="{{ route('concesionario') }}" class="btn-explorar">
-                <i class="fa-solid fa-plus"></i> Ver Coches Disponibles
-            </a>
-        </div>
+            @endforeach
 
+        </div>
         @else
-        @foreach($user->cars as $car)
-        <div class="coche-card" id="coche-{{ $car->id }}">
-            <div class="coche-header"
-                style="background-image: url('{{ asset($car->image ?? 'assets/img/placeholder.jpg') }}');">
-                <div class="year-badge">{{ $car->year }}</div>
-            </div>
-
-            <div class="coche-body">
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <h3 class="coche-titulo">{{ $car->brand->name }} {{ $car->model }}</h3>
-                    <span
-                        style="background: #eee; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #666;">
-                        {{ $car->type }}
-                    </span>
-                </div>
-
-                <p style="color: #777; margin-bottom: 10px; font-size: 0.95rem;">
-                    {{ Str::limit($car->description, 90) }}
-                </p>
-
-                <div class="specs-row">
-                    <div class="spec-item" title="Potencia">
-                        <i class="fa-solid fa-gauge-high"></i>
-                        <strong>{{ $car->hp }} CV</strong>
-                    </div>
-                    <div class="spec-item" title="Combustible">
-                        <i class="fa-solid fa-gas-pump"></i>
-                        <span>{{ $car->fuel }}</span>
-                    </div>
-                    <div class="spec-item" title="Transmisión">
-                        <i class="fa-solid fa-gears"></i>
-                        <span>{{ substr($car->transmission, 0, 4) }}.</span>
-                    </div>
-                    <div class="spec-item" title="Kilometraje">
-                        <i class="fa-solid fa-road"></i>
-                        <span>{{ number_format($car->km, 0, ',', '.') }} km</span>
-                    </div>
-                </div>
-
-                <div class="coche-actions">
-                    <a href="{{ route('ficha', $car->id) }}" class="btn-timeline">
-                        <i class="fa-solid fa-clock-rotate-left"></i> Historial / Timeline
-                    </a>
-
-                    <a href="{{ route('pedir-cita', $car->id) }}" class="btn-reservar">
-                        <i class="fa-solid fa-calendar-check"></i> Pedir Cita
-                    </a>
-                </div>
-            </div>
+        <div
+            style="text-align: center; padding: 50px; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <i class="fa-solid fa-car-side" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+            <h3 style="color: #666;">Aún no tienes coches en tu garaje</h3>
+            <p style="color: #999; margin-bottom: 25px;">Explora nuestro concesionario y encuentra tu máquina ideal.</p>
+            <a href="{{ url('/concesionario') }}" class="btn-primary"
+                style="background: #1a4a9c; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold;">Ir
+                al Concesionario</a>
         </div>
-        @endforeach
         @endif
 
-    </main>
+    </section>
 </div>
+
 @endsection
