@@ -128,6 +128,8 @@ Route::middleware('auth')->group(function () {
     // Guardar una nueva comparación
     Route::post('/comparacion', [ComparacionController::class, 'store'])->name('comparacion.store');
 
+    Route::delete('/comparacion', [ComparacionController::class, 'destroy'])->name('comparacion.destroy');
+
     // Ver las comparaciones del usuario
     Route::get('/mis-comparaciones', [ComparacionController::class, 'showUserComparisons'])->name('mis.comparaciones');
 
