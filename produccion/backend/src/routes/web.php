@@ -9,17 +9,38 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Car;
+use App\Models\Brand;
+use App\Models\Appointment;
 
-
+// Ruta para acceder a la página de inicio
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/login', function() { return view('login'); })->name('login');
-Route::get('/register', function() { return view('register'); })->name('register');
-Route::get('acceso', function () { return view('acceso'); })->name('acceso');
+// Ruta para cargar la página de inicio de sesión
+Route::get('/login', function() {
+    return view('login');
+})->name('login');
 
+// Ruta para cargar la página de registro de un nuevo usuario
+Route::get('/register', function() {
+    return view('register');
+})->name('register');
+
+// Si cualquier usuario accede a esta ruta, se le redigirá a la página de inicio
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Ruta para acceder al menú de inicio de sesión
+Route::get('acceso', function () {
+    return view('acceso');
+})->name('acceso');
+
+// Rutas de concesionario, para filtrar los coches según la marca, y buscar el modelo de cada coche con el buscador
 Route::get('/concesionario', [CarController::class, 'concesionario'])->name('concesionario');
 
 Route::get('/ficha/{id}', [CarController::class, 'show'])->name('ficha');
+
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
 Route::get('/pedir-cita', function () {
@@ -51,13 +72,15 @@ Route::middleware('auth')->group(function () {
        
     // Perfil (Vista principal)
     Route::get('/perfil', function() {
-        $user = Auth::user()->load('profile', 'cars.brand'); 
-        
-        $citaActiva = App\Models\Cita::where('user_id', $user->id)
-                        ->whereNotIn('estado', ['Finalizada', 'Cancelada'])
-                        ->with('car.brand')
-                        ->latest('fecha')
-                        ->first();
+            $user = Auth::user()->load('profile', 'cars.brand'); 
+            
+            // BUSCAMOS SI HAY UN COCHE EN EL TALLER
+            // Buscamos una cita que NO esté finalizada ni cancelada
+            $citaActiva = App\Models\Cita::where('user_id', $user->id)
+                            ->whereNotIn('estado', ['Finalizada', 'Cancelada'])
+                            ->with('car.brand') // Cargamos datos del coche y la marca
+                            ->latest('fecha')   // Si hay varias, cogemos la más reciente
+                            ->first();
 
             // Pasamos la variable $citaActiva a la vista
             return view('perfil', compact('user', 'citaActiva'));
@@ -101,20 +124,38 @@ Route::get('/mis-citas', function () {
 Route::middleware('auth')->group(function () {
     // Página del comparador
     Route::get('/comparacion', [ComparacionController::class, 'index'])->name('comparacion');
+
+    // Guardar una nueva comparación
     Route::post('/comparacion', [ComparacionController::class, 'store'])->name('comparacion.store');
+
+    Route::delete('/comparacion', [ComparacionController::class, 'destroy'])->name('comparacion.destroy');
+
+    // Ver las comparaciones del usuario
     Route::get('/mis-comparaciones', [ComparacionController::class, 'showUserComparisons'])->name('mis.comparaciones');
+
+    // Datos JSON de un coche individual (para arrastrar y soltar)
     Route::get('/comparacion/{id}', [ComparacionController::class, 'show']);
 });
 
-// --- RUTA COMODÍN (Assets) ---
+
+
+
+// --- RUTA COMODÍN ---
+// Esta ruta captura cualquier URL que no coincida con las anteriores.
+
 Route::get('{any}', function ($filename) {
     $path = base_path('../frontend/' . $filename);
-    if (!File::exists($path)) { abort(404); }
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
     
     $file = File::get($path);
     $type = File::mimeType($path);
+
     $response = Response::make($file, 200);
     $response->header('Content-Type', $type);
+
     return $response;
 })->where('any', '.*');
 
