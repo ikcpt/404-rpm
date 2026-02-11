@@ -1,148 +1,106 @@
 @extends('layouts.layout')
 
-@section('title', 'Pedir Cita | 404 RPM')
-
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/formulario.css') }}">
-@endpush
+@section('title', 'Pedir Cita')
 
 @section('content')
 
-<div class="banner-hero-cita">
-    <div class="banner-contenido">
-        <h1>Agenda tu Cita</h1>
-        <p>Expertos en mecánica y performance listos para tu coche</p>
+<div class="container" style="max-width: 800px; margin: 50px auto; padding: 20px;">
+
+    <div class="encabezado" style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-weight: 700; color: #333;">🔧 Taller Oficial</h2>
+        <p style="color: #666;">Gestiona el mantenimiento de tus vehículos</p>
     </div>
-</div>
 
-<div class="contenedor-formulario-main">
+    {{-- LÓGICA: ¿Tiene coches el usuario? --}}
+    @if($misCoches->isEmpty())
 
-    <form action="{{ route('citas.store') }}" method="POST" class="form-cita">
-        @csrf
+    {{-- CASO 1: NO TIENE COCHES (Mensaje del usuario) --}}
+    <div
+        style="background-color: #fff3cd; color: #856404; padding: 30px; border-radius: 10px; border: 1px solid #ffeeba; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <div style="font-size: 3rem; margin-bottom: 15px;">🚶‍♂️💨</div>
+        <h3 style="margin-bottom: 15px; font-weight: bold;">¡No tienes vehículo!</h3>
 
-        <div class="cabecera-form">
-            <h2>Datos de la Reserva</h2>
-            <p>Rellena el formulario y confirmaremos tu cita al instante.</p>
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            Usted no tiene ningún coche en su garaje, por lo que necesita comprar uno para poder ir al taller.
+        </p>
+
+        <a href="{{ route('concesionario') }}"
+            style="display: inline-block; margin-top: 20px; background: #1a4a9c; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+            🛒 Ir al Concesionario a comprar uno
+        </a>
+    </div>
+
+    @else
+
+    {{-- CASO 2: SÍ TIENE COCHES (Mostrar formulario) --}}
+    <div class="card"
+        style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+
+        {{-- Mensajes de error de validación --}}
+        @if ($errors->any())
+        <div
+            style="background-color: #f8d7da; color: #721c24; padding: 15px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #f5c6cb;">
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+        @endif
 
-        <fieldset class="grupo-form">
-            <legend>Datos del Conductor</legend>
-            <div class="form-row">
-                <div class="input-box">
-                    <label>Nombre</label>
-                    <input type="text" name="name" value="{{ Auth::check() ? Auth::user()->name : old('name') }}"
-                        class="{{ Auth::check() ? 'input-readonly' : '' }}" {{ Auth::check() ? 'readonly' : '' }}
-                        required>
-                </div>
-                <div class="input-box">
-                    <label>Teléfono</label>
-                    <input type="tel" name="phone" value="{{ Auth::check() ? Auth::user()->phone : old('phone') }}"
-                        placeholder="+34 600 000 000" required>
-                </div>
-            </div>
-            <div class="input-box full-width">
-                <label>Correo Electrónico</label>
-                <input type="email" name="email" value="{{ Auth::check() ? Auth::user()->email : old('email') }}"
-                    class="{{ Auth::check() ? 'input-readonly' : '' }}" {{ Auth::check() ? 'readonly' : '' }} required>
-            </div>
-        </fieldset>
+        <form action="{{ route('citas.store') }}" method="POST">
+            @csrf
 
-        <fieldset class="grupo-form">
-            <legend>Vehículo</legend>
-            @if(Auth::check() && $misCoches->count() > 0)
-            <div id="selector-coche-wrapper">
-                <div class="input-box full-width">
-                    <label>Selecciona de tu garaje</label>
-                    <select name="car_id" id="select-coche">
-                        @foreach($misCoches as $coche)
-                        <option value="{{ $coche->id }}">
-                            {{ $coche->brand->name }} {{ $coche->model }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div style="margin-top: 15px;">
-                    <label class="toggle-manual"
-                        style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                        <input type="checkbox" id="check-manual" onchange="toggleManualInput()"
-                            style="width: auto; margin: 0;">
-                        <span>No encuentro mi coche / Traeré otro vehículo</span>
-                    </label>
-                </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="car_id"
+                    style="display: block; font-weight: 600; margin-bottom: 8px; color: #444;">Selecciona tu
+                    vehículo:</label>
+                <select name="car_id" id="car_id" class="form-control"
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;"
+                    required>
+                    <option value="" disabled selected>-- Elige uno de tus coches --</option>
+                    @foreach($misCoches as $coche)
+                    <option value="{{ $coche->id }}">
+                        {{ $coche->brand->name ?? 'Marca' }} {{ $coche->model }}
+                        ({{ $coche->license_plate ?? 'Sin matrícula' }})
+                    </option>
+                    @endforeach
+                </select>
             </div>
-            <div id="manual-coche-wrapper"
-                style="display: none; margin-top: 15px; border-top: 1px dashed #e2e8f0; padding-top: 15px;">
-                <div class="form-row">
-                    <div class="input-box">
-                        <label>Marca</label>
-                        <input type="text" name="brand_manual" placeholder="Ej: Audi">
-                    </div>
-                    <div class="input-box">
-                        <label>Modelo</label>
-                        <input type="text" name="model_manual" placeholder="Ej: A3">
-                    </div>
-                </div>
-            </div>
-            @else
-            <div class="form-row">
-                <div class="input-box">
-                    <label>Marca</label>
-                    <input type="text" name="brand_manual" placeholder="Ej: BMW" required>
-                </div>
-                <div class="input-box">
-                    <label>Modelo</label>
-                    <input type="text" name="model_manual" placeholder="Ej: Serie 1" required>
-                </div>
-            </div>
-            @endif
-        </fieldset>
 
-        <fieldset class="grupo-form" style="margin-bottom: 0;">
-            <legend>Detalles del Servicio</legend>
-            <div class="form-row">
-                <div class="input-box">
-                    <label>Fecha Preferente</label>
-                    <input type="date" name="fecha" min="{{ date('Y-m-d') }}" required>
+            <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                <div style="flex: 1;">
+                    <label for="fecha"
+                        style="display: block; font-weight: 600; margin-bottom: 8px; color: #444;">Fecha:</label>
+                    <input type="date" name="fecha" id="fecha" class="form-control"
+                        style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;" required
+                        min="{{ date('Y-m-d') }}">
                 </div>
-                <div class="input-box">
-                    <label>Hora Aproximada</label>
-                    <select name="hora">
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                    </select>
+                <div style="flex: 1;">
+                    <label for="hora"
+                        style="display: block; font-weight: 600; margin-bottom: 8px; color: #444;">Hora:</label>
+                    <input type="time" name="hora" id="hora" class="form-control"
+                        style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;" required>
                 </div>
             </div>
-            <div class="input-box full-width">
-                <label>Descripción del problema / Notas</label>
-                <textarea name="description" placeholder="Descríbenos qué le pasa al coche..."></textarea>
-            </div>
-        </fieldset>
 
-        <button type="submit" class="btn-submit">Confirmar Cita 🏁</button>
-    </form>
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label for="descripcion" style="display: block; font-weight: 600; margin-bottom: 8px; color: #444;">¿Qué
+                    le pasa al coche?</label>
+                <textarea name="descripcion" id="descripcion" rows="4" class="form-control"
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; resize: none;"
+                    placeholder="Ej: Hace un ruido raro al frenar..." required></textarea>
+            </div>
+
+            <button type="submit"
+                style="width: 100%; background: #1a4a9c; color: white; border: none; padding: 15px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s;">
+                📅 Confirmar Cita
+            </button>
+
+        </form>
+    </div>
+    @endif
+
 </div>
 
-<script>
-function toggleManualInput() {
-    const check = document.getElementById('check-manual');
-    const manualDiv = document.getElementById('manual-coche-wrapper');
-    const select = document.getElementById('select-coche');
-    if (check && check.checked) {
-        manualDiv.style.display = 'block';
-        if (select) select.disabled = true;
-    } else {
-        manualDiv.style.display = 'none';
-        if (select) select.disabled = false;
-    }
-}
-</script>
 @endsection
