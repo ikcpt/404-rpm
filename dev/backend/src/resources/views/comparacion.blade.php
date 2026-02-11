@@ -7,12 +7,12 @@
     <h1 class="titulo">Comparador de coches</h1>
     <div class="brand-filter-wrapper">
         <div class="brand-filter-container">
-            <button class="brand-btn active" onclick="filterCars('all', this)">
-                Todas
+            <button type="button" class="brand-btn active" onclick="filterCars('all', this)">
+                Todos
             </button>
 
             @foreach($brands as $brand)
-            <button class="brand-btn" onclick="filterCars({{ $brand->id }}, this)">
+            <button type="button" class="brand-btn" onclick="filterCars({{ $brand->id }}, this)">
                 {{ $brand->name }}
             </button>
             @endforeach
@@ -22,14 +22,7 @@
     <!-- Sección de coches disponibles -->
     <section class="garage" id="garage-container">
         @foreach($coches as $coche)
-            <div class="car-card" 
-                data-id="{{ $coche->id }}"
-                data-marca="{{ $coche->brand->name ?? '' }}"
-                data-modelo="{{ $coche->model }}"
-                data-cv="{{ $coche->hp }}"
-                data-year="{{ $coche->year }}"
-                data-precio="{{ $coche->price }}">
-                
+            <div class="car-card" data-id="{{ $coche->id }}" data-brand-id="{{ $coche->brand_id }}" data-marca="{{ $coche->brand->name ?? '' }}">
                 <img src="{{ $coche->image }}" alt="{{ $coche->model }}">
                 <div class="car-info">
                     <span class="car-brand">{{ $coche->brand->name ?? '' }}</span>

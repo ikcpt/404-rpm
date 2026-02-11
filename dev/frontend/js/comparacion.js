@@ -5,6 +5,21 @@ $(document).ready(function () {
         }
     });
 
+    let carAId = $('#slotA .specs').data('car-id');
+    let carBId = $('#slotB .specs').data('car-id');
+
+    if (carAId) {
+        $.getJSON('/comparacion/' + carAId, function (car) {
+            renderSpecs($('#slotA .specs'), car);
+        });
+    }
+
+    if (carBId) {
+        $.getJSON('/comparacion/' + carBId, function (car) {
+            renderSpecs($('#slotB .specs'), car);
+        });
+    }
+    
     // Hacemos los coches arrastrables
     $('.car-card').attr('draggable', true);
     let draggedCar = null;
