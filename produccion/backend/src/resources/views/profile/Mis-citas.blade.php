@@ -85,7 +85,7 @@
                             <div style="font-weight: bold; color: #333;">{{ $cita->fecha->format('d/m/Y') }}</div>
                             <div style="font-size: 0.85rem; color: #888;">
                                 <i class="fa-regular fa-clock"></i>
-                                {{ \Carbon\Carbon::parse($cita->hora)->format('H:i') }}h
+                                {{ $cita->fecha->format('H:i') }}h
                             </div>
                         </td>
                         <td>
