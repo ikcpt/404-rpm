@@ -70,7 +70,8 @@ Route::middleware('auth')->group(function () {
     // Ruta para borrar información del perfil
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
        
-    // Perfil (Vista principal)
+    // Perfil (Vista principal) 
+    //Cambiar la ruta para que sea /perfil en vez de /profile y quede todo mas limpio
     Route::get('/perfil', function() {
             $user = Auth::user()->load('profile', 'cars.brand'); 
             
@@ -97,6 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/coche/{car}/reservar', [CarController::class, 'procesarReserva'])->name('coche.reservar.proceso');
     Route::post('/coche/{car}/finalizar', [CarController::class, 'finalizarReserva'])->name('coche.finalizar');
     // Facturas
+    //Cambiar la ruta para que funcione atraves de un controlador
     Route::get('/mis-facturas', function() {
         $user = Auth::user();
         $facturas = $user->facturas()->orderBy('fecha_emision', 'desc')->get();
@@ -104,7 +106,7 @@ Route::middleware('auth')->group(function () {
     })->name('mis-facturas');
 
     // Citas
-
+    //Cambiar la ruta para que funcione atraves de un controlador
 Route::get('/mis-citas', function () {
     $user = Auth::user();
     
