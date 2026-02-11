@@ -18,14 +18,38 @@ Route::get('/register', function() { return view('register'); })->name('register
 Route::get('acceso', function () { return view('acceso'); })->name('acceso');
 
 Route::get('/concesionario', [CarController::class, 'concesionario'])->name('concesionario');
+
 Route::get('/ficha/{id}', [CarController::class, 'show'])->name('ficha');
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
+Route::get('/pedir-cita', function () {
+    $user = Auth::user();
+    
+    // 1. Obtenemos las citas
+    $citas = App\Models\Cita::where('user_id', $user->id)->get();
+    
+    // 2. Obtenemos los coches
+    $misCoches = $user->cars; 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+    // 3. Enviamos AMBAS variables a la vista
+    return view('cita', compact('citas', 'misCoches'));
+})->middleware('auth')->name('pedir-cita');
 
-    Route::get('/dashboard', function () { return redirect('/'); })->name('dashboard');
+Route::get('/cita', [CitaController::class, 'create'])->name('cita.create');
+Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');
 
+// Rutas del perfil
+Route::middleware('auth')->group(function () {
+    // Ruta para cambiar la configuración del perfil
+    Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
+
+    // Ruta para actualizar la información del perfil
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Ruta para borrar información del perfil
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+       
+    // Perfil (Vista principal)
     Route::get('/perfil', function() {
         $user = Auth::user()->load('profile', 'cars.brand'); 
         
@@ -35,35 +59,47 @@ Route::middleware(['auth', 'verified'])->group(function () {
                         ->latest('fecha')
                         ->first();
 
-        return view('perfil', compact('user', 'citaActiva'));
-    })->name('perfil');
-
-    Route::get('configuracion', [ProfileController::class, 'edit'])->name('configuracion');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/pedir-cita', [CitaController::class, 'create'])->name('pedir-cita'); 
-    Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');
+            // Pasamos la variable $citaActiva a la vista
+            return view('perfil', compact('user', 'citaActiva'));
+        })->name('perfil');
     
-    Route::get('/mis-citas', function () {
-        $user = Auth::user();
-        $citas = App\Models\Cita::where('user_id', $user->id)->get();
-        $misCoches = $user->cars; 
-        return view('profile.Mis-citas', compact('citas', 'misCoches'));
-    })->name('mis-citas');
+    // Rutas para la COMPRA:
+    Route::post('/coche/{car}/comprar', [CarController::class, 'comprar'])->name('coche.comprar');
 
+    // Rutas para la RESERVA:
+    // 1. Mostrar el formulario (GET)
+    Route::get('/coche/{car}/reservar', [CarController::class, 'mostrarFormularioReserva'])->name('coche.reservar.form');
     
+    // 2. Procesar el formulario (POST)
+    Route::post('/coche/{car}/reservar', [CarController::class, 'procesarReserva'])->name('coche.reservar.proceso');
+    Route::post('/coche/{car}/finalizar', [CarController::class, 'finalizarReserva'])->name('coche.finalizar');
+    // Facturas
     Route::get('/mis-facturas', function() {
         $user = Auth::user();
         $facturas = $user->facturas()->orderBy('fecha_emision', 'desc')->get();
         return view('mis-facturas', compact('user', 'facturas'));
     })->name('mis-facturas');
 
-    Route::post('/coche/{car}/comprar', [CarController::class, 'comprar'])->name('coche.comprar');
-    Route::get('/coche/{car}/reservar', [CarController::class, 'mostrarFormularioReserva'])->name('coche.reservar.form');
-    Route::post('/coche/{car}/reservar', [CarController::class, 'procesarReserva'])->name('coche.reservar.proceso');
-    Route::post('/coche/{car}/finalizar', [CarController::class, 'finalizarReserva'])->name('coche.finalizar');
+    // Citas
 
+Route::get('/mis-citas', function () {
+    $user = Auth::user();
+    
+    // Obtenemos historial
+    $citas = App\Models\Cita::where('user_id', $user->id)->get();
+    $misCoches = $user->cars; 
+
+    // Retornamos la vista que renombraste a 'Mis-citas.blade.php'
+    return view('profile.Mis-citas', compact('citas', 'misCoches'));
+
+})->name('mis-citas');
+
+
+});
+
+// Grupo protegido: solo usuarios logueados pueden usar comparador
+Route::middleware('auth')->group(function () {
+    // Página del comparador
     Route::get('/comparacion', [ComparacionController::class, 'index'])->name('comparacion');
     Route::post('/comparacion', [ComparacionController::class, 'store'])->name('comparacion.store');
     Route::get('/mis-comparaciones', [ComparacionController::class, 'showUserComparisons'])->name('mis.comparaciones');

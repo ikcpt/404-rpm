@@ -4,6 +4,26 @@
 
 @section('content')
 
+<div class="banner-busqueda">
+    <h1 class="titulo-banner">Encuentra tu <span class="acento-banner">Máquina</span></h1>
+    <p class="texto-banner">Busca entre nuestro stock exclusivo</p>
+
+    <form action="{{ route('concesionario') }}" method="GET" class="form-buscador">
+        <input type="text" name="buscar" class="input-buscador" placeholder="Escribe el modelo (Huracán, 911, Mustang, M4 Competition...)" value="{{ $busqueda ?? '' }}">
+        <button type="submit" class="btn-buscador">BUSCAR</button>
+    </form>
+
+    @if(isset($busqueda) && $busqueda)
+        <div style="text-align: center; margin-bottom: 20px; color: #fff;">            
+            @if($gamaAlta->isEmpty() && $gamaMedia->isEmpty() && $ocasion->isEmpty())
+                <h3 style="color: #ff6b6b; margin-top: 10px;">No hemos encontrado coches con ese nombre. Vuelve a intentarlo.</h3>
+            @else
+            <a href="{{ route('concesionario') }}" class="limpiar">Limpiar búsqueda</a>
+            @endif
+        </div>
+    @endif
+</div>
+
 @if($brand->cars->count() > 0)
     <div class="grid-coches">
         @foreach($brand->cars as $car)
