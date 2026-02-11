@@ -103,7 +103,8 @@
                     <li><a href="{{ route('home') }}">Inicio</a></li>
                     <li><a href="{{ asset('taller.html') }}">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}">Concesionario</a></li>
-                    <li><a href="{{ asset('cita.html') }}">Pedir Cita</a></li>
+                    <li><a href="{{ asset('pedir-cita') }}">Pedir Cita</a></li>
+                    <li><a href="{{ asset('comparacion') }}">Comparador</a></li>
                     <li><a href="{{ route('login') }}">Mi Perfil</a></li>
                 </ul>
             </div>

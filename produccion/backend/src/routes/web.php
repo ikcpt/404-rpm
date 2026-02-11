@@ -39,16 +39,6 @@ Route::get('acceso', function () {
 // Rutas de concesionario, para filtrar los coches según la marca, y buscar el modelo de cada coche con el buscador
 Route::get('/concesionario', [CarController::class, 'concesionario'])->name('concesionario');
 
-// Route::get('/api/cars/{id}', function ($id) {
-//     $car = \App\Models\Car::with(['brand', 'extras'])->find($id);
-
-//     if (!$car) {
-//         return response()->json(['error' => 'Coche no encontrado'], 404);
-//     }
-
-//     return response()->json($car);
-// });
-
 Route::get('/ficha/{id}', [CarController::class, 'show'])->name('ficha');
 
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
@@ -64,7 +54,7 @@ Route::get('/pedir-cita', function () {
 
     // 3. Enviamos AMBAS variables a la vista
     return view('cita', compact('citas', 'misCoches'));
-})->name('pedir-cita');
+})->middleware('auth')->name('pedir-cita');
 
 Route::get('/cita', [CitaController::class, 'create'])->name('cita.create');
 Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');

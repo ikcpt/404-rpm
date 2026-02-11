@@ -45,7 +45,6 @@ function clima() {
             if (data.current_weather) {
                 let temperatura = Math.round(data.current_weather.temperature);
                 let codigo = data.current_weather.weathercode;
-                let viento = data.current_weather.windspeed; // Por si lo quieres usar
 
                 // 1. TRADUCIMOS EL CÓDIGO A TEXTO (La clave para arreglarlo)
                 let descripcionTexto = obtenerDescripcion(codigo);
