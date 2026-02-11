@@ -365,3 +365,88 @@
     }
 }
 
+/* RESPONSIVE ADICIONAL */
+@media (max-width: 1024px) {
+    .layout-perfil {
+        grid-template-columns: 250px 1fr;
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    .coche-card .coche-body {
+        padding: 20px;
+    }
+
+    .specs-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .layout-perfil {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .sidebar-perfil {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-perfil > * {
+        margin-right: 15px;
+        flex: 0 0 auto;
+    }
+
+    .puntos-rpm {
+        font-size: 0.85rem;
+    }
+
+    .garage-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .coche-actions {
+        flex-direction: column;
+    }
+
+    .btn-timeline,
+    .btn-reservar {
+        width: 100%;
+    }
+
+    .specs-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .coche-card .coche-img-container {
+        height: 140px;
+    }
+
+    .coche-body h3 {
+        font-size: 1rem;
+    }
+
+    .coche-body p {
+        font-size: 0.85rem;
+    }
+
+    .btn-explorar {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .nivel-badge {
+        font-size: 0.75rem;
+        padding: 4px 12px;
+    }
+}

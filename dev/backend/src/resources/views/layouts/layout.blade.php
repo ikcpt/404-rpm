@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <title>@yield('title', '404 RPM')</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +20,11 @@
     <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/buscador.css') }}">
-
     <link rel="stylesheet" href="{{ asset('css/citas.css') }}">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
     @stack('styles')
 </head>

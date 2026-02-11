@@ -14,7 +14,9 @@ class ComparacionController extends Controller
     {
         $brands = Brand::orderBy('name', 'asc')->get();
         $coches = Car::with('brand')->get();
-        return view('comparacion', compact('coches', 'brands')); 
+        $ultimaComparacion = Comparation::where('user_id', Auth::id())->first();
+
+        return view('comparacion', compact('coches', 'brands', 'ultimaComparacion')); 
     }
 
     public function show($id)
@@ -29,23 +31,36 @@ class ComparacionController extends Controller
             'car_b_id' => 'required|exists:cars,id',
         ]);
 
-        $comparacion = Comparation::create([
-            'user_id'   => Auth::id(),
-            'car_a_id'  => $request->car_a_id,
-            'car_b_id'  => $request->car_b_id,
-        ]);
+        $userId = Auth::id();
 
+        $comparacion = Comparation::where('user_id', $userId)->first();
+
+        if ($comparacion) {
+            $comparacion->update([
+                'car_a_id' => $request->car_a_id,
+                'car_b_id' => $request->car_b_id,
+            ]);
+        }
+        else {
+            $comparacion = Comparation::create([
+                'user_id' => $userId,
+                'car_a_id' => $request->car_a_id,
+                'car_b_id' => $request->car_b_id,
+            ]);
+        }
+        
         return response()->json([
-            'success'       => true,
-            'message'       => 'Comparación guardada correctamente',
+            'success' => true,
             'comparacion_id'=> $comparacion->id
         ]);
     }
 
-public function showUserComparisons()
-{
-    $comparaciones = Auth::user()->comparations()->with(['carA.brand', 'carB.brand'])->get();
-    return view('mis_comparaciones', compact('comparaciones'));
-}
+    public function destroy() {
+        $userId = Auth::id();
+        Comparation::where('user_id', $userId)->delete();
 
+        return response()->json([
+            'success' => 'true'
+        ]);
+    }
 }

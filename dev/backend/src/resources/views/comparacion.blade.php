@@ -7,12 +7,12 @@
     <h1 class="titulo">Comparador de coches</h1>
     <div class="brand-filter-wrapper">
         <div class="brand-filter-container">
-            <button class="brand-btn active" onclick="filterCars('all', this)">
-                Todas
+            <button type="button" class="brand-btn active" onclick="filterCars('all', this)">
+                Todos
             </button>
 
             @foreach($brands as $brand)
-            <button class="brand-btn" onclick="filterCars({{ $brand->id }}, this)">
+            <button type="button" class="brand-btn" onclick="filterCars({{ $brand->id }}, this)">
                 {{ $brand->name }}
             </button>
             @endforeach
@@ -22,30 +22,36 @@
     <!-- Sección de coches disponibles -->
     <section class="garage" id="garage-container">
         @foreach($coches as $coche)
-        <div class="car-card" draggable="true" data-id="{{ $coche->id }}" data-brand-id="{{ $coche->brand_id }}"> <img
-                src="{{ $coche->image }}" alt="{{ $coche->model }}">
-            <div class="car-info">
-                <span class="car-brand">{{ $coche->brand->name ?? '' }}</span>
-                <span class="car-model">{{ $coche->model }}</span>
+            <div class="car-card" data-id="{{ $coche->id }}" data-brand-id="{{ $coche->brand_id }}" data-marca="{{ $coche->brand->name ?? '' }}">
+                <img src="{{ $coche->image }}" alt="{{ $coche->model }}">
+                <div class="car-info">
+                    <span class="car-brand">{{ $coche->brand->name ?? '' }}</span>
+                    <span class="car-model">{{ $coche->model }}</span>
+                </div>
             </div>
-        </div>
         @endforeach
     </section>
+    
     <section class="zona-comparacion">
-
-
         <div class="drop-slot" id="slotA">
             <p>Arrastra coche A</p>
-            <div class="specs"></div>
+            <div class="specs" 
+                @if($ultimaComparacion) 
+                    data-car-id="{{ $ultimaComparacion->car_a_id }}" 
+                @endif
+            ></div>
         </div>
-
-        <div class="vs">VS</div>
 
         <div class="drop-slot" id="slotB">
             <p>Arrastra coche B</p>
-            <div class="specs"></div>
+            <div class="specs" 
+                @if($ultimaComparacion) 
+                    data-car-id="{{ $ultimaComparacion->car_b_id }}" 
+                @endif
+            ></div>
         </div>
     </section>
+
     <div class="acciones-comparador">
         <button id="reiniciar-comparacion" class="reiniciar-btn">Reiniciar Comparación</button>
     </div>
