@@ -1,0 +1,119 @@
+.boton-menu {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+
+    .boton-menu {
+        display: block;
+        position: absolute;
+        right: 20px;
+        background: transparent;
+        border: none;
+        font-size: 2.5rem;
+        cursor: pointer;
+        z-index: 20000;
+        color: #333; 
+    }
+
+    /* EL FONDO GRIS (OVERLAY) */
+    .navegacion-principal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .navegacion-principal.activo {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* LA CAJA BLANCA DEL MENÚ */
+    .lista-navegacion {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100%;
+        background-color: white;
+        padding-top: 80px;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        overflow-y: auto;
+    }
+
+    /* ANIMACIÓN DE ENTRADA */
+    .navegacion-principal.activo .lista-navegacion {
+        right: 0;
+    }
+
+    .lista-navegacion > li {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        display: block;
+    }
+
+    .enlace-nav {
+        display: block;
+        padding: 15px 20px;
+        font-size: 1.1rem;
+        text-decoration: none;
+        text-align: left;
+        color: #333;
+    }
+
+    .submenu {
+        display: none;
+        width: 100%;
+        background-color: #f9f9f9;
+        box-shadow: none;
+        position: static;
+        padding: 0;
+    }
+
+    li.item-con-desplegable.activado .submenu {
+        display: block;
+    }
+
+    .submenu li a {
+        padding: 15px 20px 15px 40px;
+        font-size: 0.95rem;
+        color: #555;
+        display: block;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .item-con-desplegable::after { 
+        display: none; 
+    }
+    
+    .contenedor-header { 
+        flex-wrap: nowrap; 
+    }
+
+    .hero-carrusel { 
+        height: 50vh; 
+    }
+
+    .galeria-coches, .grid-garaje, .contenedor-footer, .contenedor-perfil { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .boton-destacado {
+        width: 120px;
+        margin: 0 0 10px 10px;
+        padding: 10px;
+        text-align: center;
+    }
+}
+
+
