@@ -11,14 +11,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Tarjetas.css') }}">
     <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/concesionario.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/buscador.css') }}">
     <link rel="stylesheet" href="{{ asset('css/citas.css') }}">
 
@@ -44,7 +43,7 @@
                     <li><a href="{{ asset('taller.html') }}" class="enlace-nav">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
                     <li><a href="{{ route('comparacion') }}" class="enlace-nav">Comparador</a></li>
-                    <li><a href="{{ route('ayuda') }}" class="enlace-nav">Videos</a></li>
+                    <li><a href="{{ route('ayuda') }}" class="enlace-nav">Ayuda</a></li>
                     <li><a href="{{ route('pedir-cita') }}" class="enlace-nav">Pedir Cita</a></li>
 
                     @guest

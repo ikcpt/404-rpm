@@ -36,6 +36,11 @@ Route::get('acceso', function () {
     return view('acceso');
 })->name('acceso');
 
+// Ruta para la página de ayuda/tutoriales
+Route::get('/ayuda', function () {
+    return view('tutoriales');
+})->name('ayuda');
+
 // Rutas de concesionario, para filtrar los coches según la marca, y buscar el modelo de cada coche con el buscador
 Route::get('/concesionario', [CarController::class, 'concesionario'])->name('concesionario');
 

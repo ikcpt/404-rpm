@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>@yield('title', '404 RPM')</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,6 +44,7 @@
                     <li><a href="{{ asset('taller.html') }}" class="enlace-nav">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
                     <li><a href="{{ route('comparacion') }}" class="enlace-nav">Comparador</a></li>
+                    <li><a href="{{ route('ayuda') }}" class="enlace-nav">Ayuda</a></li>
                     <li><a href="{{ route('pedir-cita') }}" class="enlace-nav">Pedir Cita</a></li>
 
                     @guest
