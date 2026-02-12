@@ -38,8 +38,8 @@
                 </div>
                 <div class="card-body p-0">
                     <video controls width="100%" style="display: block;">
-                        <source src="{{ asset('videos/concesionario.mp4') }}" type="video/mp4">
-                        <track src="{{ asset('videos/concesionario.vtt') }}" kind="subtitles" srclang="es"
+                        <source src="{{ asset('assets/video/concesionario.mp4') }}" type="video/mp4">
+                        <track src="{{ asset('assets/video/concesionario.vtt') }}" kind="subtitles" srclang="es"
                             label="Español" default>
                     </video>
                 </div>
@@ -57,9 +57,9 @@
                 </div>
                 <div class="card-body p-0">
                     <video controls width="100%" style="display: block;">
-                        <source src="{{ asset('videos/comparador.mp4') }}" type="video/mp4">
-                        <track src="{{ asset('videos/comparador.vtt') }}" kind="subtitles" srclang="es" label="Español"
-                            default>
+                        <source src="{{ asset('assets/video/comparador.mp4') }}" type="video/mp4">
+                        <track src="{{ asset('assets/video/comparador.vtt') }}" kind="subtitles" srclang="es"
+                            label="Español" default>
                     </video>
                 </div>
                 <div class="card-body">
