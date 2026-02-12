@@ -6,7 +6,7 @@
 
 <div class="container py-5">
     <div class="text-center mb-5">
-        <h1 class="fw-bold">🎓 Centro de Ayuda</h1>
+        <h1 class="fw-bold">Videos tutoriales</h1>
         <p class="text-muted">Aprende a sacar el máximo partido a nuestra plataforma</p>
     </div>
 
