@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:01.000 --> 00:00:03.000
+Bienvenidos a nuestra aplicación. Aquí puedes iniciar sesión.
+
+00:00:03.000 --> 00:00:05.000
+Para crearnos una cuenta pulsamos en el botón "Nuevo"
+
+00:00:06.000 --> 00:00:12.000
+Rellenamos los campos con nuestros datos
+
+00:00:12.000 --> 00:00:16.000
+La contraseña tiene que ser de al menos 8 caracteres
+
+00:00:16.000 --> 00:00:20.000
+Y pulsamos en "Registrarme"
+
+00:00:22.000 --> 00:00:26.000
+Ahora veremos que en el nav aparece nuestro nombre de usuario, podemos ver que es un desplegable con las secciones del perfil y cerrar sesión para probar el login.
+
+00:00:26.000 --> 00:00:30.000
+Pulsamos Entrar y ahora pulsamos en "Piloto".
+
+00:00:30.000 --> 00:00:39.000
+Ponemos nuestro usuario y contraseña
+
+00:00:39.000 --> 00:00:43.000
+Y pulsamos en "Entrar"

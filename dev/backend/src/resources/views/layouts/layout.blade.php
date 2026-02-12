@@ -44,7 +44,7 @@
                     <li><a href="{{ asset('taller.html') }}" class="enlace-nav">Taller</a></li>
                     <li><a href="{{ route('concesionario') }}" class="enlace-nav">Concesionario</a></li>
                     <li><a href="{{ route('comparacion') }}" class="enlace-nav">Comparador</a></li>
-                    <li><a href="{{ route('ayuda') }}" class="enlace-nav">Videos</a></li>
+                    <li><a href="{{ route('ayuda') }}" class="enlace-nav">Ayuda</a></li>
                     <li><a href="{{ route('pedir-cita') }}" class="enlace-nav">Pedir Cita</a></li>
 
                     @guest

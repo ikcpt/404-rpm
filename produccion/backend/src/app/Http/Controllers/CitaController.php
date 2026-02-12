@@ -4,20 +4,51 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Car; // Asegúrate de tener este modelo
+use App\Models\Car;
+use App\Models\Cita; // <--- IMPORTANTE: No olvides importar el modelo
 
 class CitaController extends Controller
 {
-    // Muestra el formulario inteligente
+    // Muestra el formulario para pedir cita
     public function create()
     {
         $user = Auth::user();
         
-        // Si el usuario está logueado, cogemos sus coches. Si no, una lista vacía.
+        // 1. Obtener coches del usuario (o colección vacía si no hay usuario)
         $misCoches = $user ? $user->cars : collect(); 
 
-        return view('cita', compact('user', 'misCoches'));
+        // 2. Obtener historial de citas (para evitar errores si la vista lo intenta mostrar)
+        $citas = $user ? Cita::where('user_id', $user->id)->get() : collect();
+
+        // 3. Retornar vista con TODOS los datos
+        return view('cita', compact('user', 'misCoches', 'citas'));
     }
 
-    // Aquí iría la función store() para guardar la cita...
+    // Guarda la nueva cita en la base de datos
+ public function store(Request $request)
+    {
+        $request->validate([
+            'fecha' => 'required|date',
+            'hora' => 'required',
+            'descripcion' => 'required|string|max:500', 
+            'car_id' => 'required|exists:cars,id',
+        ]);
+
+        // 2. Crear la cita
+        $cita = new Cita();
+        $cita->user_id = Auth::id();
+        $cita->car_id = $request->car_id;
+        
+       
+        $cita->fecha = $request->fecha; 
+        $cita->hora = $request->hora;   
+        
+        $cita->description = $request->descripcion; 
+        $cita->tipo = $request->input('tipo', 'Mecánica General'); 
+        $cita->estado = 'Pendiente'; 
+        
+        $cita->save();
+
+        return redirect()->route('perfil')->with('success', '¡Cita solicitada con éxito!');
+    }
 }
