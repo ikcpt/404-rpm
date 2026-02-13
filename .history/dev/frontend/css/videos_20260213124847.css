@@ -1,3 +1,6 @@
+    /* =========================================
+   VARIABLES
+========================================= */
 :root {
     --color-primario: #1e4fa3;
     --color-secundario: #e10600;
@@ -7,6 +10,8 @@
     --color-gris-oscuro: #151a23;
 }
 
+
+
 body {
     background: var(--color-terciario);
     color: var(--color-contraste);
@@ -14,12 +19,20 @@ body {
     margin: 0;
 }
 
+
+/* =========================================
+   WRAPPER
+========================================= */
 .tutoriales-wrapper {
     max-width: 1300px;
     margin: 0 auto;
     padding: 60px 24px;
 }
 
+
+/* =========================================
+   HEADER
+========================================= */
 .tutoriales-header {
     text-align: center;
     margin-bottom: 50px;
@@ -37,12 +50,20 @@ body {
     opacity: 0.9;
 }
 
+
+/* =========================================
+   GRID PRINCIPAL
+========================================= */
 .tutoriales-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 
+
+/* =========================================
+   CARD
+========================================= */
 .tutorial-card {
     background: var(--color-gris-oscuro);
     border-radius: 14px;
@@ -50,6 +71,10 @@ body {
     border: 1px solid rgba(255,255,255,0.05);
 }
 
+
+/* =========================================
+   HEADER CARD
+========================================= */
 .tutorial-card-header {
     background: var(--color-primario);
     padding: 14px;
@@ -58,6 +83,10 @@ body {
     font-size: 1rem;
 }
 
+
+/* =========================================
+   VIDEO
+========================================= */
 .tutorial-video {
     padding: 14px;
 }
@@ -69,6 +98,10 @@ body {
     background: #000;
 }
 
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 @media (max-width: 1024px) {
     .tutoriales-grid {
         grid-template-columns: repeat(2, 1fr);
