@@ -39,7 +39,7 @@
             </a>
             <a href="{{ route('mis-comparaciones') }}"
                 style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
-                ⚖️ Comparador
+                ⚖️ Mis comparaciones
             </a>
             <a href="{{ route('configuracion') }}"
                 style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; transition: 0.2s;">
