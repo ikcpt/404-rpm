@@ -91,6 +91,7 @@ $(document).ready(function () {
         let specs = [
             { name: 'Marca', value: car.brand.name },
             { name: 'Modelo', value: car.model },
+            { name: 'CV', value: car.hp},
             { name: 'Par (Nm)', value: car.torque },
             { name: 'Año', value: car.year },
             { name: 'Kilómetros', value: car.km },
