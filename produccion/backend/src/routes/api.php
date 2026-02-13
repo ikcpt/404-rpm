@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CarController;
 use App\Models\Car;
+use App\Models\Review;
 
 Route::get('/cars/{id}', function ($id) {
     $car = Car::with(['brand', 'extras'])->find($id);
@@ -28,6 +29,13 @@ Route::get('/clima', function() {
     ]);
 
     return $respuesta->json();
+});
+
+Route::get('/reviews', function () {
+    // Busca todas las reseñas, incluye los datos del usuario (autor) y ordena por fecha
+    $reviews = Review::with('user')->latest()->get();
+    
+    return response()->json($reviews);
 });
 
 Route::apiResource('cars', CarController::class);
