@@ -29,15 +29,18 @@ protected $fillable = [
     'image'
 ];
 
+    // Relación Brand 1:N Car
     public function brand() {
         return $this->belongsTo(Brand::class);
     }
 
+    // Relación User 1:N Car
     public function user() {
         return $this->belongsTo(User::class);
     }
     
-public function extras() {
-    return $this->belongsToMany(Extra::class);
-}
+    // Relación Car N:M Extra
+    public function extras() {
+        return $this->belongsToMany(Extra::class);
+    }
 }

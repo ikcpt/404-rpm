@@ -47,32 +47,37 @@ class User extends Authenticatable
         ];
     }
 
-    // Relación. User 1:N Cars
+    // Relación. User 1:N Car
     public function cars() {
         return $this->hasMany(Car::class);
     }
 
+    // Relación User 1:1 Profile
     public function profile() {
         return $this->hasOne(Profile::class);
     }
 
+    // Relación User 1:N Review
     public function reviews() {
         return $this->hasMany(Review::class);
     }
-public function facturas()
+
+    // Relación User 1:N Factura
+    public function facturas()
     {
         // Cambia 'Factura::class' por 'Invoice::class'
         return $this->hasMany(Invoice::class); 
     }
+
+    // Relación User 1:N Appointment (Cita)
     public function appointments()
-{
-    return $this->hasMany(Appointment::class);
-}
+    {
+        return $this->hasMany(Appointment::class);
+    }
 
-public function comparations()
-{
-    return $this->hasMany(Comparation::class);
-}
-
-
+    // Relación User 1:N Comparation
+    public function comparations()
+    {
+        return $this->hasMany(Comparation::class);
+    }
 }

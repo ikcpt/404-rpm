@@ -24,14 +24,15 @@ protected $fillable = [
 
 protected $casts = [
         'fecha' => 'datetime',
-    ];
-    // Relación: Una cita pertenece a un Usuario
+];
+
+    // Relación User 1:N Appointment (Cita)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relación: Una cita pertenece a un Coche
+    // Relación Car 1:N Appointment (Cita)
     public function car()
     {
         return $this->belongsTo(Car::class);
