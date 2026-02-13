@@ -14,4 +14,8 @@ class Extra extends Model
         'description',
     ];
     
+    // Relación Car N:M Extra
+    public function cars() {
+        return $this->belongsToMany(Car::class);
+    }
 }
