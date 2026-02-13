@@ -33,7 +33,7 @@
         <li><a href="#tabs-1">Marcas</a></li>
         <li><a href="#tabs-2">Modelos</a></li>
     </ul>
-    <div id="tabs-1">
+<div id="tabs-1">
         <div class="contenedor-seccion">            
             <div class="grid-marcas">
                 @foreach($brands as $brand)
@@ -177,7 +177,7 @@
 <script>
     $(function() {
         // Inicializar las pestañas tabs de jQuery
-        let tabs = $("#tabs").tabs();
+        var tabs = $("#tabs").tabs();
 
         // Si se devuelve un resultado en el buscador del modelo, se moestrará la primera pestaña del tabs
         @if(request()->has('buscar'))

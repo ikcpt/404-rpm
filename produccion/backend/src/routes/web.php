@@ -97,7 +97,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/comparacion', [ComparacionController::class, 'destroy'])->name('comparacion.destroy');
 
     // Ver las comparaciones del usuario
-    Route::get('/mis-comparaciones', [ComparacionController::class, 'showUserComparisons'])->name('mis.comparaciones');
+    Route::get('/mis-comparaciones', [ComparacionController::class, 'showUserComparisons'])->name('mis-comparaciones');
 
     // Datos JSON de un coche individual (para arrastrar y soltar)
     Route::get('/comparacion/{id}', [ComparacionController::class, 'show']);
