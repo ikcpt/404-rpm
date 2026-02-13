@@ -1,0 +1,59 @@
+.mis-comparaciones {
+    padding: 2rem;
+    background: var(--color-terciario);
+    color: var(--color-contraste);
+    font-family: 'Inter', sans-serif;
+}
+
+.mis-comparaciones h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, var(--color-primario), var(--color-acento));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mensaje-vacio {
+    font-size: 1.2rem;
+    color: var(--color-gris-oscuro);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.tabla-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    margin-top: 1rem;
+}
+
+.comparaciones-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.comparaciones-table thead {
+    background: linear-gradient(90deg, var(--color-primario), var(--color-acento));
+}
+
+.comparaciones-table th {
+    padding: 1rem;
+    text-align: left;
+    color: var(--color-contraste);
+    font-weight: 600;
+}
+
+.comparaciones-table tbody tr {
+    background: var(--color-gris-oscuro);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.comparaciones-table tbody tr:hover {
+    background: linear-gradient(90deg, var(--color-primario), var(--color-acento));
+    transform: scale(1.02);
+}
+
+.comparaciones-table td {
+    padding: 0.8rem 1rem;
+}
