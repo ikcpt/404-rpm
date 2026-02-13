@@ -1,59 +1,143 @@
-.mis-comparaciones {
-    padding: 2rem;
-    background: var(--color-terciario);
-    color: var(--color-contraste);
-    font-family: 'Inter', sans-serif;
+/* --- 1. LAYOUT GENERAL --- */
+.layout-perfil {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    align-items: start;
 }
 
-.mis-comparaciones h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(90deg, var(--color-primario), var(--color-acento));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.mensaje-vacio {
-    font-size: 1.2rem;
-    color: var(--color-gris-oscuro);
+/* --- 2. SIDEBAR GAMIFICADA --- */
+.sidebar-perfil {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-align: center;
-    margin-top: 2rem;
+    position: sticky;
+    top: 20px;
 }
 
-.tabla-wrapper {
-    overflow-x: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    margin-top: 1rem;
+.nivel-badge {
+    background: linear-gradient(135deg, #1a4a9c, #0d2e6b);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(26, 74, 156, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.comparaciones-table {
+.puntos-rpm {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.puntos-rpm strong {
+    color: #dc3545;
+    font-size: 1.2rem;
+}
+
+/* --- 3. CONTENIDO Y TABLA --- */
+.card-contenido {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    min-height: 400px;
+}
+
+.encabezado-seccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.encabezado-seccion h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+    border-left: 4px solid #1a4a9c;
+    padding-left: 10px;
+}
+
+/* Estilos de tabla limpios */
+.tabla-facturas {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px;
+    margin-top: 10px;
 }
 
-.comparaciones-table thead {
-    background: linear-gradient(90deg, var(--color-primario), var(--color-acento));
-}
-
-.comparaciones-table th {
-    padding: 1rem;
+.tabla-facturas th {
     text-align: left;
-    color: var(--color-contraste);
+    padding: 15px;
+    background-color: #f8f9fa;
+    color: #666;
     font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #eee;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.comparaciones-table tbody tr {
-    background: var(--color-gris-oscuro);
-    transition: transform 0.2s, background 0.2s;
+.tabla-facturas td {
+    padding: 15px;
+    border-bottom: 1px solid #f5f5f5;
+    color: #444;
+    vertical-align: middle;
+    font-size: 0.95rem;
 }
 
-.comparaciones-table tbody tr:hover {
-    background: linear-gradient(90deg, var(--color-primario), var(--color-acento));
-    transform: scale(1.02);
+.tabla-facturas tr:hover {
+    background-color: #fafafa;
 }
 
-.comparaciones-table td {
-    padding: 0.8rem 1rem;
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #1a4a9c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0d2e6b;
+}
+
+@media (max-width: 768px) {
+    .layout-perfil {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla-container {
+        overflow-x: auto;
+    }
 }
