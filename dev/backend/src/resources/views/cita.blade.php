@@ -62,7 +62,6 @@
                     @foreach($misCoches as $coche)
                     <option value="{{ $coche->id }}">
                         {{ $coche->brand->name ?? 'Marca' }} {{ $coche->model }}
-                        ({{ $coche->license_plate ?? 'Sin matrícula' }})
                     </option>
                     @endforeach
                 </select>

@@ -48,18 +48,7 @@ Route::get('/ficha/{id}', [CarController::class, 'show'])->name('ficha');
 
 Route::get('/marca/{id}', [CarController::class, 'carsByBrand'])->name('marca.detalle');
 
-Route::get('/pedir-cita', function () {
-    $user = Auth::user();
-    
-    // 1. Obtenemos las citas
-    $citas = App\Models\Cita::where('user_id', $user->id)->get();
-    
-    // 2. Obtenemos los coches
-    $misCoches = $user->cars; 
-
-    // 3. Enviamos AMBAS variables a la vista
-    return view('cita', compact('citas', 'misCoches'));
-})->middleware('auth')->name('pedir-cita');
+Route::get('/pedir-cita', [CitaController::class, 'create'])->middleware('auth')->name('pedir-cita');
 
 Route::get('/cita', [CitaController::class, 'create'])->name('cita.create');
 Route::post('/cita', [CitaController::class, 'store'])->name('citas.store');
@@ -76,20 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
        
     // Perfil (Vista principal)
-    Route::get('/perfil', function() {
-            $user = Auth::user()->load('profile', 'cars.brand'); 
-            
-            // BUSCAMOS SI HAY UN COCHE EN EL TALLER
-            // Buscamos una cita que NO esté finalizada ni cancelada
-            $citaActiva = App\Models\Cita::where('user_id', $user->id)
-                            ->whereNotIn('estado', ['Finalizada', 'Cancelada'])
-                            ->with('car.brand') // Cargamos datos del coche y la marca
-                            ->latest('fecha')   // Si hay varias, cogemos la más reciente
-                            ->first();
-
-            // Pasamos la variable $citaActiva a la vista
-            return view('perfil', compact('user', 'citaActiva'));
-        })->name('perfil');
+    Route::get('/perfil', [ProfileController::class, 'show'])->name('perfil');
     
     // Rutas para la COMPRA:
     Route::post('/coche/{car}/comprar', [CarController::class, 'comprar'])->name('coche.comprar');
@@ -101,6 +77,7 @@ Route::middleware('auth')->group(function () {
     // 2. Procesar el formulario (POST)
     Route::post('/coche/{car}/reservar', [CarController::class, 'procesarReserva'])->name('coche.reservar.proceso');
     Route::post('/coche/{car}/finalizar', [CarController::class, 'finalizarReserva'])->name('coche.finalizar');
+    
     // Facturas
     Route::get('/mis-facturas', function() {
         $user = Auth::user();
@@ -109,24 +86,8 @@ Route::middleware('auth')->group(function () {
     })->name('mis-facturas');
 
     // Citas
+    Route::get('/mis-citas', [CitaController::class, 'index'])->name('mis-citas');
 
-Route::get('/mis-citas', function () {
-    $user = Auth::user();
-    
-    // Obtenemos historial
-    $citas = App\Models\Cita::where('user_id', $user->id)->get();
-    $misCoches = $user->cars; 
-
-    // Retornamos la vista que renombraste a 'Mis-citas.blade.php'
-    return view('profile.Mis-citas', compact('citas', 'misCoches'));
-
-})->name('mis-citas');
-
-
-});
-
-// Grupo protegido: solo usuarios logueados pueden usar comparador
-Route::middleware('auth')->group(function () {
     // Página del comparador
     Route::get('/comparacion', [ComparacionController::class, 'index'])->name('comparacion');
 
@@ -141,8 +102,6 @@ Route::middleware('auth')->group(function () {
     // Datos JSON de un coche individual (para arrastrar y soltar)
     Route::get('/comparacion/{id}', [ComparacionController::class, 'show']);
 });
-
-
 
 
 // --- RUTA COMODÍN ---
