@@ -8,12 +8,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Cita;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    public function show()
+    {
+        $user = Auth::user()->load('profile', 'cars.brand'); 
+            
+        // LÓGICA DE LA CITA ACTIVA
+        $citaActiva = Cita::where('user_id', $user->id)
+                        ->whereNotIn('estado', ['Finalizada', 'Cancelada'])
+                        ->with('car.brand')
+                        ->latest('fecha')
+                        ->first();
+
+        return view('perfil', compact('user', 'citaActiva'));
+    }
     public function edit(Request $request): View
     {
         return view('profile.edit', [

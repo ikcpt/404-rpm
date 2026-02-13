@@ -35,19 +35,11 @@ class ComparacionController extends Controller
 
         $comparacion = Comparation::where('user_id', $userId)->first();
 
-        if ($comparacion) {
-            $comparacion->update([
-                'car_a_id' => $request->car_a_id,
-                'car_b_id' => $request->car_b_id,
-            ]);
-        }
-        else {
-            $comparacion = Comparation::create([
-                'user_id' => $userId,
-                'car_a_id' => $request->car_a_id,
-                'car_b_id' => $request->car_b_id,
-            ]);
-        }
+        $comparacion = Comparation::create([
+            'user_id' => $userId,
+            'car_a_id' => $request->car_a_id,
+            'car_b_id' => $request->car_b_id,
+        ]);
         
         return response()->json([
             'success' => true,
@@ -55,12 +47,11 @@ class ComparacionController extends Controller
         ]);
     }
 
-    public function destroy() {
-        $userId = Auth::id();
-        Comparation::where('user_id', $userId)->delete();
+    public function showUserComparisons()
+    {
+        // Obtenemos todas las comparaciones del usuario, de la más nueva a la más antigua
+        $comparaciones = Comparation::where('user_id', Auth::id())->with(['carA.brand', 'carB.brand'])->orderBy('created_at', 'desc')->get();
 
-        return response()->json([
-            'success' => 'true'
-        ]);
+        return view('mis_comparaciones', compact('comparaciones'));
     }
 }

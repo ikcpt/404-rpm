@@ -114,21 +114,14 @@ $(document).ready(function () {
 
     // Botón reiniciar
     $('#reiniciar-comparacion').on('click', function () {
+        // 1. Mostrar de nuevo el texto "Arrastra coche..."
+        $('.drop-slot > p').show();
 
-        // Limpiar vista
-        $('.drop-slot .specs').each(function () {
-            $(this).html('');
-            $(this).data('car-id', '');
-            $(this).parent().find('p').show();
-        });
+        // 2. Vaciar los contenedores de datos y quitar los IDs guardados
+        $('.specs').empty().removeData('id');
 
+        // 3. Desactivar el botón (si lo usas)
         $('#btnComparar').prop('disabled', true);
-
-        // Borrar comparación en BD
-        $.ajax({
-            url: '/comparacion',
-            type: 'DELETE'
-        });
     });
 
 });
