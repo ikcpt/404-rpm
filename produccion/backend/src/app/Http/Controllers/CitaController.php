@@ -5,10 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
-use App\Models\Cita; // <--- IMPORTANTE: No olvides importar el modelo
+use App\Models\Cita;
 
 class CitaController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();
+        
+        // Obtenemos historial
+        $citas = Cita::where('user_id', $user->id)->orderBy('fecha', 'desc')->get();
+        $misCoches = $user->cars; 
+
+        // Retornamos la vista del perfil
+        return view('profile.Mis-citas', compact('citas', 'misCoches'));
+    }
+
     // Muestra el formulario para pedir cita
     public function create()
     {
@@ -38,14 +50,11 @@ class CitaController extends Controller
         $cita = new Cita();
         $cita->user_id = Auth::id();
         $cita->car_id = $request->car_id;
-        
-       
         $cita->fecha = $request->fecha; 
         $cita->hora = $request->hora;   
-        
         $cita->description = $request->descripcion; 
         $cita->tipo = $request->input('tipo', 'Mecánica General'); 
-        $cita->estado = 'Pendiente'; 
+        $cita->estado = 'Pendiente';
         
         $cita->save();
 

@@ -154,7 +154,6 @@
 <section class="seccion-resenas" style="max-width: 1200px; margin: 4rem auto; padding: 0 20px;">
     <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: #333;">Lo que dicen nuestros clientes
     </h2>
-
     <div class="grid-resenas"
         style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
         @if(isset($reviews))

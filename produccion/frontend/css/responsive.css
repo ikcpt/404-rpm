@@ -1,117 +1,193 @@
+/* EL BOTÓN (VISIBLE SOLO EN MÓVILES/TABLETS) */
 .boton-menu {
     display: none;
 }
 
 @media (max-width: 1024px) {
 
-    .boton-menu {
-        display: block;
-        position: absolute;
-        right: 20px;
-        background: transparent;
-        border: none;
-        font-size: 2.5rem;
-        cursor: pointer;
-        z-index: 20000;
-        color: #333; 
+    /* 1. REGLA DE ORO: OCULTAR EL MENÚ POR DEFECTO */
+    .navegacion-principal {
+        display: none; /* <--- ESTO ES LO QUE FALTABA */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
     }
 
-    /* EL FONDO GRIS (OVERLAY) */
-    .navegacion-principal {
+    /* 2. FORZAMOS QUE SE VEA EL BOTÓN HAMBURGUESA */
+    .boton-menu {
+        display: block !important;
+        position: absolute; /* Ajustado para que no flote raro */
+        top: 25px;
+        right: 20px;
+        z-index: 20000;
+        font-size: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #333;
+    }
+
+    /* 3. ESTILO CUANDO SE ABRE (CLASE .ACTIVO) */
+    .navegacion-principal.activo {
+        display: block !important; /* <--- Aquí lo hacemos aparecer */
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 100vw;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 10000;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .navegacion-principal.activo {
+        background-color: rgba(0, 0, 0, 0.7) !important;
+        backdrop-filter: blur(5px);
+        z-index: 9990;
         opacity: 1;
         visibility: visible;
     }
 
-    /* LA CAJA BLANCA DEL MENÚ */
-    .lista-navegacion {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100%;
-        background-color: white;
-        padding-top: 80px;
-        transition: right 0.3s ease;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        overflow-y: auto;
-    }
-
-    /* ANIMACIÓN DE ENTRADA */
+    /* EL PANEL LATERAL (GRIS OSCURO) */
     .navegacion-principal.activo .lista-navegacion {
+        position: fixed;
+        top: 0;
         right: 0;
+        width: 60%;
+        max-width: 350px;
+        height: 100vh;
+        background-color: #1f2937;
+        box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+        display: flex !important;
+        flex-direction: column;
+        padding: 80px 20px 20px 20px;
+        margin: 0;
+        z-index: 9999;
     }
 
-    .lista-navegacion > li {
+    /* TÍTULO FALSO "MENÚ" */
+    .navegacion-principal.activo .lista-navegacion::before {
+        content: "MENÚ";
+        color: #9ca3af;
+        font-size: 0.9rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #374151;
+        padding-bottom: 10px;
+        display: block;
+    }
+
+    /* ENLACES */
+    .navegacion-principal.activo li {
         width: 100%;
-        border-bottom: 1px solid #eee;
-        display: block;
+        margin-bottom: 10px;
     }
 
-    .enlace-nav {
+    .navegacion-principal.activo .enlace-nav {
         display: block;
-        padding: 15px 20px;
-        font-size: 1.1rem;
+        color: #f3f4f6;
+        font-size: 1.2rem;
+        padding: 15px;
         text-decoration: none;
-        text-align: left;
-        color: #333;
+        border-radius: 8px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s ease;
     }
 
-    .submenu {
-        display: none;
+    .navegacion-principal.activo .enlace-nav:hover {
+        background-color: #374151;
+        border-left: 3px solid #ef4444;
+        padding-left: 20px;
+    }
+}
+
+/* --- AJUSTES ESPECÍFICOS PARA MÓVILES PEQUEÑOS (Smartphone vertical) --- */
+/* --- ESTILO MENÚ MÓVIL (Solo CSS, sin tocar HTML) --- */
+@media (max-width: 768px) {
+
+    /* 1. El Fondo (Pantalla completa oscurecida) */
+    .navegacion-principal.activo {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7) !important; /* Oscuro transparente */
+        backdrop-filter: blur(5px); /* Efecto cristal borroso */
+        z-index: 9990;
+    }
+
+    /* 2. La Caja del Menú (Barra lateral derecha) */
+    .navegacion-principal.activo .lista-navegacion {
+        /* Posición y tamaño */
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 75%; /* Ocupa el 75% del ancho del móvil */
+        max-width: 300px;
+        height: 100vh;
+        
+        /* Estética "Dark Mode" elegante */
+        background-color: #1f2937; /* Gris oscuro azulado moderno */
+        box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+        
+        /* Flexbox para ordenar */
+        display: flex !important;
+        flex-direction: column;
+        padding: 80px 20px 20px 20px; /* 80px arriba para dejar sitio a la X de cerrar */
+        margin: 0;
+        z-index: 9999;
+    }
+
+    /* 3. TRUCO: Título falso "MENÚ" usando solo CSS */
+    .navegacion-principal.activo .lista-navegacion::before {
+        content: "NAVEGACIÓN"; /* Texto que aparecerá arriba */
+        color: #9ca3af; /* Color gris suave */
+        font-size: 0.8rem;
+        font-weight: bold;
+        letter-spacing: 2px; /* Letras separadas estilo premium */
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #374151;
+        padding-bottom: 10px;
+        display: block;
+    }
+
+    /* 4. Los Enlaces (Items del menú) */
+    .navegacion-principal.activo li {
+        list-style: none;
         width: 100%;
-        background-color: #f9f9f9;
-        box-shadow: none;
-        position: static;
-        padding: 0;
+        margin-bottom: 8px;
     }
 
-    li.item-con-desplegable.activado .submenu {
+    .navegacion-principal.activo .enlace-nav {
         display: block;
+        color: #f3f4f6; /* Texto casi blanco */
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 15px;
+        border-radius: 8px; /* Bordes un poco redondeados */
+        transition: all 0.3s ease; /* Animación suave */
+        border-left: 3px solid transparent; /* Borde invisible a la izquierda */
     }
 
-    .submenu li a {
-        padding: 15px 20px 15px 40px;
-        font-size: 0.95rem;
-        color: #555;
-        display: block;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .item-con-desplegable::after { 
-        display: none; 
-    }
-    
-    .contenedor-header { 
-        flex-wrap: nowrap; 
+    /* 5. Efecto al tocar/pasar por encima */
+    .navegacion-principal.activo .enlace-nav:hover {
+        background-color: #374151; /* Gris un poco más claro */
+        color: #fff;
+        padding-left: 20px; /* Desplazamiento ligero a la derecha */
+        border-left: 3px solid #ef4444; /* Línea roja deportiva a la izquierda */
     }
 
-    .hero-carrusel { 
-        height: 50vh; 
+    /* 6. Si tienes un botón "Cerrar" dentro (la X), que se vea bien */
+    .navegacion-principal.activo .boton-menu {
+        /* Si pusiste la X dentro del menú, esto la posiciona */
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white !important;
+        font-size: 2rem;
     }
-
-    .galeria-coches, .grid-garaje, .contenedor-footer, .contenedor-perfil { 
-        grid-template-columns: 1fr; 
-    }
-    
-    .boton-destacado {
-        width: 120px;
-        margin: 0 0 10px 10px;
-        padding: 10px;
-        text-align: center;
-    }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
