@@ -18,6 +18,7 @@
                 @csrf
 
                 <div class="input-group">
+                    <label for="name">Nombre de Piloto</label>
                     <input id="name" class="input-racing" type="text" name="name" :value="old('name')" required
                         autofocus placeholder="Nombre de Piloto">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -29,6 +30,7 @@
                 </div>
 
                 <div class="input-group">
+                    <label for="email">Correo Electrónico</label>
                     <input id="email" class="input-racing" type="email" name="email" :value="old('email')" required
                         placeholder="Correo Electrónico">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -40,6 +42,7 @@
                 </div>
 
                 <div class="input-group">
+                    <label for="password">Contraseña</label>
                     <input id="password" class="input-racing" type="password" name="password" required
                         placeholder="Contraseña">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -51,6 +54,7 @@
                 </div>
 
                 <div class="input-group">
+                    <label for="password_confirmation">Confirmar Contraseña</label>
                     <input id="password_confirmation" class="input-racing" type="password" name="password_confirmation"
                         required placeholder="Confirmar Contraseña">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

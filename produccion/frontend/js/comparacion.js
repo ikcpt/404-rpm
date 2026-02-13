@@ -1,23 +1,19 @@
 $(document).ready(function () {
-    // Headers para actualizar mas adelante la base de datos
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    // Se cargan los datos de los coches anteriores que habian en la base de datos
     let carAId = $('#slotA .specs').data('car-id');
     let carBId = $('#slotB .specs').data('car-id');
 
-    // Se cogen los datos del coche A
     if (carAId) {
         $.getJSON('/comparacion/' + carAId, function (car) {
             renderSpecs($('#slotA .specs'), car);
         });
     }
 
-    // Se cogen los datos del coche B
     if (carBId) {
         $.getJSON('/comparacion/' + carBId, function (car) {
             renderSpecs($('#slotB .specs'), car);

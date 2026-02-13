@@ -188,6 +188,14 @@
     background: transparent;
 }
 
+.item-con-desplegable:hover .submenu,
+.item-con-desplegable:focus-within .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
 @media (max-width: 768px) {
     .boton-menu {
         display: block;
