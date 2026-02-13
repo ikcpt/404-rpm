@@ -3,7 +3,9 @@
 @section('title', 'Tutoriales de Ayuda')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/videos.css') }}">
+<style>
+
+</style>
 
 <div class="tutoriales-wrapper">
 

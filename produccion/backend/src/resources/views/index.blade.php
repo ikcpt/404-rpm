@@ -152,84 +152,14 @@
 </section>
 
 <section class="seccion-resenas" style="max-width: 1200px; margin: 4rem auto; padding: 0 20px;">
-    <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: #333;">Lo que dicen nuestros clientes
-    </h2>
-    <div class="grid-resenas"
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-        @if(isset($reviews))
-        @foreach($reviews as $review)
-        <article class="tarjeta-resena"
-            style="background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #1e4fa3;">
-            <div class="header-resena"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <div class="usuario" style="display: flex; align-items: center; gap: 10px;">
-                    <div
-                        style="width: 40px; height: 40px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #666;">
-                        {{ substr($review->user->name ?? 'A', 0, 1) }}
-                    </div>
-                    <h3 style="margin: 0; font-size: 1.1rem; color: #333;">
-                        {{ $review->user->name ?? 'Cliente Anónimo' }}</h3>
-                </div>
-                <div class="estrellas" style="color: #f1c40f; letter-spacing: 2px;">
-                    @for($i = 0; $i < $review->rating; $i++)★@endfor
-                        @for($i = $review->rating; $i < 5; $i++)<span style="color: #ddd;">★</span>@endfor
-                </div>
-            </div>
-            <p style="color: #666; line-height: 1.6; font-style: italic; margin-bottom: 1rem;">"{{ $review->content }}"
-            </p>
-            <small
-                style="color: #999; display: block; text-align: right;">{{ $review->created_at->format('d/m/Y') }}</small>
-        </article>
-        @endforeach
-        @else
-        <p style="text-align:center;">No se han podido cargar las reseñas.</p>
-        @endif
+    <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: #333;">Lo que dicen nuestros clientes</h2>
+    <div id="contenedor-resenas" class="grid-resenas" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <p style="text-align:center; width:100%;">Cargando reseñas...</p>
     </div>
-
-    @if(isset($reviews) && $reviews->isEmpty())
-    <p style="text-align: center; padding: 2rem; background: #f9f9f9; border-radius: 8px;">Aún no hay reseñas. ¡Sé el
-        primero en opinar!</p>
-    @endif
 </section>
 
 @endsection
 
 @section('scripts')
-<script>
-// Lógica simple para el carrusel
-let slideIndex = 0;
-
-function moverSlide(n) {
-    slideIndex += n;
-    mostrarSlides();
-}
-
-function irASlide(n) {
-    slideIndex = n;
-    mostrarSlides();
-}
-
-function mostrarSlides() {
-    let i;
-    let slides = document.getElementsByClassName("slide");
-    let puntos = document.getElementsByClassName("punto");
-    if (slides.length === 0) return;
-
-    if (slideIndex >= slides.length) {
-        slideIndex = 0
-    }
-    if (slideIndex < 0) {
-        slideIndex = slides.length - 1
-    }
-
-    for (i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("activa");
-    }
-    for (i = 0; i < puntos.length; i++) {
-        puntos[i].classList.remove("activo");
-    }
-    slides[slideIndex].classList.add("activa");
-    puntos[slideIndex].classList.add("activo");
-}
-</script>
+<script src="{{ asset('js/inicio.js') }}"></script>
 @endsection
