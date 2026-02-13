@@ -191,7 +191,7 @@
 
 .btn-desplegar {
     background-color: var(--color-terciario); 
-    color: var(--color-blanco);
+    color: var(--color-secundario);
     font-family: 'Segoe UI', system-ui, sans-serif;
     font-size: 0.9rem;
     font-weight: 800;

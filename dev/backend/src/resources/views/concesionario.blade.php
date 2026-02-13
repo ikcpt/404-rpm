@@ -13,18 +13,20 @@
     <p class="texto-banner">Busca entre nuestro stock exclusivo</p>
 
     <form action="{{ route('concesionario') }}" method="GET" class="form-buscador">
-        <input type="text" name="buscar" class="input-buscador" placeholder="Escribe el modelo (Huracán, 911, Mustang, M4 Competition...)" value="{{ $busqueda ?? '' }}">
+        <input type="text" name="buscar" class="input-buscador"
+            placeholder="Escribe el modelo (Huracán, 911, Mustang, M4 Competition...)" value="{{ $busqueda ?? '' }}">
         <button type="submit" class="btn-buscador">BUSCAR</button>
     </form>
 
     @if(isset($busqueda) && $busqueda)
-        <div style="text-align: center; margin-bottom: 20px; color: #fff;">            
-            @if($gamaAlta->isEmpty() && $gamaMedia->isEmpty() && $ocasion->isEmpty())
-                <h3 style="color: #ff6b6b; margin-top: 10px;">No hemos encontrado coches con ese nombre. Vuelve a intentarlo.</h3>
-            @else
-            <a href="{{ route('concesionario') }}" class="limpiar">Limpiar búsqueda</a>
-            @endif
-        </div>
+    <div style="text-align: center; margin-bottom: 20px; color: #fff;">
+        @if($gamaAlta->isEmpty() && $gamaMedia->isEmpty() && $ocasion->isEmpty())
+        <h3 style="color: #ff6b6b; margin-top: 10px;">No hemos encontrado coches con ese nombre. Vuelve a intentarlo.
+        </h3>
+        @else
+        <a href="{{ route('concesionario') }}" class="limpiar">Limpiar búsqueda</a>
+        @endif
+    </div>
     @endif
 </div>
 
@@ -33,19 +35,19 @@
         <li><a href="#tabs-1">Marcas</a></li>
         <li><a href="#tabs-2">Modelos</a></li>
     </ul>
-<div id="tabs-1">
-        <div class="contenedor-seccion">            
+    <div id="tabs-1">
+        <div class="contenedor-seccion">
             <div class="grid-marcas">
                 @foreach($brands as $brand)
-                    @if ($brand->name == 'Lamborghini' || $brand->name == 'Ferrari' || $brand->name == 'Porsche')
-                        <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca exclusivo">
-                            <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
-                        </a>
-                    @else
-                        <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca">
-                            <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
-                        </a>
-                    @endif
+                @if ($brand->name == 'Lamborghini' || $brand->name == 'Ferrari' || $brand->name == 'Porsche')
+                <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca exclusivo">
+                    <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                </a>
+                @else
+                <a href="{{ route('marca.detalle', $brand->id) }}" class="card-marca">
+                    <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                </a>
+                @endif
                 @endforeach
             </div>
         </div>
@@ -61,7 +63,7 @@
                         <img src="{{ asset($car->image) }}" alt="{{ $car->model }}" />
                         <div class="info">
                             <h3>{{ $car->brand->name }} {{ $car->model }}</h3>
-                            
+
                             <span class="precio">{{ number_format($car->price, 0, ',', '.') }}€</span>
                             <a href="{{ route('ficha', $car->id) }}" class="btn-ver">Ver ficha →</a>
                         </div>
@@ -85,7 +87,8 @@
                     </div>
                 </div>
                 <div style="text-align: center;">
-                    <button class="btn-desplegar" data-target="#extra-alta" style="color: #d4af37;">Ver colección completa ↓</button>
+                    <button class="btn-desplegar" data-target="#extra-alta" style="color: #d4af37;">Ver colección
+                        completa ↓</button>
                 </div>
                 @endif
             </div>
@@ -124,7 +127,8 @@
                     </div>
                 </div>
                 <div style="text-align: center;">
-                    <button class="btn-desplegar" data-target="#extra-media" style="color: #333;">Ver más modelos ↓</button>
+                    <button class="btn-desplegar" data-target="#extra-media">Ver más modelos
+                        ↓</button>
                 </div>
                 @endif
             </div>
@@ -163,11 +167,11 @@
                     </div>
                 </div>
                 <div style="text-align: center;">
-                    <button class="btn-desplegar" data-target="#extra-ocasion" style="color: var(--color-primario);">Ver stock completo ↓</button>
+                    <button class="btn-desplegar" data-target="#extra-ocasion" style="color: var(--color-secundario);">Ver stock completo ↓</button>
                 </div>
                 @endif
             </div>
-        </section>
+        </section>  
     </div>
 </div>
 @endsection
@@ -175,14 +179,14 @@
 @section('scripts')
 <script src="{{ asset('js/concesionario.js') }}"></script>
 <script>
-    $(function() {
-        // Inicializar las pestañas tabs de jQuery
-        var tabs = $("#tabs").tabs();
+$(function() {
+    // Inicializar las pestañas tabs de jQuery
+    var tabs = $("#tabs").tabs();
 
-        // Si se devuelve un resultado en el buscador del modelo, se moestrará la primera pestaña del tabs
-        @if(request()->has('buscar'))
-            tabs.tabs("option", "active", 1);
-        @endif
-    });
+    // Si se devuelve un resultado en el buscador del modelo, se moestrará la primera pestaña del tabs
+    @if(request()->has('buscar'))
+    tabs.tabs("option", "active", 1);
+    @endif
+});
 </script>
 @endsection
