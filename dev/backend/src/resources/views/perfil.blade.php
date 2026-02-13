@@ -26,19 +26,24 @@
 
         <nav class="menu-lateral" style="text-align: left; margin-top: 30px;">
             <a href="{{ route('perfil') }}"
-                style="display: block; padding: 12px; color: #1a4a9c; font-weight: bold; background: #f0f4ff; border-radius: 8px; margin-bottom: 5px;">
-                <i class="fa-solid fa-car"></i> Mi Garaje
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
+                🚗 Mi Garaje
             </a>
             <a href="{{ route('mis-citas') }}"
-                style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
-                <i class="fa-solid fa-calendar"></i> Mis Citas
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
+                📅 Mis Citas
             </a>
-            <a href="{{ route('mis.comparaciones') }}"
-                style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
-                <i class="fa-solid fa-code-compare"></i> Comparador
+            <a href="{{ route('mis-facturas') }}"
+                style="display: block; padding: 12px; color: #1a4a9c; background: #eef4ff; font-weight: 600; border-radius: 8px; margin-bottom: 5px;">
+                📄 Facturas
             </a>
-            <a href="#" style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
-                <i class="fa-solid fa-gear"></i> Ajustes
+            <a href="{{ route('mis-comparaciones') }}"
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
+                ⚖️ Comparador
+            </a>
+            <a href="{{ route('configuracion') }}"
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; transition: 0.2s;">
+                ⚙️ Configuración
             </a>
 
             <form method="POST" action="{{ route('logout') }}"
