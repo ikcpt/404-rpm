@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <div class="tutoriales-wrapper">
 
     <header class="tutoriales-header">

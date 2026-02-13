@@ -3,7 +3,9 @@
 @section('title', 'Tutoriales de Ayuda')
 
 @section('content')
+<style>
 
+</style>
 
 <div class="tutoriales-wrapper">
 
