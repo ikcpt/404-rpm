@@ -33,7 +33,7 @@
                 style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
                 <i class="fa-solid fa-calendar"></i> Mis Citas
             </a>
-            <a href="{{ route('mis-comparaciones') }}"
+            <a href="{{ route('mis.comparaciones') }}"
                 style="display: block; padding: 12px; color: #555; text-decoration: none; transition: 0.3s;">
                 <i class="fa-solid fa-code-compare"></i> Comparador
             </a>
