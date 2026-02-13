@@ -31,6 +31,7 @@ Route::get('/clima', function() {
     return $respuesta->json();
 });
 
+// Endpoint de reseñas
 Route::get('/reviews', function () {
     // Busca todas las reseñas, incluye los datos del usuario (autor) y ordena por fecha
     $reviews = Review::with('user')->latest()->get();
