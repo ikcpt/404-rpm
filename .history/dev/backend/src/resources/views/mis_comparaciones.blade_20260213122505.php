@@ -5,26 +5,29 @@
     <h1>Mis Comparaciones</h1>
 
     @if($comparaciones->isEmpty())
+    <div class="empty-state">
         <p>No has hecho ninguna comparación todavía.</p>
+        <a href="{{ route('comparacion') }}" class="btn-primary">Empezar a comparar</a>
+    </div>
     @else
-        <table>
-            <thead>
-                <tr>
-                    <th>Coche A</th>
-                    <th>Coche B</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($comparaciones as $c)
-                    <tr>
-                        <td>{{ $c->carA->brand->name }} {{ $c->carA->model }}</td>
-                        <td>{{ $c->carB->brand->name }} {{ $c->carB->model }}</td>
-                        <td>{{ $c->created_at->format('d/m/Y H:i') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Coche A</th>
+                <th>Coche B</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($comparaciones as $c)
+            <tr>
+                <td>{{ $c->carA->brand->name }} {{ $c->carA->model }}</td>
+                <td>{{ $c->carB->brand->name }} {{ $c->carB->model }}</td>
+                <td>{{ $c->created_at->format('d/m/Y H:i') }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
     @endif
 </div>
 @endsection
