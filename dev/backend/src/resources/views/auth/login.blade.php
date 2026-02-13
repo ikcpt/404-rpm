@@ -19,6 +19,7 @@
                 @csrf
 
                 <div class="input-group">
+                    <label for="email">Identificación (Email)</label>
                     <input id="email" class="input-racing" type="email" name="email" :value="old('email')" required
                         autofocus autocomplete="username" placeholder="Identificación (Email)">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -30,6 +31,7 @@
                 </div>
 
                 <div class="input-group">
+                    <label for="password">Contraseña</label>
                     <input id="password" class="input-racing" type="password" name="password" required
                         autocomplete="current-password" placeholder="Código de Acceso">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
