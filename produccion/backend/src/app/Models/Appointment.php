@@ -22,13 +22,13 @@ class Appointment extends Model
         'fecha' => 'date', // Para poder formatear la fecha fácilmente en la vista
     ];
 
-    // Relación con Usuario
+    // Relación User 1:N Appointments (Cita)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relación con Coche (Opcional)
+    // Relación Car 1:N Appointment (Cita)
     public function car()
     {
         return $this->belongsTo(Car::class);

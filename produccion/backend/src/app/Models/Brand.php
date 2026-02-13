@@ -15,6 +15,7 @@ class Brand extends Model
         'image'
     ];
 
+    // Relación Brand 1:N Car
     public function cars()
     {
         return $this->hasMany(Car::class);
