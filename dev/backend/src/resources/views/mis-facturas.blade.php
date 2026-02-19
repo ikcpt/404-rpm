@@ -206,6 +206,10 @@
                 style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
                 📅 Mis Citas
             </a>
+            <a href="{{ route('mis-comparaciones') }}"
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
+                ⚖️ Mis Comparaciones
+            </a>
             <a href="{{ route('mis-facturas') }}"
                 style="display: block; padding: 12px; color: #1a4a9c; background: #eef4ff; font-weight: 600; border-radius: 8px; margin-bottom: 5px;">
                 📄 Facturas
