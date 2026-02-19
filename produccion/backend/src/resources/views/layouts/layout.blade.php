@@ -102,6 +102,7 @@
             <div class="columna-footer">
                 <div class="footer-logo">404 RPM</div>
                 <p class="footer-texto">Pasión por los motores y la excelencia mecánica.</p>
+                <br>
                 <p>Esta página web es accesible siguiendo las normas WCAG 2.1.</p>
 
             </div>
