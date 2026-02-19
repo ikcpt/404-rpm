@@ -26,7 +26,7 @@
 
         <nav class="menu-lateral" style="text-align: left; margin-top: 30px;">
             <a href="{{ route('perfil') }}"
-                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
+                style="display: block; padding: 12px; color: #1a4a9c; background: #eef4ff; font-weight: 600; border-radius: 8px; margin-bottom: 5px;">
                 🚗 Mi Garaje
             </a>
             <a href="{{ route('mis-citas') }}"
@@ -34,7 +34,7 @@
                 📅 Mis Citas
             </a>
             <a href="{{ route('mis-facturas') }}"
-                style="display: block; padding: 12px; color: #1a4a9c; background: #eef4ff; font-weight: 600; border-radius: 8px; margin-bottom: 5px;">
+                style="display: block; padding: 12px; color: #555; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.2s;">
                 📄 Facturas
             </a>
             <a href="{{ route('mis-comparaciones') }}"
