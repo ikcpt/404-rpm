@@ -15,6 +15,7 @@ class Review extends Model
         'rating',
     ];
 
+    // Relación User 1:N Review
     public function user() {
         return $this->belongsTo(User::class);
     }

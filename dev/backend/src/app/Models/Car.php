@@ -43,4 +43,10 @@ protected $fillable = [
     public function extras() {
         return $this->belongsToMany(Extra::class);
     }
+
+    // Relación Car 1:N Appointment (Cita)
+    public function cita()
+    {
+        return $this->hasMany(Cita::class);
+    }
 }

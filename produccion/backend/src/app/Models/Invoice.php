@@ -27,7 +27,7 @@ class Invoice extends Model
         'fecha_emision' => 'date',
     ];
 
-    // Relación inversa: Una factura pertenece a un usuario
+    // Relación User 1:N Invoice
     public function user()
     {
         return $this->belongsTo(User::class);
